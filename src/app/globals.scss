@@ -24,14 +24,22 @@ body {
 	background-size: cover;
 
 	main {
+		margin-bottom: 1.5rem;
+		padding: 1.5rem;
 		border-radius: 7px;
 		background-color: white;
-		margin-bottom: 1.5rem;
 
 		> h1 {
-			margin: revert;
+			margin-bottom: 1.3rem;
 			text-align: center;
 			font-size: 1.5rem;
 		}
 	}
+}
+
+ul,
+li {
+	box-sizing: initial;
+	margin: revert;
+	padding: revert;
 }
