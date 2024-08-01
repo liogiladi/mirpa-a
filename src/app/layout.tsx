@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
 import Header from "@/components/Header";
-import "./globals.css";
+import "./globals.scss";
 
-const heebo = localFont({ src: "../../public/fonts/Heebo-VariableFont_wght.ttf"});
+const heebo = localFont({
+	src: "../../public/fonts/Heebo-VariableFont_wght.ttf",
+});
 
 export const metadata: Metadata = {
 	title: "Title",
