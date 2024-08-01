@@ -1,5 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./header.module.scss";
+import { LinkInfo } from "@/utils/types";
+import ToggleLinks from "../ToggleLinks";
+
+const NAV_LINKS: readonly LinkInfo[] = Object.freeze([
+	{ name: "ביקורים עתידיים", href: "/" },
+	{ name: "בקשות ביקור", href: "/requests" },
+	{ name: "ניהול מטופלים", href: "/patients-management" },
+	{ name: "דיווחי תקלות", href: "/error-reports" },
+	{ name: "אודות", href: "/about" },
+]);
 
 export default function Header() {
 	return (
@@ -12,10 +24,10 @@ export default function Header() {
 					height={107}
 					quality={1}
 				/>
-				<h1>משלט ביקורים</h1>
+				<span>משלט ביקורים</span>
 			</div>
 			<nav>
-				{/* TODO: toggle buttons component (using ul-li-button) */}
+				<ToggleLinks variant="filled" links={NAV_LINKS} />
 			</nav>
 		</header>
 	);
