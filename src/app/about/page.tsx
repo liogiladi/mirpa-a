@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import styles from "./about.module.scss";
+
+export const metadata: Metadata = {
+	title: "אודות",
+	description: "תיאור התכלית של משלט ביקורים",
+};
 
 type Props = {};
 
