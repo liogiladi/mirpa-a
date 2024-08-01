@@ -1,0 +1,24 @@
+#about-page {
+	p {
+		margin-bottom: 1.5rem;
+
+		&:first-of-type {
+			text-align: center;
+		}
+
+		strong {
+			width: 100%;
+			font-size: 1.1rem;
+			font-weight: 800;
+		}
+	}
+
+	ul {
+		line-height: 2.5;
+
+		li > span {
+			font-weight: 600;
+			text-decoration: underline;
+		}
+	}
+}
