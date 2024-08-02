@@ -1,6 +1,6 @@
 .toggle-links {
 	display: flex;
-	width: fit-content;
+	width: auto;
 	list-style: none;
 	overflow: hidden;
 	padding: 0;
@@ -39,7 +39,6 @@
 	background-color: transparent;
 	padding: 0.3rem 1rem;
 	border-radius: 6px;
-	gap: 1rem;
 	justify-content: space-around;
 
 	li {

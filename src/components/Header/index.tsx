@@ -2,11 +2,15 @@
 
 import Image from "next/image";
 import styles from "./header.module.scss";
-import { LinkInfo } from "@/utils/types";
-import ToggleLinks from "../ToggleLinks";
+import ToggleLinks, { ToggleLinkInfo } from "../ToggleLinks";
+import { getDateString } from "@/utils/dates";
+import { Suspense } from "react";
 
-const NAV_LINKS: readonly LinkInfo[] = Object.freeze([
-	{ name: "ביקורים עתידיים", href: "/" },
+const NAV_LINKS: readonly ToggleLinkInfo[] = Object.freeze([
+	{
+		name: "ביקורים עתידיים",
+		href: `/upcoming-visits?date=${getDateString(new Date())}`,
+	},
 	{ name: "בקשות ביקור", href: "/requests" },
 	{ name: "ניהול מטופלים", href: "/patients-management" },
 	{ name: "דיווחי תקלות", href: "/error-reports" },
@@ -27,7 +31,9 @@ export default function Header() {
 				<span>משלט ביקורים</span>
 			</div>
 			<nav>
-				<ToggleLinks variant="filled" links={NAV_LINKS} />
+				<Suspense>
+					<ToggleLinks variant="filled" links={NAV_LINKS} />
+				</Suspense>
 			</nav>
 		</header>
 	);
