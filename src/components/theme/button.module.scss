@@ -1,0 +1,29 @@
+@use "../../app/colors" as colors;
+
+.button {
+	padding: 0.2rem 1.3rem;
+	border-radius: 4px;
+	color: colors.$gray;
+	background: #fff;
+	font-size: 0.7rem;
+	font-weight: 600;
+	cursor: pointer;
+
+	&[data-variant="outline"] {
+		border: 1px solid;
+		border-color: inherit;
+
+		&:hover {
+			outline: 1px solid;
+			outline-color: inherit;
+		}
+	}
+
+	&.primary {
+		color: colors.$primary;
+	}
+
+	&.error {
+		color: colors.$error;
+	}
+}

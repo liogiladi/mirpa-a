@@ -1,5 +1,11 @@
 @use "./colors" as colors;
 
+@font-face {
+	font-family: "Heebo";
+	src: url("../../public/fonts/Heebo-VariableFont_wght.ttf");
+	font-weight: 100 900;
+}
+
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -25,6 +31,7 @@ body {
 	background-image: url("/background.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
+	font-family: "Heebo";
 
 	main {
 		place-self: center;
@@ -49,6 +56,11 @@ li {
 	box-sizing: initial;
 	margin: revert;
 	padding: revert;
+}
+
+button,
+input {
+	font-family: "Heebo";
 }
 
 ::-webkit-scrollbar {

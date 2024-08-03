@@ -9,6 +9,7 @@ import DateFilter from "./_components/DateFilter";
 import VisitRows from "./_components/VisitRows";
 
 import type { SearchQuery } from "@/utils/types";
+import Button from "@/components/theme/Button";
 
 type Props = {
 	searchParams?: SearchQuery;
@@ -76,6 +77,17 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 					  })}`}
 			</h1>
 			<DateFilter />
+			<section id={styles["buttons"]}>
+				<div>
+					<Button variant="outline" colorVariant="primary">
+						הדפסה
+					</Button>
+				</div>
+				<div>
+					<Button variant="outline">סינון</Button>
+					<Button variant="outline">מיון</Button>
+				</div>
+			</section>
 			<VisitRows visits={visits || []} />
 		</main>
 	);

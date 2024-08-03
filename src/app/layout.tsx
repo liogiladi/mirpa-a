@@ -3,10 +3,6 @@ import localFont from "next/font/local";
 import Header from "@/components/Header";
 import "./globals.scss";
 
-const heebo = localFont({
-	src: "../../public/fonts/Heebo-VariableFont_wght.ttf",
-});
-
 export const metadata: Metadata = {
 	title: "Title",
 	description: "Description",
@@ -19,7 +15,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={heebo.className}>
+			<body>
 				<Header />
 				{children}
 			</body>
