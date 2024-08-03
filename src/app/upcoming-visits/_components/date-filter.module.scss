@@ -1,3 +1,5 @@
+@use "../../colors" as colors;
+
 #date-filter {
 	position: relative;
 	width: clamp(16.875rem, 32%, 21.875rem);
@@ -12,7 +14,7 @@
 		justify-content: space-between;
 		width: 80%;
 		padding: 1rem;
-		border: 1px solid #afafaf;
+		border: 1px solid colors.$gray;
 		border-radius: 5px;
 		background: white;
 		aspect-ratio: 20 / 9;

@@ -39,11 +39,22 @@ export default function DateFilter() {
 				variant={"outline"}
 				links={[
 					{
+						name: "הכל",
+						href: `/upcoming-visits?date-filter-type=all`,
+					},
+					{
 						name: "היום",
 						href: `/upcoming-visits?date=${getDateString(
 							new Date()
 						)}`,
 						extraActiveMatches: ["/upcoming-visits"],
+					},
+					{
+						name: "מחר",
+						href: `/upcoming-visits?date=${getDateString(
+							new Date(),
+							{ daysBuffer: 1 }
+						)}`,
 					},
 					{
 						name: "תאריך מסוים",
@@ -59,13 +70,6 @@ export default function DateFilter() {
 								}
 							},
 						},
-					},
-					{
-						name: "מחר",
-						href: `/upcoming-visits?date=${getDateString(
-							new Date(),
-							1
-						)}`,
 					},
 				]}
 				clickCallback={(e) => {

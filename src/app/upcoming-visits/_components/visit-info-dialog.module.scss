@@ -1,0 +1,45 @@
+@use "../../colors" as colors;
+
+.visit-info-dialog {
+	width: 36.75rem !important;
+	min-height: unset !important;
+
+	header {
+		padding: 1rem;
+		color: white;
+		background-color: colors.$primary;
+		text-align: center;
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+
+	section:first-of-type {
+		justify-content: space-around;
+		padding: 0.8rem;
+		background-color: #fafafa;
+
+		svg {
+			width: 1.563rem;
+		}
+	}
+
+	section:nth-of-type(2) {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		padding: 1rem;
+		padding-bottom: 2rem;
+		gap: 1rem;
+		font-size: 0.9rem;
+
+		.info-item {
+			display: flex;
+			width: fit-content;
+			gap: 0.2rem;
+
+			span {
+				font-weight: 600;
+			}
+		}
+	}
+}

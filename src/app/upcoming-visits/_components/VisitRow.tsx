@@ -1,11 +1,23 @@
 "use client";
 
-import { Database } from "@/server/db.types";
+import { MouseEventHandler } from "react";
+import styles from "./visit-row.module.scss";
+
+import { UpcomingVisitRow } from "../page";
+
+import InfoIcon from "@/components/icons/InfoIcon";
+import VisitMainInfo from "./VisitMainInfo";
 
 type Props = {
-	data: Omit<Database["public"]["Tables"]["visits"]["Row"], "id">;
+	data: NonNullable<UpcomingVisitRow>;
+	onClick: MouseEventHandler<HTMLElement>;
 };
 
-export default function VisitRow({ data }: Props) {
-	return <article>{JSON.stringify(data)}</article>;
+export default function VisitRow({ data, onClick }: Props) {
+	return (
+		<article className={styles["visit-row"]} onClick={onClick}>
+			<VisitMainInfo data={data} />
+			<InfoIcon />
+		</article>
+	);
 }

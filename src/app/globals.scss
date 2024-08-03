@@ -1,3 +1,5 @@
+@use "./colors" as colors;
+
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -47,4 +49,17 @@ li {
 	box-sizing: initial;
 	margin: revert;
 	padding: revert;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	background-color: rgb(229, 229, 229);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: colors.$gray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: colors.$gray-hover;
 }

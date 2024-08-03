@@ -1,0 +1,17 @@
+.dialog {
+	width: 43.75rem;
+	min-height: 21.875rem;
+	margin: auto;
+	border-radius: 8px;
+	border: 0;
+	box-shadow: 0 4px 12.3px rgba(0, 0, 0, 0.242);
+
+	&:focus {
+		outline-width: 0;
+	}
+
+	&::backdrop {
+		background-color: rgba(0, 0, 0, 0.43);
+		backdrop-filter: blur(8px);
+	}
+}

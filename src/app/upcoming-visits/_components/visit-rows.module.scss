@@ -1,0 +1,17 @@
+@use "../../colors" as colors;
+
+#visit-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-top: 1.5rem;
+	padding: 0.5rem;
+	overflow: auto;
+}
+
+#empty {
+	color: colors.$light-gray;
+	margin: 1rem;
+	text-align: center;
+	font-weight: 700;
+}
