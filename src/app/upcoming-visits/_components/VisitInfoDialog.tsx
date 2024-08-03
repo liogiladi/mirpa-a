@@ -1,7 +1,7 @@
 import { ReactEventHandler, RefObject, useEffect, useRef } from "react";
 import styles from "./visit-info-dialog.module.scss";
 
-import Dialog from "@/components/dialog";
+import Dialog from "@/components/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
 import { UpcomingVisitRow } from "../page";
 import { getDateString, getTimeString } from "@/utils/dates";
