@@ -79,17 +79,17 @@ export type Database = {
           datetime: string
           extra_visitor_id: string | null
           id: string
-          patiend_cid: string
+          patient_cid: string
           rejection_reason: string | null
           visitor_id: string
         }
         Insert: {
           approved?: boolean | null
-          created_at?: string
+          created_at: string
           datetime: string
           extra_visitor_id?: string | null
           id?: string
-          patiend_cid: string
+          patient_cid: string
           rejection_reason?: string | null
           visitor_id: string
         }
@@ -99,7 +99,7 @@ export type Database = {
           datetime?: string
           extra_visitor_id?: string | null
           id?: string
-          patiend_cid?: string
+          patient_cid?: string
           rejection_reason?: string | null
           visitor_id?: string
         }
@@ -112,8 +112,8 @@ export type Database = {
             referencedColumns: ["cid"]
           },
           {
-            foreignKeyName: "visits_patiend_cid_fkey"
-            columns: ["patiend_cid"]
+            foreignKeyName: "visits_patient_cid_fkey"
+            columns: ["patient_cid"]
             isOneToOne: false
             referencedRelation: "patients"
             referencedColumns: ["cid"]
