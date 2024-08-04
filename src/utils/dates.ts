@@ -27,6 +27,8 @@ export function getDateString(
 	return dateString;
 }
 
+const padLeft = (value: number) => `${value < 10 ? "0" : ""}${value}`;
+
 export function getTimeString(date: Date) {
-	return date.toLocaleTimeString("IL").slice(0, 5);
+	return `${padLeft(date.getHours())}:${padLeft(date.getMinutes())}`;
 }
