@@ -1,9 +1,10 @@
-import { ReactEventHandler, RefObject, useEffect, useRef } from "react";
+import { ReactEventHandler, useRef } from "react";
 import styles from "./visit-info-dialog.module.scss";
+
+import { UpcomingVisitRow } from "@/server/visits";
 
 import Dialog from "@/components/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
-import { UpcomingVisitRow } from "../page";
 import { getDateString, getTimeString } from "@/utils/dates";
 
 type Props = {
