@@ -29,10 +29,7 @@ export default class Visits {
 			.order("datetime", { ascending: true });
 
 		if (dateFilterType === "specific") {
-			query = query.lt(
-				"datetime",
-				getDateString(new Date(dateFilter), { daysBuffer: 1 })
-			);
+			query = query.lte("datetime", dateFilter);
 		}
 
 		return query;

@@ -25,7 +25,7 @@ export default function DateFilter() {
 			const params = new URLSearchParams();
 			params.append("urlId", specificDateUrlId);
 			params.append(
-				"date",
+				SEARCH_QUERIES.dateFilter.name,
 				String(formData.get("specific-date")?.valueOf())
 			);
 
