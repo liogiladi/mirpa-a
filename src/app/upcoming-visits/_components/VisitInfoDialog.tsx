@@ -1,11 +1,11 @@
 import { ReactEventHandler, useRef } from "react";
 import styles from "./visit-info-dialog.module.scss";
-
 import { UpcomingVisitRow } from "@/server/visits";
+
+import { getDateString, getTimeString } from "@/utils/dates";
 
 import Dialog from "@/components/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
-import { getDateString, getTimeString } from "@/utils/dates";
 
 type Props = {
 	visitInfo: UpcomingVisitRow;
