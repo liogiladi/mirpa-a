@@ -4,6 +4,7 @@
 	padding: 0.2rem 1.3rem;
 	border-radius: 4px;
 	color: colors.$gray;
+	border-color: inherit;
 	background: #fff;
 	font-size: 0.7rem;
 	font-weight: 600;
@@ -11,7 +12,6 @@
 
 	&[data-variant="outline"] {
 		border: 1px solid;
-		border-color: inherit;
 
 		&:hover {
 			outline: 1px solid;

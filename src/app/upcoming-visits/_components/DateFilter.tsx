@@ -8,6 +8,7 @@ import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
 import ToggleLinks from "@/components/ToggleLinks";
+import Button from "@/components/theme/Button";
 
 const specificDateUrlId = "specific-date";
 
@@ -89,7 +90,10 @@ export default function DateFilter() {
 				onBlur={(e) => {
 					if (
 						specificDateFormRef.current &&
-						e.relatedTarget == null
+						(e.relatedTarget == null ||
+							(e.relatedTarget !== specificDateFormRef.current &&
+								e.relatedTarget.parentElement !==
+									specificDateFormRef.current))
 					) {
 						specificDateFormRef.current.dataset.open = "false";
 					} else {
@@ -106,7 +110,9 @@ export default function DateFilter() {
 					min={new Date().toISOString().slice(0, 10)}
 					required
 				/>
-				<input type="submit" value="סנן" />
+				<Button variant="outline" colorVariant="primary">
+					סנן
+				</Button>
 			</form>
 		</div>
 	);
