@@ -4,8 +4,7 @@ import Header from "@/components/Header";
 import "./globals.scss";
 
 export const metadata: Metadata = {
-	title: "Title",
-	description: "Description",
+	title: `המרפאה | משל"ט ביקורים`,
 };
 
 export default function RootLayout({
