@@ -1,15 +1,20 @@
 "use client";
 
+import { Suspense } from "react";
 import Image from "next/image";
 import styles from "./header.module.scss";
-import ToggleLinks, { ToggleLinkInfo } from "../ToggleLinks";
+
 import { getDateString } from "@/utils/dates";
-import { Suspense } from "react";
+import { SEARCH_QUERIES } from "@/utils/searchQueries";
+
+import ToggleLinks, { ToggleLinkInfo } from "../ToggleLinks";
 
 const NAV_LINKS: readonly ToggleLinkInfo[] = Object.freeze([
 	{
 		name: "ביקורים עתידיים",
-		href: `/upcoming-visits?date=${getDateString(new Date())}`,
+		href: `/upcoming-visits?${
+			SEARCH_QUERIES.dateFilter.name
+		}=${getDateString(new Date())}`,
 	},
 	{ name: "בקשות ביקור", href: "/requests" },
 	{ name: "ניהול מטופלים", href: "/patients-management" },

@@ -1,10 +1,11 @@
 "use client";
 
 import { FormEventHandler, useRef } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./date-filter.module.scss";
 
 import { getDateString } from "@/utils/dates";
-import { useRouter } from "next/navigation";
+import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
 import ToggleLinks from "@/components/ToggleLinks";
 
@@ -40,21 +41,20 @@ export default function DateFilter() {
 				links={[
 					{
 						name: "הכל",
-						href: `/upcoming-visits?date-filter-type=all`,
+						href: `/upcoming-visits?${SEARCH_QUERIES.dateFilterType.name}=${SEARCH_QUERIES.dateFilterType.value}`,
 					},
 					{
 						name: "היום",
-						href: `/upcoming-visits?date=${getDateString(
-							new Date()
-						)}`,
+						href: `/upcoming-visits?${
+							SEARCH_QUERIES.dateFilter.name
+						}=${getDateString(new Date())}`,
 						extraActiveMatches: ["/upcoming-visits"],
 					},
 					{
 						name: "מחר",
-						href: `/upcoming-visits?date=${getDateString(
-							new Date(),
-							{ daysBuffer: 1 }
-						)}`,
+						href: `/upcoming-visits?${
+							SEARCH_QUERIES.dateFilter.name
+						}=${getDateString(new Date(), { daysBuffer: 1 })}`,
 					},
 					{
 						name: "תאריך מסוים",
