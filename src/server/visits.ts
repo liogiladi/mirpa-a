@@ -1,8 +1,6 @@
 import "server-only";
 
 import db from "./db";
-
-import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
 export default class Visits {
