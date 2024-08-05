@@ -10,4 +10,7 @@ export const SEARCH_QUERIES = {
 			specific: "specific",
 		},
 	},
+	toggleLinkActive: {
+		name: "toggle-link-active",
+	},
 } as const;

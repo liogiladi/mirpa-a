@@ -11,6 +11,7 @@ import DateFilter from "./_components/DateFilter";
 import VisitRows from "./_components/VisitRows";
 import Button from "@/components/theme/Button";
 import PrintForm from "./_components/PrintForm";
+import DateSort from "./_components/DateSort";
 
 type Props = {
 	searchParams?: SearchQuery;
@@ -66,7 +67,7 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 				</div>
 				<div>
 					<Button variant="outline">סינון</Button>
-					<Button variant="outline">מיון</Button>
+					<DateSort />
 				</div>
 			</section>
 			<VisitRows visits={visits || []} />
