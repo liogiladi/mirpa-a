@@ -1,43 +1,76 @@
 import "server-only";
 
 import db from "./db";
-import { SEARCH_QUERIES } from "@/utils/searchQueries";
+import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 
 export default class Visits {
-	/**
-	 *
-	 * @param dateFilter yyyy-MM-dd
-	 * @param dateFilterType `specific` - show visits **on** the given date. `min` - show visits **from** the given date
-	 * @returns
-	 */
-	static async getAllFilteredUpcomingJoined(
-		dateFilter: string,
-		dateFilterType: keyof typeof SEARCH_QUERIES.dateFilter.values = SEARCH_QUERIES
-			.dateFilter.values.specific
-	) {
+	static async getAllFilteredUpcomingJoined(options: QueryOptions) {
+		const { filters, sort } = options;
 		let query = db
 			.from("visits")
 			.select(
 				`*, patients(cid, first_name, last_name),
-				visitor:visitors!visits_visitor_id_fkey(first_name, last_name, relation, phone_number, email),
+				visitor:visitors!visits_visitor_id_fkey(cid, first_name, last_name, relation, phone_number, email),
 				extra_visitor:visitors!visits_extra_visitor_id_fkey(first_name, last_name, relation, phone_number, email)`
 			)
-			.gte("datetime", dateFilter)
-			.eq("approved", true)
-			.order("datetime", { ascending: true });
+			.eq("approved", true);
 
-		if (dateFilterType === "specific") {
-			query = query.lte("datetime", dateFilter);
+		if (filters?.date) {
+			query = query.gte("datetime", filters.date.value);
+
+			if (filters.date.range === "specific") {
+				query = query.lte("datetime", filters.date.value);
+			}
 		}
 
-		return query;
+		if (sort) {
+			query = query.order(sortValueToColumn(sort.by), {
+				ascending: sort.direction === "ASC",
+			});
+		} else {
+			query = query.order("datetime");
+		}
+
+		const { data, error } = await query;
+
+		if (error) throw error;
+
+		return data;
 	}
 }
 
 export type UpcomingVisitRow =
 	| NonNullable<
-			Awaited<
-				ReturnType<(typeof Visits)["getAllFilteredUpcomingJoined"]>
-			>["data"]
+			Awaited<ReturnType<(typeof Visits)["getAllFilteredUpcomingJoined"]>>
 	  >[number]
 	| null;
+
+type Filters = {
+	date: {
+		value: string;
+		range: keyof typeof SEARCH_QUERIES.dateFilter.values;
+	};
+};
+
+type SortOptions = {
+	by: Sort;
+	direction: OrderDirection;
+};
+
+type QueryOptions = Partial<{
+	filters: Filters;
+	sort: SortOptions;
+}>;
+
+function sortValueToColumn(sort: Sort) {
+	switch (sort) {
+		case "visit-datetime":
+			return "datetime";
+		case "visit-creation-datetime":
+			return "created_at";
+		case "patient-name":
+			return "patients(first_name)";
+		case "visitor-name":
+			return "visitor(first_name)";
+	}
+}

@@ -21,5 +21,47 @@
 		&[data-open="false"] {
 			display: none;
 		}
+
+		fieldset {
+			border: 0;
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			margin-bottom: 1rem;
+
+			label {
+				display: flex;
+				gap: 0.8rem;
+				padding-bottom: 0.8rem;
+				cursor: pointer;
+
+				&:not(:first-child) {
+					padding-top: 0.8rem;
+				}
+
+				&:not(:last-child) {
+					border-bottom: 1px solid colors.$light-gray;
+				}
+
+				input {
+					width: 1.2rem;
+					accent-color: #00969f;
+				}
+			}
+		}
+
+		#sort-direction-button {
+			position: absolute;
+			bottom: 1.2rem;
+			left: 1rem;
+			display: flex;
+			border: 10px;
+			background: none;
+			cursor: pointer;
+
+			svg {
+				pointer-events: none;
+			}
+		}
 	}
 }

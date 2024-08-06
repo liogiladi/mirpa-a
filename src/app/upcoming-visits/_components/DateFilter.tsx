@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEventHandler, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./date-filter.module.scss";
 
 import { getDateString } from "@/utils/dates";
@@ -14,7 +14,16 @@ const specificDateUrlId = "specific-date";
 
 export default function DateFilter() {
 	const router = useRouter();
+	const currentParams = useSearchParams();
 	const specificDateFormRef = useRef<HTMLFormElement>(null);
+
+	const getUpdatedSearchParamsURL = (
+		updateCallback: (params: URLSearchParams) => void
+	): string => {
+		const params = new URLSearchParams(currentParams);
+		updateCallback(params);
+		return params.toString();
+	};
 
 	const submitSpecificDate: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
@@ -22,9 +31,10 @@ export default function DateFilter() {
 		if (specificDateFormRef.current) {
 			const formData = new FormData(specificDateFormRef.current);
 
-			const params = new URLSearchParams();
-			params.append(SEARCH_QUERIES.toggleLinkActive.name, specificDateUrlId);
-			params.append(
+			const params = new URLSearchParams(currentParams);
+			params.delete(SEARCH_QUERIES.dateFilterType.name);
+			params.set(SEARCH_QUERIES.toggleLinkActive.name, specificDateUrlId);
+			params.set(
 				SEARCH_QUERIES.dateFilter.name,
 				String(formData.get("specific-date")?.valueOf())
 			);
@@ -42,20 +52,37 @@ export default function DateFilter() {
 				links={[
 					{
 						name: "הכל",
-						href: `/upcoming-visits?${SEARCH_QUERIES.dateFilterType.name}=${SEARCH_QUERIES.dateFilterType.value}`,
+						href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
+							params.delete(SEARCH_QUERIES.dateFilter.name);
+							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+							params.set(
+								SEARCH_QUERIES.dateFilterType.name,
+								SEARCH_QUERIES.dateFilterType.value
+							);
+						})}`,
 					},
 					{
 						name: "היום",
-						href: `/upcoming-visits?${
-							SEARCH_QUERIES.dateFilter.name
-						}=${getDateString(new Date())}`,
+						href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
+							params.delete(SEARCH_QUERIES.dateFilterType.name);
+							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+							params.set(
+								SEARCH_QUERIES.dateFilter.name,
+								getDateString(new Date())
+							);
+						})}`,
 						extraActiveMatches: ["/upcoming-visits"],
 					},
 					{
 						name: "מחר",
-						href: `/upcoming-visits?${
-							SEARCH_QUERIES.dateFilter.name
-						}=${getDateString(new Date(), { daysBuffer: 1 })}`,
+						href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
+							params.delete(SEARCH_QUERIES.dateFilterType.name);
+							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+							params.set(
+								SEARCH_QUERIES.dateFilter.name,
+								getDateString(new Date(), { daysBuffer: 1 })
+							);
+						})}`,
 					},
 					{
 						name: "תאריך מסוים",
@@ -65,8 +92,7 @@ export default function DateFilter() {
 								e.preventDefault();
 
 								if (specificDateFormRef.current) {
-									specificDateFormRef.current.dataset.open =
-										"true";
+									specificDateFormRef.current.dataset.open = "true";
 									specificDateFormRef.current.focus();
 								}
 							},
@@ -92,8 +118,7 @@ export default function DateFilter() {
 						specificDateFormRef.current &&
 						(e.relatedTarget == null ||
 							(e.relatedTarget !== specificDateFormRef.current &&
-								e.relatedTarget.parentElement !==
-									specificDateFormRef.current))
+								e.relatedTarget.parentElement !== specificDateFormRef.current))
 					) {
 						specificDateFormRef.current.dataset.open = "false";
 					} else {

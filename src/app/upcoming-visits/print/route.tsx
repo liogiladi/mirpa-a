@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import { NextRequest } from "next/server";
 import { Readable } from "node:stream";
-import assert from "node:assert";
 import { chromium } from "playwright";
 
 import Visits from "@/server/visits";
+import { Assertions } from "@/server/validations";
 import readableToReadableStream from "@/server/readableToReadableStream";
 
 import { TupleOfLength } from "@/utils/types";
@@ -17,20 +17,7 @@ import Table from "@/components/Table";
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;
 
-	// Validations
-	assert(searchParams, "no search params");
-	assert(
-		searchParams.get(SEARCH_QUERIES.dateFilterType.name)
-			? searchParams.get(SEARCH_QUERIES.dateFilterType.name) ===
-					SEARCH_QUERIES.dateFilterType.value
-			: searchParams.get(SEARCH_QUERIES.dateFilter.name) &&
-					!isNaN(
-						new Date(
-							searchParams.get(SEARCH_QUERIES.dateFilter.name)!
-						).getTime()
-					),
-		"no date search param"
-	);
+	Assertions.visitsSearchParams(searchParams);
 
 	const dateFilter = String(
 		searchParams.get(SEARCH_QUERIES.dateFilter.name) ||
@@ -43,15 +30,17 @@ export async function GET(req: NextRequest) {
 			? SEARCH_QUERIES.dateFilter.values.min
 			: SEARCH_QUERIES.dateFilter.values.specific;
 
-	const { data: rows, error } = await Visits.getAllFilteredUpcomingJoined(
-		dateFilter,
-		dateFilterType
-	);
-
-	if (error) throw error;
+	const visits = await Visits.getAllFilteredUpcomingJoined({
+		filters: {
+			date: {
+				value: dateFilter,
+				range: dateFilterType,
+			},
+		},
+	});
 
 	// Generating Pdf's contents
-	const tableRowsValues: TupleOfLength<ReactNode, 13>[] = rows.map(
+	const tableRowsValues: TupleOfLength<ReactNode, 13>[] = visits.map(
 		(visit, index) => {
 			const date = new Date(visit.datetime);
 

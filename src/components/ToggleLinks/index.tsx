@@ -4,15 +4,13 @@ import { HTMLProps, MouseEventHandler, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import styles from "./toggle-links.module.scss";
+import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
 export type ToggleLinkInfo = { name: string; extraActiveMatches?: string[] } & (
 	| { href: string }
 	| {
 			urlId: string;
-			anchorExtraProps: Omit<
-				HTMLProps<HTMLAnchorElement>,
-				"href" | "name"
-			>;
+			anchorExtraProps: Omit<HTMLProps<HTMLAnchorElement>, "href" | "name">;
 	  }
 );
 
@@ -56,7 +54,8 @@ export default function ToggleLinks({
 								? (activeAccuracy === "pathname"
 										? href.split("?")[0]
 										: href) === `${pathname}${paramsUrl}`
-								: params.get("urlId") === link.urlId
+								: params.get(SEARCH_QUERIES.toggleLinkActive.name) ===
+								  link.urlId
 						}
 					>
 						<Link
