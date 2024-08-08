@@ -68,9 +68,9 @@ function sortValueToColumn(sort: Sort) {
 		case "visit-creation-datetime":
 			return "created_at";
 		case "patient-name":
-			return "patients(first_name)";
+			return "patient ->> first_name";
 		case "visitor-name":
-			return "visitor(first_name)";
+			return "visitor ->> first_name";
 	}
 }
 
