@@ -119,21 +119,12 @@ export default function Filters({ type, data: filtersData }: Props) {
 		setIsFormOpen(false);
 	};
 
-	const clear: MouseEventHandler<HTMLButtonElement> = useCallback(
-		(e) => {
-			e.preventDefault();
-			formRef.current?.reset();
+	const clear: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
+		if (!formRef.current) return;
 
-			const params = new URLSearchParams(currentSearchParams);
-			params.delete(SEARCH_QUERIES.filters.name);
-
-			router.replace(`/upcoming-visits?${params.toString()}`);
-
-			setIsFormOpen(false);
-			setIsFilterActive(false);
-		},
-		[currentSearchParams, router]
-	);
+		const inputs = formRef.current.querySelectorAll("input");
+		inputs.forEach((input) => (input.value = ""));
+	}, []);
 
 	return (
 		<div id={styles.filters}>
@@ -157,7 +148,12 @@ export default function Filters({ type, data: filtersData }: Props) {
 				tabIndex={0}
 				id={styles["filters-date-popup"]}
 				onSubmit={applyFilters}
-				onBlur={(e) => handleBlurOnOutsideClick(e, () => setIsFormOpen(false))}
+				onBlur={(e) =>
+					handleBlurOnOutsideClick(e, () => {
+						setIsFormOpen(false);
+						formRef.current?.reset();
+					})
+				}
 				data-open={isFormOpen}
 			>
 				<section className={styles.accordions}>{accordions}</section>
@@ -165,7 +161,7 @@ export default function Filters({ type, data: filtersData }: Props) {
 					<Button variant="filled" colorVariant="primary">
 						החל
 					</Button>
-					<Button variant="outline" onClick={clear}>
+					<Button type="button" variant="outline" onClick={clear}>
 						נקה
 					</Button>
 				</section>

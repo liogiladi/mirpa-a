@@ -29,16 +29,7 @@ export default memo(function Input({
 	const [showClearButton, setShowClearButton] = useState(false);
 
 	return (
-		<label
-			htmlFor={id}
-			key={id}
-			className={`${styles.input} ${className}`}
-			onInput={() => {
-				if (inputRef.current?.dataset[INVALID_INPUT_DATA_KEY]) {
-					delete inputRef.current.dataset[INVALID_INPUT_DATA_KEY];
-				}
-			}}
-		>
+		<label htmlFor={id} key={id} className={`${styles.input} ${className}`}>
 			<div className={styles["label-content"]}>
 				{label}
 				{props.required && <span className={styles.required}>*</span>}
@@ -48,6 +39,10 @@ export default memo(function Input({
 				id={id}
 				name={id}
 				onInput={(e) => {
+					if (inputRef.current?.dataset[INVALID_INPUT_DATA_KEY]) {
+						delete inputRef.current.dataset[INVALID_INPUT_DATA_KEY];
+					}
+
 					if (enableClearButton) {
 						if (e.currentTarget.value.length > 0 && !showClearButton)
 							setShowClearButton(true);

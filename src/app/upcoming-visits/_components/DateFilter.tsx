@@ -17,6 +17,8 @@ export default memo(function DateFilter() {
 	const currentParams = useSearchParams();
 	const specificDateFormRef = useRef<HTMLFormElement>(null);
 
+	const specificDateParam = currentParams.get(SEARCH_QUERIES.dateFilter.name);
+
 	const submitSpecificDate: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 
@@ -50,6 +52,7 @@ export default memo(function DateFilter() {
 				onBlur={(e) =>
 					handleBlurOnOutsideClick(e, () => {
 						e.currentTarget.dataset.open = "false";
+						specificDateFormRef.current?.reset();
 					})
 				}
 				onSubmit={submitSpecificDate}
@@ -60,6 +63,7 @@ export default memo(function DateFilter() {
 					type="date"
 					name="specific-date"
 					min={new Date().toISOString().slice(0, 10)}
+					defaultValue={specificDateParam || undefined}
 					required
 				/>
 				<Button variant="filled" colorVariant="primary">
