@@ -7,6 +7,7 @@ import styles from "./date-filter.module.scss";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import Button from "@/components/theme/Button";
 import DateFilterToggleLinks from "./DateFilterToggleLinks";
+import { handleClickOutside } from "@/utils/dom";
 
 const SPECIFIC_DATE_URL_ID = "specific-date";
 
@@ -45,14 +46,11 @@ export default memo(function DateFilter() {
 				tabIndex={0}
 				id={styles["specific-date-popup"]}
 				data-open={false}
-				onBlur={(e) => {
-					if (
-						e.relatedTarget !== e.currentTarget &&
-						!e.currentTarget.contains(e.relatedTarget)
-					) {
+				onBlur={(e) =>
+					handleClickOutside(e, () => {
 						e.currentTarget.dataset.open = "false";
-					}
-				}}
+					})
+				}
 				onSubmit={submitSpecificDate}
 			>
 				<input

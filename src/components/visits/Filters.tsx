@@ -12,6 +12,7 @@ import styles from "./filters.module.scss";
 
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import { FilterIdToInfo, validateFormData } from "@/utils/filters";
+import { handleClickOutside } from "@/utils/dom";
 
 import Button from "@/components/theme/Button";
 import Input, { INVALID_INPUT_DATA_KEY } from "@/components/theme/Input";
@@ -152,14 +153,7 @@ export default function Filters({ type, data: filtersData }: Props) {
 				tabIndex={0}
 				id={styles["filters-date-popup"]}
 				onSubmit={applyFilters}
-				onBlur={(e) => {
-					if (
-						e.relatedTarget !== e.currentTarget &&
-						!e.currentTarget.contains(e.relatedTarget)
-					) {
-						setIsFormOpen(false);
-					}
-				}}
+				onBlur={(e) => handleClickOutside(e, () => setIsFormOpen(false))}
 				data-open={isFormOpen}
 			>
 				<section className={styles.accordions}>{accordions}</section>

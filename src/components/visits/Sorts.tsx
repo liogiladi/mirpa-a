@@ -14,6 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./sorts.module.scss";
 
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
+import { handleClickOutside } from "@/utils/dom";
 
 import Button from "@/components/theme/Button";
 import SortArrow from "@/components/icons/SortArrowIcon";
@@ -93,18 +94,6 @@ export default memo(function Sorts({ type }: Props) {
 		setIsFormOpen(false);
 	};
 
-	const blurForm: FocusEventHandler<HTMLFormElement> = (e) => {
-		if (!formRef.current) return;
-
-		// If user clicked out of form, and not on form's children, than close it
-		if (
-			e.relatedTarget !== e.currentTarget &&
-			!e.currentTarget.contains(e.relatedTarget)
-		) {
-			setIsFormOpen(false);
-		}
-	};
-
 	return (
 		<div id={styles.sorts}>
 			<Button
@@ -125,7 +114,7 @@ export default memo(function Sorts({ type }: Props) {
 				tabIndex={0}
 				id={styles["sort-date-popup"]}
 				data-open={isFormOpen}
-				onBlur={blurForm}
+				onBlur={(e) => handleClickOutside(e, () => setIsFormOpen(false))}
 				onSubmit={submitSpecificDate}
 			>
 				<fieldset ref={fieldsetRef}>{radioButtons}</fieldset>
