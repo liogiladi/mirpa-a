@@ -119,18 +119,21 @@ export default function Filters({ type, data: filtersData }: Props) {
 		setIsFormOpen(false);
 	};
 
-	const clear: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
-		e.preventDefault();
-		formRef.current?.reset();
+	const clear: MouseEventHandler<HTMLButtonElement> = useCallback(
+		(e) => {
+			e.preventDefault();
+			formRef.current?.reset();
 
-		const params = new URLSearchParams(currentSearchParams);
-		params.delete(SEARCH_QUERIES.filters.name);
+			const params = new URLSearchParams(currentSearchParams);
+			params.delete(SEARCH_QUERIES.filters.name);
 
-		router.replace(`/upcoming-visits?${params.toString()}`);
+			router.replace(`/upcoming-visits?${params.toString()}`);
 
-		setIsFormOpen(false);
-		setIsFilterActive(false);
-	}, []);
+			setIsFormOpen(false);
+			setIsFilterActive(false);
+		},
+		[currentSearchParams, router]
+	);
 
 	return (
 		<div id={styles.filters}>
