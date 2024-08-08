@@ -39,7 +39,10 @@ export default memo(function Input({
 				}
 			}}
 		>
-			{label}
+			<div className={styles["label-content"]}>
+				{label}
+				{props.required && <span className={styles.required}>*</span>}
+			</div>
 			<input
 				ref={inputRef}
 				id={id}

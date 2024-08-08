@@ -8,6 +8,7 @@ import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import Button from "@/components/theme/Button";
 import DateFilterToggleLinks from "./DateFilterToggleLinks";
 import { handleBlurOnOutsideClick } from "@/utils/dom";
+import Input from "@/components/theme/Input";
 
 const SPECIFIC_DATE_URL_ID = "specific-date";
 
@@ -53,13 +54,15 @@ export default memo(function DateFilter() {
 				}
 				onSubmit={submitSpecificDate}
 			>
-				<input
+				<Input
+					id={"specific-date-input"}
+					label="תאריך ביקור"
 					type="date"
 					name="specific-date"
 					min={new Date().toISOString().slice(0, 10)}
 					required
 				/>
-				<Button variant="outline" colorVariant="primary">
+				<Button variant="filled" colorVariant="primary">
 					החל
 				</Button>
 			</form>
