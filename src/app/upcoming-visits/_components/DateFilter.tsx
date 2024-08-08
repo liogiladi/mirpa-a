@@ -47,15 +47,10 @@ export default memo(function DateFilter() {
 				data-open={false}
 				onBlur={(e) => {
 					if (
-						specificDateFormRef.current &&
 						e.relatedTarget !== e.currentTarget &&
 						!e.currentTarget.contains(e.relatedTarget)
 					) {
-						specificDateFormRef.current.dataset.open = "false";
-					} else {
-						setTimeout(() => {
-							router.refresh();
-						}, 0);
+						e.currentTarget.dataset.open = "false";
 					}
 				}}
 				onSubmit={submitSpecificDate}
