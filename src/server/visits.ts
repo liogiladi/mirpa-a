@@ -7,8 +7,8 @@ import {
 	SEARCH_QUERIES,
 	Sort,
 } from "@/utils/searchQueries";
-import { Tables } from "./db.types";
 import { JoinedVisit } from "@/utils/dbTypes";
+import { getDateString } from "@/utils/dates";
 
 export default class Visits {
 	static async getAllFilteredUpcomingJoined(
@@ -21,7 +21,10 @@ export default class Visits {
 			query = query.gte("datetime", date.value);
 
 			if (date.range === "specific") {
-				query = query.lte("datetime", date.value);
+				query = query.lte(
+					"datetime",
+					getDateString(new Date(date.value), { daysBuffer: 1 })
+				);
 			}
 		}
 

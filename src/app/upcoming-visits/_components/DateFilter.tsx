@@ -5,9 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./date-filter.module.scss";
 
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
+import { handleBlurOnOutsideClick } from "@/utils/dom";
+import Validations from "@/utils/validations";
+import { getDateString } from "@/utils/dates";
+
 import Button from "@/components/theme/Button";
 import DateFilterToggleLinks from "./DateFilterToggleLinks";
-import { handleBlurOnOutsideClick } from "@/utils/dom";
 import Input from "@/components/theme/Input";
 
 const SPECIFIC_DATE_URL_ID = "specific-date";
@@ -25,13 +28,16 @@ export default memo(function DateFilter() {
 		if (specificDateFormRef.current) {
 			const formData = new FormData(specificDateFormRef.current);
 
+			const dateString = String(formData.get("specific-date")?.valueOf());
+			if (!Validations.date(dateString)) return;
+
+			const date = new Date(dateString);
+			date.setHours(0, 0, 0);
+
 			const params = new URLSearchParams(currentParams);
 			params.delete(SEARCH_QUERIES.dateFilterType.name);
 			params.set(SEARCH_QUERIES.toggleLinkActive.name, SPECIFIC_DATE_URL_ID);
-			params.set(
-				SEARCH_QUERIES.dateFilter.name,
-				String(formData.get("specific-date")?.valueOf())
-			);
+			params.set(SEARCH_QUERIES.dateFilter.name, `${dateString} 00:00`);
 
 			router.replace(`/upcoming-visits?${params.toString()}`);
 			specificDateFormRef.current.dataset.open = "false";
@@ -63,7 +69,11 @@ export default memo(function DateFilter() {
 					type="date"
 					name="specific-date"
 					min={new Date().toISOString().slice(0, 10)}
-					defaultValue={specificDateParam || undefined}
+					defaultValue={
+						specificDateParam
+							? getDateString(new Date(specificDateParam))
+							: undefined
+					}
 					required
 				/>
 				<Button variant="filled" colorVariant="primary">

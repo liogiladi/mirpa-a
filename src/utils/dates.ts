@@ -19,7 +19,8 @@ export function getDateString(
 
 	date.setDate(date.getDate() + usedOptions.daysBuffer);
 
-	let dateString = date.toISOString().slice(0, 10);
+	let dateString = date.toLocaleString("sv").replace(" ", "T").slice(0, 10);
+
 	if (usedOptions.format) {
 		dateString = dateString.split("-").reverse().join("/");
 	}
