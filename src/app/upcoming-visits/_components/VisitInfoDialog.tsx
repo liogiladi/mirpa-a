@@ -1,14 +1,14 @@
 import { ReactEventHandler, useRef } from "react";
 import styles from "./visit-info-dialog.module.scss";
-import { UpcomingVisitRow } from "@/server/visits";
 
+import { JoinedVisit } from "@/server/visits";
 import { getDateString, getTimeString } from "@/utils/dates";
 
 import Dialog from "@/components/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
 
 type Props = {
-	visitInfo: UpcomingVisitRow;
+	visitInfo: JoinedVisit | null;
 	onClose?: ReactEventHandler<HTMLDialogElement>;
 };
 
@@ -42,37 +42,43 @@ export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
 			className={styles["visit-info-dialog"]}
 		>
 			<header>מידע על ביקור עתידי</header>
-			{visitInfo && <VisitMainInfo data={visitInfo} />}
-			<section>
-				{infoToElement("טלפון מבקר:", visitInfo?.visitor?.phone_number)}
-				{infoToElement("דרגת קרבת מבקר:", visitInfo?.visitor?.relation)}
-				{infoToElement("אימייל מבקר:", visitInfo?.visitor?.email)}
-				{visitInfo?.extra_visitor && (
-					<>
-						{infoToElement(
-							"שם מבקר נוסף:",
-							`${visitInfo.extra_visitor.first_name} ${visitInfo.extra_visitor.last_name}`
+			{visitInfo && (
+				<>
+					<VisitMainInfo data={visitInfo} />
+					<section>
+						{infoToElement("מספר ת.ז מבקר:", visitInfo.visitor_id)}
+						{infoToElement("טלפון מבקר:", visitInfo?.visitor?.phone_number)}
+						{infoToElement("דרגת קרבת מבקר:", visitInfo?.visitor?.relation)}
+						{infoToElement("אימייל מבקר:", visitInfo?.visitor?.email)}
+						{visitInfo?.extra_visitor && (
+							<>
+								{infoToElement("מספר ת.ז מבקר:", visitInfo.extra_visitor_id)}
+								{infoToElement(
+									"שם מבקר נוסף:",
+									`${visitInfo.extra_visitor.first_name} ${visitInfo.extra_visitor.last_name}`
+								)}
+								{infoToElement(
+									"דרגת קרבת מבקר נוסף:",
+									visitInfo.extra_visitor.relation
+								)}
+								{infoToElement(
+									"טלפון מבקר נוסף:",
+									visitInfo.extra_visitor.phone_number
+								)}
+								{infoToElement(
+									"טלפון מבקר נוסף:",
+									visitInfo.extra_visitor.email
+								)}
+							</>
 						)}
 						{infoToElement(
-							"דרגת קרבת מבקר נוסף:",
-							visitInfo.extra_visitor.relation
+							"תאריך יצירת הבקשה:",
+							getDateString(creationDate, { format: true })
 						)}
-						{infoToElement(
-							"טלפון מבקר נוסף:",
-							visitInfo.extra_visitor.phone_number
-						)}
-						{infoToElement(
-							"טלפון מבקר נוסף:",
-							visitInfo.extra_visitor.email
-						)}
-					</>
-				)}
-				{infoToElement(
-					"תאריך יצירת הבקשה:",
-					getDateString(creationDate, { format: true })
-				)}
-				{infoToElement("זמן יצירת הבקשה:", getTimeString(creationDate))}
-			</section>
+						{infoToElement("זמן יצירת הבקשה:", getTimeString(creationDate))}
+					</section>
+				</>
+			)}
 		</Dialog>
 	);
 }

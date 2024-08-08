@@ -1,6 +1,6 @@
-import { SVGProps } from "react";
+import { memo, SVGProps } from "react";
 
-export default function FullLogoIcon(props: SVGProps<SVGSVGElement>) {
+export default memo(function FullLogoIcon(props: SVGProps<SVGSVGElement>) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -31,4 +31,4 @@ export default function FullLogoIcon(props: SVGProps<SVGSVGElement>) {
 			<path d="M55.13 40.834v14.353h2.002l-.552 6.417h-8.004v-20.77h-1.932l1.38-6.416h17.595v34.983c0 .713-.082 1.376-.245 1.99a5.906 5.906 0 0 1-1.55 2.702c-1.195 1.15-2.76 1.724-4.691 1.724H47.886v-6.416h10.833c.23 0 .345-.115.345-.346v-28.22H55.13ZM78.078 40.834h-9.73l1.38-6.416h14.767v41.4h-6.417V40.833ZM105.439 36.212l.1.094c1.22 1.183 1.832 2.692 1.832 4.528v34.983h-9.177v-6.416h2.622v-28.22c0-.23-.115-.347-.345-.347h-4.968v34.983h-6.555V40.834h-2.346l1.38-6.416h7.52v2.76l1.795-2.76h3.105c.859 0 1.647.098 2.362.295a6.244 6.244 0 0 1 2.675 1.5ZM126.893 34.418v41.4h-6.555V40.833h-10.212l1.38-6.416h15.387Zm-16.767 41.4V44.491h6.555v31.325h-6.555Z" />
 		</svg>
 	);
-}
+});

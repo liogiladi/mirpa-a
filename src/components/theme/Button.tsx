@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, memo, PropsWithChildren } from "react";
 import styles from "./button.module.scss";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
 	colorVariant?: "primary" | "warning";
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function Button({
+export default memo(function Button({
 	variant,
 	colorVariant,
 	className = "",
@@ -24,4 +24,4 @@ export default function Button({
 			{children}
 		</button>
 	);
-}
+});

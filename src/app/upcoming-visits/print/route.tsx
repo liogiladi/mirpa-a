@@ -4,7 +4,7 @@ import { Readable } from "node:stream";
 import { chromium } from "playwright";
 
 import Visits from "@/server/visits";
-import { Assertions } from "@/server/validations";
+import { Assertions } from "@/server/assertions";
 import readableToReadableStream from "@/server/readableToReadableStream";
 
 import { TupleOfLength } from "@/utils/types";
@@ -30,13 +30,16 @@ export async function GET(req: NextRequest) {
 			? SEARCH_QUERIES.dateFilter.values.min
 			: SEARCH_QUERIES.dateFilter.values.specific;
 
+	const otherFilters = searchParams.get(SEARCH_QUERIES.filters.name)
+		? JSON.parse(`[${searchParams.get(SEARCH_QUERIES.filters.name)}]`)
+		: [];
+
 	const visits = await Visits.getAllFilteredUpcomingJoined({
-		filters: {
-			date: {
-				value: dateFilter,
-				range: dateFilterType,
-			},
+		date: {
+			value: dateFilter,
+			range: dateFilterType,
 		},
+		filters: otherFilters,
 	});
 
 	// Generating Pdf's contents
@@ -46,7 +49,7 @@ export async function GET(req: NextRequest) {
 
 			return [
 				index + 1 + "",
-				`${visit.patients!.first_name} ${visit.patients!.last_name}`,
+				`${visit.patient!.first_name} ${visit.patient!.last_name}`,
 				visit.patient_cid,
 				`${visit.visitor!.first_name} ${visit.visitor!.last_name}`,
 				visit.visitor_id,

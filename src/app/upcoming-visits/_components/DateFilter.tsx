@@ -116,9 +116,8 @@ export default function DateFilter() {
 				onBlur={(e) => {
 					if (
 						specificDateFormRef.current &&
-						(e.relatedTarget == null ||
-							(e.relatedTarget !== specificDateFormRef.current &&
-								e.relatedTarget.parentElement !== specificDateFormRef.current))
+						e.relatedTarget !== e.currentTarget &&
+						!e.currentTarget.contains(e.relatedTarget)
 					) {
 						specificDateFormRef.current.dataset.open = "false";
 					} else {

@@ -1,16 +1,29 @@
 import styles from "./upcoming-visits.module.scss";
+
 import Visits from "@/server/visits";
+import { Assertions } from "@/server/assertions";
 
 import { getDateString } from "@/utils/dates";
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 import { SearchQuery } from "@/utils/types";
+import {
+	EXTRA_VISITOR_FILTER_ID_TO_INFO,
+	PATIENT_FILTER_ID_TO_INFO,
+	VISIT_FILTER_ID_TO_INFO,
+	VISITOR_FILTER_ID_TO_INFO,
+} from "@/utils/filters";
 
 import DateFilter from "./_components/DateFilter";
 import VisitRows from "./_components/VisitRows";
-import Button from "@/components/theme/Button";
 import PrintForm from "./_components/PrintForm";
-import DateSort from "./_components/Sorts";
-import { Assertions } from "@/server/validations";
+import Sorts from "./_components/Sorts";
+import Filters from "./_components/Filters";
+
+const ACCORDION_INFOS = Object.freeze([
+	PATIENT_FILTER_ID_TO_INFO,
+	{ ...VISITOR_FILTER_ID_TO_INFO, ...EXTRA_VISITOR_FILTER_ID_TO_INFO },
+	VISIT_FILTER_ID_TO_INFO,
+]);
 
 type Props = {
 	searchParams?: SearchQuery;
@@ -31,13 +44,16 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 			? SEARCH_QUERIES.dateFilter.values.min
 			: SEARCH_QUERIES.dateFilter.values.specific;
 
+	const otherFilters = searchParams[SEARCH_QUERIES.filters.name]
+		? JSON.parse(`[${searchParams[SEARCH_QUERIES.filters.name]}]`)
+		: [];
+
 	const visits = await Visits.getAllFilteredUpcomingJoined({
-		filters: {
-			date: {
-				value: dateFilter,
-				range: dateRange,
-			},
+		date: {
+			value: dateFilter,
+			range: dateRange,
 		},
+		filters: otherFilters,
 		sort:
 			searchParams[SEARCH_QUERIES.sortBy.name] &&
 			searchParams[SEARCH_QUERIES.orderDirection.name]
@@ -68,8 +84,8 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 					<PrintForm />
 				</div>
 				<div>
-					<Button variant="outline">סינון</Button>
-					<DateSort />
+					<Filters data={ACCORDION_INFOS} />
+					<Sorts />
 				</div>
 			</section>
 			<VisitRows visits={visits || []} />

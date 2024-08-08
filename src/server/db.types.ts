@@ -129,7 +129,44 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      joined_visits: {
+        Row: {
+          approved: boolean | null
+          created_at: string | null
+          datetime: string | null
+          extra_visitor: Json | null
+          extra_visitor_id: string | null
+          id: string | null
+          patient: Json | null
+          patient_cid: string | null
+          rejection_reason: string | null
+          visitor: Json | null
+          visitor_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visits_extra_visitor_id_fkey"
+            columns: ["extra_visitor_id"]
+            isOneToOne: false
+            referencedRelation: "visitors"
+            referencedColumns: ["cid"]
+          },
+          {
+            foreignKeyName: "visits_patient_cid_fkey"
+            columns: ["patient_cid"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["cid"]
+          },
+          {
+            foreignKeyName: "visits_visitor_id_fkey"
+            columns: ["visitor_id"]
+            isOneToOne: false
+            referencedRelation: "visitors"
+            referencedColumns: ["cid"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never

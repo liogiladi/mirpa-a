@@ -1,15 +1,15 @@
 import styles from "./visit-main-info.module.scss";
 
+import { JoinedVisit } from "@/server/visits";
+import { getDateString, getTimeString } from "@/utils/dates";
+
 import CalanderIcon from "@/components/icons/CalanderIcon";
 import ClockIcon from "@/components/icons/ClockIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
 import VisitorIcon from "@/components/icons/VisitorIcon";
-import { getDateString, getTimeString } from "@/utils/dates";
-
-import { UpcomingVisitRow } from "../page";
 
 type Props = {
-	data: NonNullable<UpcomingVisitRow>;
+	data: NonNullable<JoinedVisit>;
 };
 
 export default function VisitMainInfo({ data }: Props) {
@@ -19,7 +19,7 @@ export default function VisitMainInfo({ data }: Props) {
 		<section className={styles["visit-main-info"]}>
 			<div className={styles.item}>
 				<PatientIcon />
-				{`${data.patients!.first_name} ${data.patients!.last_name}`}
+				{`${data.patient!.first_name} ${data.patient!.last_name}`}
 			</div>
 
 			<div className={styles.item}>

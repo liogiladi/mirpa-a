@@ -1,7 +1,11 @@
 @use "../../colors" as colors;
 
-#date-sort {
+#sorts {
 	position: relative;
+
+	&:has(form[data-open="true"]) > button {
+		outline: 1px solid colors.$primary;
+	}
 
 	form {
 		position: absolute;

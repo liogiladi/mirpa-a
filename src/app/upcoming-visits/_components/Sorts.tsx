@@ -8,12 +8,12 @@ import {
 	useState,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./date-sort.module.scss";
+import styles from "./sorts.module.scss";
 
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 
 import Button from "@/components/theme/Button";
-import ArowDownIcon from "@/components/icons/ArowDownIcon";
+import SortArrow from "@/components/icons/SortArrowIcon";
 
 const radioButtonInfos: Record<Sort, string> = {
 	"visit-datetime": "זמן ביקור",
@@ -81,22 +81,15 @@ export default function Sorts() {
 
 		// If user clicked out of form, and not on form's children, than close it
 		if (
-			e.relatedTarget == null ||
-			([e.relatedTarget, e.relatedTarget?.parentElement].every(
-				(el) => el !== formRef.current
-			) &&
-				[
-					e.relatedTarget,
-					e.relatedTarget?.parentElement,
-					e.relatedTarget?.parentElement?.parentElement,
-				].every((el) => el !== fieldsetRef.current))
+			e.relatedTarget !== e.currentTarget &&
+			!e.currentTarget.contains(e.relatedTarget)
 		) {
 			setIsFormOpen(false);
 		}
 	};
 
 	return (
-		<div id={styles["date-sort"]}>
+		<div id={styles.sorts}>
 			<Button
 				variant="outline"
 				colorVariant={isFormOpen ? "primary" : undefined}
@@ -130,7 +123,7 @@ export default function Sorts() {
 						setOrderDireection((prev) => (prev === "ASC" ? "DESC" : "ASC"));
 					}}
 				>
-					<ArowDownIcon />
+					<SortArrow />
 				</button>
 			</form>
 		</div>

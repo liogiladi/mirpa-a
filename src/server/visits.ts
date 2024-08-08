@@ -1,25 +1,32 @@
 import "server-only";
 
 import db from "./db";
-import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
+import {
+	Filter,
+	OrderDirection,
+	SEARCH_QUERIES,
+	Sort,
+} from "@/utils/searchQueries";
+import { Tables } from "./db.types";
 
 export default class Visits {
-	static async getAllFilteredUpcomingJoined(options: QueryOptions) {
-		const { filters, sort } = options;
-		let query = db
-			.from("visits")
-			.select(
-				`*, patients(cid, first_name, last_name),
-				visitor:visitors!visits_visitor_id_fkey(cid, first_name, last_name, relation, phone_number, email),
-				extra_visitor:visitors!visits_extra_visitor_id_fkey(first_name, last_name, relation, phone_number, email)`
-			)
-			.eq("approved", true);
+	static async getAllFilteredUpcomingJoined(
+		options: QueryOptions
+	): Promise<JoinedVisit[]> {
+		const { date, filters, sort } = options;
+		let query = db.from("joined_visits").select("*").eq("approved", true);
 
-		if (filters?.date) {
-			query = query.gte("datetime", filters.date.value);
+		if (date) {
+			query = query.gte("datetime", date.value);
 
-			if (filters.date.range === "specific") {
-				query = query.lte("datetime", filters.date.value);
+			if (date.range === "specific") {
+				query = query.lte("datetime", date.value);
+			}
+		}
+
+		if (filters) {
+			for (const [filterId, value] of filters) {
+				query = query.eq(filterIdToColumn(filterId), value);
 			}
 		}
 
@@ -31,7 +38,7 @@ export default class Visits {
 			query = query.order("datetime");
 		}
 
-		const { data, error } = await query;
+		const { data, error } = await query.returns<JoinedVisit[]>();
 
 		if (error) throw error;
 
@@ -39,17 +46,16 @@ export default class Visits {
 	}
 }
 
-export type UpcomingVisitRow =
-	| NonNullable<
-			Awaited<ReturnType<(typeof Visits)["getAllFilteredUpcomingJoined"]>>
-	  >[number]
-	| null;
-
-type Filters = {
-	date: {
-		value: string;
-		range: keyof typeof SEARCH_QUERIES.dateFilter.values;
-	};
+export type JoinedVisit = Tables<"visits"> & {
+	patient: Pick<Tables<"patients">, "cid" | "first_name" | "last_name">;
+	visitor: Pick<
+		Tables<"visitors">,
+		"first_name" | "last_name" | "relation" | "phone_number" | "email"
+	>;
+	extra_visitor: Pick<
+		Tables<"visitors">,
+		"first_name" | "last_name" | "relation" | "phone_number" | "email"
+	> | null;
 };
 
 type SortOptions = {
@@ -58,7 +64,11 @@ type SortOptions = {
 };
 
 type QueryOptions = Partial<{
-	filters: Filters;
+	date: {
+		value: string;
+		range: keyof typeof SEARCH_QUERIES.dateFilter.values;
+	};
+	filters: [Filter[keyof Filter], string][];
 	sort: SortOptions;
 }>;
 
@@ -72,5 +82,42 @@ function sortValueToColumn(sort: Sort) {
 			return "patients(first_name)";
 		case "visitor-name":
 			return "visitor(first_name)";
+	}
+}
+
+function filterIdToColumn(filter: Filter[keyof Filter]) {
+	switch (filter) {
+		case "patient-first-name":
+			return "patient ->> first_name";
+		case "patient-surname":
+			return "patient ->> last_name";
+		case "patient-state-id":
+			return "patient_cid";
+		case "visitor-first-name":
+			return "visitor ->> first_name";
+		case "visitor-surname":
+			return "visitor ->> last_name";
+		case "visitor-state-id":
+			return "visitor_id";
+		case "visitor-email":
+			return "visitor ->> email";
+		case "visitor-phone-number":
+			return "visitor ->> phone_number";
+		case "visitor-familial-realtion":
+			return "visitor ->> relation";
+		case "extra-visitor-first-name":
+			return "extra_visitor ->> first_name";
+		case "extra-visitor-surname":
+			return "extra_visitor ->> last_name";
+		case "extra-visitor-state-id":
+			return "extra_visitor_id";
+		case "extra-visitor-email":
+			return "extra_visitor ->> email";
+		case "extra-visitor-phone-number":
+			return "extra_visitor ->> phone_number";
+		case "extra-visitor-familial-realtion":
+			return "extra_visitor ->> relation";
+		case "visit-creation-datetime":
+			return "created_at";
 	}
 }

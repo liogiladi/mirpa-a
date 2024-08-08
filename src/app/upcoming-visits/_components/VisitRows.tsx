@@ -1,20 +1,20 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import styles from "./visit-rows.module.scss";
-
-import type { UpcomingVisitRow } from "../page";
 
 import VisitRow from "./VisitRow";
 import VisitInfoDialog from "./VisitInfoDialog";
 
+import { JoinedVisit } from "@/server/visits";
+
 type Props = {
-	visits: NonNullable<UpcomingVisitRow>[];
+	visits: NonNullable<JoinedVisit>[];
 };
 
 export default function VisitRows({ visits }: Props) {
 	const [selectedVisitInfo, setSelectedVisitInfo] =
-		useState<UpcomingVisitRow | null>(null);
+		useState<JoinedVisit | null>(null);
 
 	const openInfoModal = useCallback(
 		(index: number) => {
@@ -23,20 +23,24 @@ export default function VisitRows({ visits }: Props) {
 		[visits]
 	);
 
-	if (visits.length === 0)
+	const rows = useMemo(
+		() =>
+			visits.map((visit, index) => (
+				<VisitRow
+					key={visit.id}
+					data={visit}
+					onClick={() => openInfoModal(index)}
+				/>
+			)),
+		[visits]
+	);
+
+	if (rows.length === 0)
 		return <span id={styles.empty}>אין ביקורים לתאריך זה</span>;
 
 	return (
 		<>
-			<section id={styles["visit-rows"]}>
-				{visits.map((visit, index) => (
-					<VisitRow
-						key={visit.id}
-						data={visit}
-						onClick={() => openInfoModal(index)}
-					/>
-				))}
-			</section>
+			<section id={styles["visit-rows"]}>{rows}</section>
 			<VisitInfoDialog
 				visitInfo={selectedVisitInfo}
 				onClose={() => setSelectedVisitInfo(null)}

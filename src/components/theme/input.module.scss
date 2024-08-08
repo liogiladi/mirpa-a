@@ -1,0 +1,33 @@
+@use "../../app/colors" as colors;
+
+.input {
+	display: flex;
+	flex-direction: column;
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: black;
+
+	&:has(input[data-invalid="true"]) {
+		color: colors.$error;
+
+		input {
+			color: colors.$error;
+		}
+	}
+
+	input {
+		font-family: Heebo;
+		border: 0;
+		border-bottom: 1px solid;
+		padding-block: 0.15rem;
+		outline: 1px solid transparent;
+
+		&:focus {
+			border-bottom-width: 2px;
+		}
+
+		&::placeholder {
+			color: colors.$gray;
+		}
+	}
+}
