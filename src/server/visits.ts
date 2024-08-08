@@ -47,7 +47,7 @@ export default class Visits {
 	}
 }
 
-type SortOptions = {
+export type SortOptions = {
 	by: Sort;
 	direction: OrderDirection;
 };

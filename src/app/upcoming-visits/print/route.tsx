@@ -3,12 +3,12 @@ import { NextRequest } from "next/server";
 import { Readable } from "node:stream";
 import { chromium } from "playwright";
 
-import Visits from "@/server/visits";
+import Visits, { SortOptions } from "@/server/visits";
 import { Assertions } from "@/server/assertions";
 import readableToReadableStream from "@/server/readableToReadableStream";
 
 import { TupleOfLength } from "@/utils/types";
-import { SEARCH_QUERIES } from "@/utils/searchQueries";
+import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 import { getDateString, getTimeString } from "@/utils/dates";
 
 import PDFPage from "@/components/pdf/PDFPage";
@@ -34,12 +34,24 @@ export async function GET(req: NextRequest) {
 		? JSON.parse(`[${searchParams.get(SEARCH_QUERIES.filters.name)}]`)
 		: [];
 
+	const sort: SortOptions | undefined =
+		searchParams.get(SEARCH_QUERIES.sortBy.name) &&
+		searchParams.get(SEARCH_QUERIES.orderDirection.name)
+			? {
+					by: searchParams.get(SEARCH_QUERIES.sortBy.name) as Sort,
+					direction: searchParams.get(
+						SEARCH_QUERIES.orderDirection.name
+					) as OrderDirection,
+			  }
+			: undefined;
+
 	const visits = await Visits.getAllFilteredUpcomingJoined({
 		date: {
 			value: dateFilter,
 			range: dateFilterType,
 		},
 		filters: otherFilters,
+		sort: sort,
 	});
 
 	// Generating Pdf's contents
