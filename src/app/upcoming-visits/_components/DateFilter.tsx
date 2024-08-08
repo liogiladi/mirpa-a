@@ -135,7 +135,7 @@ export default function DateFilter() {
 					required
 				/>
 				<Button variant="outline" colorVariant="primary">
-					סנן
+					החל
 				</Button>
 			</form>
 		</div>

@@ -1,6 +1,7 @@
 @use "../../app/colors" as colors;
 
 .input {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	font-size: 0.8rem;
@@ -28,6 +29,23 @@
 
 		&::placeholder {
 			color: colors.$gray;
+		}
+	}
+
+	.clear-button {
+		position: absolute;
+		left: 3px;
+		bottom: 7px;
+		display: flex;
+		width: 11px;
+		border: 0;
+		background: none;
+		aspect-ratio: 1;
+		cursor: pointer;
+
+		svg {
+			width: 100%;
+			height: 100%;
 		}
 	}
 }

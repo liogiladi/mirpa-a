@@ -2,14 +2,13 @@
 
 import { MouseEventHandler } from "react";
 import styles from "./visit-row.module.scss";
-
-import { UpcomingVisitRow } from "../page";
+import { JoinedVisit } from "@/utils/dbTypes";
 
 import InfoIcon from "@/components/icons/InfoIcon";
 import VisitMainInfo from "./VisitMainInfo";
 
 type Props = {
-	data: NonNullable<UpcomingVisitRow>;
+	data: NonNullable<JoinedVisit>;
 	onClick: MouseEventHandler<HTMLElement>;
 };
 

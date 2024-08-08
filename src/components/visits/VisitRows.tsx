@@ -2,17 +2,19 @@
 
 import { useCallback, useMemo, useState } from "react";
 import styles from "./visit-rows.module.scss";
+import { JoinedVisit } from "@/utils/dbTypes";
 
 import VisitRow from "./VisitRow";
 import VisitInfoDialog from "./VisitInfoDialog";
 
-import { JoinedVisit } from "@/server/visits";
+export type VisitType = "upcoming" | "requested";
 
 type Props = {
+	type: VisitType;
 	visits: NonNullable<JoinedVisit>[];
 };
 
-export default function VisitRows({ visits }: Props) {
+export default function VisitRows({ type, visits }: Props) {
 	const [selectedVisitInfo, setSelectedVisitInfo] =
 		useState<JoinedVisit | null>(null);
 
@@ -32,7 +34,7 @@ export default function VisitRows({ visits }: Props) {
 					onClick={() => openInfoModal(index)}
 				/>
 			)),
-		[visits]
+		[openInfoModal, visits]
 	);
 
 	if (rows.length === 0)
@@ -42,6 +44,7 @@ export default function VisitRows({ visits }: Props) {
 		<>
 			<section id={styles["visit-rows"]}>{rows}</section>
 			<VisitInfoDialog
+				type={type}
 				visitInfo={selectedVisitInfo}
 				onClose={() => setSelectedVisitInfo(null)}
 			/>

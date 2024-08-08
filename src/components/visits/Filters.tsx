@@ -53,7 +53,7 @@ export default function Filters({ data: filtersData }: Props) {
 				})}
 			</Accordion>
 		));
-	}, [currentSearchParams]);
+	}, [currentSearchParams, filtersData]);
 
 	const applyFilters: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
@@ -104,10 +104,13 @@ export default function Filters({ data: filtersData }: Props) {
 
 	const clear: MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
+		formRef.current?.reset();
+
 		const params = new URLSearchParams(currentSearchParams);
 		params.delete(SEARCH_QUERIES.filters.name);
 
 		router.replace(`/upcoming-visits?${params.toString()}`);
+
 		setIsFormOpen(false);
 		setIsFilterActive(false);
 	};

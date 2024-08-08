@@ -1,7 +1,7 @@
 import styles from "./visit-main-info.module.scss";
 
-import { JoinedVisit } from "@/server/visits";
 import { getDateString, getTimeString } from "@/utils/dates";
+import { JoinedVisit } from "@/utils/dbTypes";
 
 import CalanderIcon from "@/components/icons/CalanderIcon";
 import ClockIcon from "@/components/icons/ClockIcon";

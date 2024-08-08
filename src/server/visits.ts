@@ -8,6 +8,7 @@ import {
 	Sort,
 } from "@/utils/searchQueries";
 import { Tables } from "./db.types";
+import { JoinedVisit } from "@/utils/dbTypes";
 
 export default class Visits {
 	static async getAllFilteredUpcomingJoined(
@@ -45,18 +46,6 @@ export default class Visits {
 		return data;
 	}
 }
-
-export type JoinedVisit = Tables<"visits"> & {
-	patient: Pick<Tables<"patients">, "cid" | "first_name" | "last_name">;
-	visitor: Pick<
-		Tables<"visitors">,
-		"first_name" | "last_name" | "relation" | "phone_number" | "email"
-	>;
-	extra_visitor: Pick<
-		Tables<"visitors">,
-		"first_name" | "last_name" | "relation" | "phone_number" | "email"
-	> | null;
-};
 
 type SortOptions = {
 	by: Sort;

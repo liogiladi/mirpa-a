@@ -139,8 +139,6 @@ export async function GET(req: NextRequest) {
 
 	const stream = readableToReadableStream(Readable.from(buffer));
 
-	const encoder = new TextEncoder();
-
 	const filename = title.replaceAll("/", ".");
 
 	if (/[!@%\/\/\*\?\|:]/.test(filename)) {

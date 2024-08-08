@@ -1,12 +1,18 @@
-import { InputHTMLAttributes, MouseEventHandler, useRef } from "react";
+import {
+	InputHTMLAttributes,
+	MouseEventHandler,
+	useRef,
+	useState,
+} from "react";
 import styles from "./input.module.scss";
+import XIcon from "../icons/XIcon";
 
 type Props = {
 	id: string;
 	label: string;
 	enableClearButton?: boolean;
 	onClear?: MouseEventHandler<HTMLButtonElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "id">;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "id" | "onInput">;
 
 export const INVALID_INPUT_DATA_KEY = "invalid";
 
@@ -19,6 +25,7 @@ export default function Input({
 	...props
 }: Props) {
 	const inputRef = useRef<HTMLInputElement>(null);
+	const [showClearButton, setShowClearButton] = useState(false);
 
 	return (
 		<label
@@ -32,15 +39,31 @@ export default function Input({
 			}}
 		>
 			{label}
-			<input ref={inputRef} id={id} name={id} {...props} />
-			{enableClearButton && (
+			<input
+				ref={inputRef}
+				id={id}
+				name={id}
+				onInput={(e) => {
+					if (enableClearButton) {
+						if (e.currentTarget.value.length > 0 && !showClearButton)
+							setShowClearButton(true);
+						else if (e.currentTarget.value.length === 0 && showClearButton)
+							setShowClearButton(false);
+					}
+				}}
+				{...props}
+			/>
+			{enableClearButton && showClearButton && (
 				<button
+					className={styles["clear-button"]}
 					onClick={(e) => {
+						e.preventDefault();
 						inputRef.current!.value = "";
 						onClear?.(e);
+						setShowClearButton(false);
 					}}
 				>
-					x
+					<XIcon />
 				</button>
 			)}
 		</label>

@@ -13,11 +13,11 @@ import {
 	VISITOR_FILTER_ID_TO_INFO,
 } from "@/utils/filters";
 
+import Filters from "@/components/visits/Filters";
+import Sorts from "@/components/visits/Sorts";
+import VisitRows from "@/components/visits/VisitRows";
 import DateFilter from "./_components/DateFilter";
-import VisitRows from "./_components/VisitRows";
 import PrintForm from "./_components/PrintForm";
-import Sorts from "./_components/Sorts";
-import Filters from "./_components/Filters";
 
 const ACCORDION_INFOS = Object.freeze([
 	PATIENT_FILTER_ID_TO_INFO,
@@ -88,7 +88,7 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 					<Sorts />
 				</div>
 			</section>
-			<VisitRows visits={visits || []} />
+			<VisitRows type="upcoming" visits={visits || []} />
 		</main>
 	);
 }

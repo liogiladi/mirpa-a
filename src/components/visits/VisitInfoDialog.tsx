@@ -1,13 +1,16 @@
 import { ReactEventHandler, useRef } from "react";
 import styles from "./visit-info-dialog.module.scss";
 
-import { JoinedVisit } from "@/server/visits";
+import { JoinedVisit } from "@/utils/dbTypes";
 import { getDateString, getTimeString } from "@/utils/dates";
 
 import Dialog from "@/components/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
 
+import { VisitType } from "./VisitRows";
+
 type Props = {
+	type: VisitType;
 	visitInfo: JoinedVisit | null;
 	onClose?: ReactEventHandler<HTMLDialogElement>;
 };
