@@ -14,7 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./sorts.module.scss";
 
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
-import { handleClickOutside } from "@/utils/dom";
+import { handleBlurOnOutsideClick } from "@/utils/dom";
 
 import Button from "@/components/theme/Button";
 import SortArrow from "@/components/icons/SortArrowIcon";
@@ -114,11 +114,11 @@ export default memo(function Sorts({ type }: Props) {
 				tabIndex={0}
 				id={styles["sort-date-popup"]}
 				data-open={isFormOpen}
-				onBlur={(e) => handleClickOutside(e, () => setIsFormOpen(false))}
+				onBlur={(e) => handleBlurOnOutsideClick(e, () => setIsFormOpen(false))}
 				onSubmit={submitSpecificDate}
 			>
 				<fieldset ref={fieldsetRef}>{radioButtons}</fieldset>
-				<Button variant="outline" colorVariant="primary">
+				<Button variant="filled" colorVariant="primary">
 					החל
 				</Button>
 				<button

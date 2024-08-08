@@ -8,6 +8,7 @@ import Dialog from "@/components/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
 
 import { VisitType } from "./VisitRows";
+import XIcon from "../icons/XIcon";
 
 type Props = {
 	type: VisitType;
@@ -44,7 +45,12 @@ export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
 			onClose={onClose}
 			className={styles["visit-info-dialog"]}
 		>
-			<header>מידע על ביקור עתידי</header>
+			<header>
+				מידע על ביקור עתידי
+				<button onClick={(_) => infoModalRef.current?.close()}>
+					<XIcon />
+				</button>
+			</header>
 			{visitInfo && (
 				<>
 					<VisitMainInfo data={visitInfo} />

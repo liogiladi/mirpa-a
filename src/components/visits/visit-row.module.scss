@@ -10,12 +10,12 @@
 	user-select: none;
 	cursor: pointer;
 
-	svg {
-		width: 1.4rem;
-	}
-
 	> svg {
 		fill: colors.$gray;
+	}
+
+	svg {
+		width: 1.4rem;
 	}
 
 	&:hover {

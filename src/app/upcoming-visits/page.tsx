@@ -80,13 +80,13 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 			</h1>
 			<DateFilter />
 			<section id={styles["buttons"]}>
-				<div>
+				<section>
 					<PrintForm />
-				</div>
-				<div>
+				</section>
+				<section>
 					<Filters type="upcoming" data={ACCORDION_INFOS} />
 					<Sorts type="upcoming" />
-				</div>
+				</section>
 			</section>
 			<VisitRows type="upcoming" visits={visits || []} />
 		</main>

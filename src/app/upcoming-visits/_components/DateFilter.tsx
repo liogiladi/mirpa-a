@@ -7,7 +7,7 @@ import styles from "./date-filter.module.scss";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import Button from "@/components/theme/Button";
 import DateFilterToggleLinks from "./DateFilterToggleLinks";
-import { handleClickOutside } from "@/utils/dom";
+import { handleBlurOnOutsideClick } from "@/utils/dom";
 
 const SPECIFIC_DATE_URL_ID = "specific-date";
 
@@ -47,7 +47,7 @@ export default memo(function DateFilter() {
 				id={styles["specific-date-popup"]}
 				data-open={false}
 				onBlur={(e) =>
-					handleClickOutside(e, () => {
+					handleBlurOnOutsideClick(e, () => {
 						e.currentTarget.dataset.open = "false";
 					})
 				}

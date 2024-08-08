@@ -10,6 +10,14 @@
 	font-weight: 600;
 	cursor: pointer;
 
+	&.primary {
+		color: colors.$primary;
+	}
+
+	&.error {
+		color: colors.$error;
+	}
+
 	&[data-variant="outline"] {
 		border: 1px solid;
 
@@ -19,11 +27,23 @@
 		}
 	}
 
-	&.primary {
-		color: colors.$primary;
-	}
+	&[data-variant="filled"] {
+		border: 0;
+		color: white;
 
-	&.error {
-		color: colors.$error;
+		&:hover {
+			outline: 1px solid;
+			background-color: color(from inherit srgb 0 0 0 5);
+		}
+
+		&.primary {
+			background-color: colors.$primary;
+			outline-color: colors.$primary;
+		}
+
+		&.error {
+			background-color: colors.$error;
+			outline-color: colors.$error;
+		}
 	}
 }

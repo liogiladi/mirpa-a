@@ -1,5 +1,6 @@
 import {
 	InputHTMLAttributes,
+	memo,
 	MouseEventHandler,
 	useRef,
 	useState,
@@ -16,7 +17,7 @@ type Props = {
 
 export const INVALID_INPUT_DATA_KEY = "invalid";
 
-export default function Input({
+export default memo(function Input({
 	id,
 	label,
 	className = "",
@@ -68,4 +69,4 @@ export default function Input({
 			)}
 		</label>
 	);
-}
+});

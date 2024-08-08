@@ -3,6 +3,7 @@
 import {
 	FormEventHandler,
 	MouseEventHandler,
+	useCallback,
 	useMemo,
 	useRef,
 	useState,
@@ -12,7 +13,7 @@ import styles from "./filters.module.scss";
 
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import { FilterIdToInfo, validateFormData } from "@/utils/filters";
-import { handleClickOutside } from "@/utils/dom";
+import { handleBlurOnOutsideClick } from "@/utils/dom";
 
 import Button from "@/components/theme/Button";
 import Input, { INVALID_INPUT_DATA_KEY } from "@/components/theme/Input";
@@ -118,7 +119,7 @@ export default function Filters({ type, data: filtersData }: Props) {
 		setIsFormOpen(false);
 	};
 
-	const clear: MouseEventHandler<HTMLButtonElement> = (e) => {
+	const clear: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
 		e.preventDefault();
 		formRef.current?.reset();
 
@@ -129,7 +130,7 @@ export default function Filters({ type, data: filtersData }: Props) {
 
 		setIsFormOpen(false);
 		setIsFilterActive(false);
-	};
+	}, []);
 
 	return (
 		<div id={styles.filters}>
@@ -153,12 +154,12 @@ export default function Filters({ type, data: filtersData }: Props) {
 				tabIndex={0}
 				id={styles["filters-date-popup"]}
 				onSubmit={applyFilters}
-				onBlur={(e) => handleClickOutside(e, () => setIsFormOpen(false))}
+				onBlur={(e) => handleBlurOnOutsideClick(e, () => setIsFormOpen(false))}
 				data-open={isFormOpen}
 			>
 				<section className={styles.accordions}>{accordions}</section>
 				<section className={styles.buttons}>
-					<Button variant="outline" colorVariant="primary">
+					<Button variant="filled" colorVariant="primary">
 						החל
 					</Button>
 					<Button variant="outline" onClick={clear}>

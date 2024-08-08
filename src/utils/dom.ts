@@ -1,8 +1,9 @@
-import { FocusEventHandler, MouseEventHandler } from "react";
+import { FocusEventHandler } from "react";
 
-export function handleClickOutside<
-	T extends MouseEventHandler<HTMLElement> | FocusEventHandler<HTMLElement>
->(e: Parameters<T>[0], callback: () => Promise<void> | void) {
+export function handleBlurOnOutsideClick(
+	e: Parameters<FocusEventHandler<HTMLElement>>[0],
+	callback: () => Promise<void> | void
+) {
 	if (
 		!e.relatedTarget ||
 		(e.relatedTarget instanceof HTMLElement &&

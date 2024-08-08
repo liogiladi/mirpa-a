@@ -1,8 +1,9 @@
 "use client";
 
 import { HTMLProps, MouseEventHandler, useMemo } from "react";
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
+
 import styles from "./toggle-links.module.scss";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
@@ -31,7 +32,7 @@ export default function ToggleLinks({
 }: Props) {
 	const pathname = usePathname();
 	const params = useSearchParams();
-	const paramsUrl =
+	const paramsURL =
 		activeAccuracy === "pathname-searchparams" && params.size > 0
 			? `?${params.toString()}`
 			: "";
@@ -53,7 +54,7 @@ export default function ToggleLinks({
 							defaultBehaviour
 								? (activeAccuracy === "pathname"
 										? href.split("?")[0]
-										: href) === `${pathname}${paramsUrl}`
+										: href) === `${pathname}${paramsURL}`
 								: params.get(SEARCH_QUERIES.toggleLinkActive.name) ===
 								  link.urlId
 						}
@@ -71,7 +72,7 @@ export default function ToggleLinks({
 					</li>
 				);
 			}),
-		[activeAccuracy, clickCallback, links, params, paramsUrl, pathname]
+		[activeAccuracy, clickCallback, links, params, paramsURL, pathname]
 	);
 
 	return (
