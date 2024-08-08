@@ -15,7 +15,11 @@ export default class Visits {
 		options: QueryOptions
 	): Promise<JoinedVisit[]> {
 		const { date, filters, sort } = options;
-		let query = db.from("joined_visits").select("*").eq("approved", true);
+		let query = db
+			.from("joined_visits")
+			.select("*")
+			.gte("datetime", getDateString(new Date()))
+			.eq("approved", true);
 
 		if (date) {
 			query = query.gte("datetime", date.value);
