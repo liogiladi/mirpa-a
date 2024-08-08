@@ -1,0 +1,51 @@
+html {
+	font-size: 11px;
+
+	&,
+	body,
+	main {
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		border: 1px dashed;
+	}
+
+	header {
+		position: relative;
+
+		h1 {
+			text-align: center;
+			margin: 2.5rem;
+		}
+
+		#date-time {
+			position: absolute;
+			z-index: 1;
+			top: -25px;
+			left: 5px;
+			padding: 2px;
+			background-color: white;
+			overflow: visible;
+		}
+
+		#logo {
+			position: absolute;
+			top: 50%;
+			right: 1rem;
+			width: 8.5rem;
+			translate: 0 -50%;
+		}
+	}
+	main {
+		padding-inline: 1rem;
+
+		/* Custom table style, specific for pdf/print */
+		table thead {
+			th {
+				border-bottom: 1px dashed;
+			}
+		}
+	}
+}

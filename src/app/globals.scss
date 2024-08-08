@@ -1,3 +1,11 @@
+@use "./colors" as colors;
+
+@font-face {
+	font-family: "Heebo";
+	src: url("../../public/fonts/Heebo-VariableFont_wght.ttf");
+	font-weight: 100 900;
+}
+
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -23,6 +31,7 @@ body {
 	background-image: url("/background.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
+	font-family: "Heebo";
 
 	main {
 		place-self: center;
@@ -47,4 +56,37 @@ li {
 	box-sizing: initial;
 	margin: revert;
 	padding: revert;
+}
+
+button,
+input {
+	font-family: "Heebo";
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	background-color: rgb(229, 229, 229);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: colors.$gray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: colors.$gray-hover;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+	-moz-appearance: textfield; /* Firefox */
+}
+
+input {
+	direction: inherit;
 }

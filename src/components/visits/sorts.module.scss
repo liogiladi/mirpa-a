@@ -1,0 +1,71 @@
+@use "../../app/colors" as colors;
+
+#sorts {
+	position: relative;
+
+	&:has(form[data-open="true"]) > button {
+		outline: 1px solid colors.$primary;
+	}
+
+	form {
+		position: absolute;
+		top: 2.5rem;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		width: 14rem;
+		padding: 1rem;
+		border: 1px solid colors.$primary;
+		border-radius: 5px;
+		background: white;
+		aspect-ratio: 20 / 9;
+
+		&[data-open="false"] {
+			display: none;
+		}
+
+		fieldset {
+			border: 0;
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			margin-bottom: 1rem;
+
+			label {
+				display: flex;
+				gap: 0.8rem;
+				padding-bottom: 0.8rem;
+				cursor: pointer;
+
+				&:not(:first-child) {
+					padding-top: 0.8rem;
+				}
+
+				&:not(:last-child) {
+					border-bottom: 1px solid colors.$light-gray;
+				}
+
+				input {
+					width: 1.2rem;
+					accent-color: #00969f;
+				}
+			}
+		}
+
+		#sort-direction-button {
+			position: absolute;
+			bottom: 1.2rem;
+			left: 1rem;
+			display: flex;
+			border: 10px;
+			background: none;
+			cursor: pointer;
+
+			svg {
+				pointer-events: none;
+			}
+		}
+	}
+}

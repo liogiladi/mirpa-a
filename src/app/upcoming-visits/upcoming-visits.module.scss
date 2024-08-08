@@ -1,0 +1,17 @@
+#upcoming-visits-page {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	#buttons {
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		width: calc(100% - 3rem);
+
+		> section {
+			display: flex;
+			gap: 0.5rem;
+		}
+	}
+}

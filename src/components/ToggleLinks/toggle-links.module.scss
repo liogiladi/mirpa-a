@@ -1,6 +1,8 @@
+@use "../../app/colors" as colors;
+
 .toggle-links {
 	display: flex;
-	width: fit-content;
+	width: auto;
 	list-style: none;
 	overflow: hidden;
 	padding: 0;
@@ -33,26 +35,26 @@
 }
 
 .outline {
-	border: 1px solid #a6a6a6;
+	border: 1px solid colors.$gray;
 	font-weight: 550;
 	font-size: 0.7rem;
 	background-color: transparent;
 	padding: 0.3rem 1rem;
 	border-radius: 6px;
-	gap: 1rem;
 	justify-content: space-around;
 
 	li {
 		&[data-active="false"] a {
-			color: #a6a6a6;
+			color: colors.$gray;
 
 			&:hover {
-				color: #717171;
+				color: colors.$gray-hover;
 			}
 		}
 
 		&[data-active="true"] a {
 			color: black;
+			font-weight: 600;
 		}
 	}
 }
