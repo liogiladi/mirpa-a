@@ -84,8 +84,8 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 					<PrintForm />
 				</div>
 				<div>
-					<Filters data={ACCORDION_INFOS} />
-					<Sorts />
+					<Filters type="upcoming" data={ACCORDION_INFOS} />
+					<Sorts type="upcoming" />
 				</div>
 			</section>
 			<VisitRows type="upcoming" visits={visits || []} />

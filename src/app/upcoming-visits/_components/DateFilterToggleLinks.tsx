@@ -1,0 +1,92 @@
+import { memo, RefObject } from "react";
+import { useSearchParams } from "next/navigation";
+
+import { getDateString } from "@/utils/dates";
+import { SEARCH_QUERIES } from "@/utils/searchQueries";
+
+import ToggleLinks from "@/components/ToggleLinks";
+
+type Props = {
+	specificDateUrlId: string;
+	specificDateFormRef: RefObject<HTMLFormElement>;
+};
+
+export default memo(function DateFilterToggleLinks({
+	specificDateUrlId,
+	specificDateFormRef,
+}: Props) {
+	const currentParams = useSearchParams();
+
+	const getUpdatedSearchParamsURL = (
+		updateCallback: (params: URLSearchParams) => void
+	): string => {
+		const params = new URLSearchParams(currentParams);
+		updateCallback(params);
+		return params.toString();
+	};
+
+	return (
+		<ToggleLinks
+			activeAccuracy="pathname-searchparams"
+			variant={"outline"}
+			links={[
+				{
+					name: "הכל",
+					href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
+						params.delete(SEARCH_QUERIES.dateFilter.name);
+						params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+						params.set(
+							SEARCH_QUERIES.dateFilterType.name,
+							SEARCH_QUERIES.dateFilterType.value
+						);
+					})}`,
+				},
+				{
+					name: "היום",
+					href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
+						params.delete(SEARCH_QUERIES.dateFilterType.name);
+						params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+						params.set(
+							SEARCH_QUERIES.dateFilter.name,
+							getDateString(new Date())
+						);
+					})}`,
+					extraActiveMatches: ["/upcoming-visits"],
+				},
+				{
+					name: "מחר",
+					href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
+						params.delete(SEARCH_QUERIES.dateFilterType.name);
+						params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+						params.set(
+							SEARCH_QUERIES.dateFilter.name,
+							getDateString(new Date(), { daysBuffer: 1 })
+						);
+					})}`,
+				},
+				{
+					name: "תאריך מסוים",
+					urlId: specificDateUrlId,
+					anchorExtraProps: {
+						onClick: (e) => {
+							e.preventDefault();
+
+							if (specificDateFormRef.current) {
+								specificDateFormRef.current.dataset.open = "true";
+								specificDateFormRef.current.focus();
+							}
+						},
+					},
+				},
+			]}
+			clickCallback={(e) => {
+				if (
+					specificDateFormRef.current &&
+					e.currentTarget.innerHTML !== "תאריך מסוים"
+				) {
+					specificDateFormRef.current.dataset.open = "false";
+				}
+			}}
+		/>
+	);
+});

@@ -53,7 +53,7 @@ export default function Input({
 				}}
 				{...props}
 			/>
-			{enableClearButton && showClearButton && (
+			{enableClearButton && (props.defaultValue || showClearButton) && (
 				<button
 					className={styles["clear-button"]}
 					onClick={(e) => {

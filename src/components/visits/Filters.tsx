@@ -17,17 +17,30 @@ import Button from "@/components/theme/Button";
 import Input, { INVALID_INPUT_DATA_KEY } from "@/components/theme/Input";
 import Accordion from "@/components/theme/Accordion";
 
+import { VisitType } from "./VisitRows";
+
 type Props = {
+	type: VisitType;
 	data: Readonly<FilterIdToInfo<any>[]>;
 };
 
-export default function Filters({ data: filtersData }: Props) {
+export default function Filters({ type, data: filtersData }: Props) {
 	const router = useRouter();
 	const currentSearchParams = useSearchParams();
 
 	const formRef = useRef<HTMLFormElement>(null);
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [isFilterActive, setIsFilterActive] = useState(false);
+
+	const filterParams = useMemo(
+		() =>
+			currentSearchParams
+				.getAll(SEARCH_QUERIES.filters.name)
+				.map(
+					(stringifiedParam) => JSON.parse(stringifiedParam) as [string, string]
+				),
+		[currentSearchParams]
+	);
 
 	const accordions = useMemo(() => {
 		return filtersData.map(({ accordionLabel, ...info }) => (
@@ -43,7 +56,9 @@ export default function Filters({ data: filtersData }: Props) {
 						<Input
 							key={id}
 							id={id}
-							defaultValue={currentSearchParams.get(id) || undefined}
+							defaultValue={
+								filterParams.find(([key]) => key === id)?.[1] || undefined
+							}
 							placeholder={"הזן כאן..."}
 							{...(isInputInfo ? inputLabel : {})}
 							label={isInputInfo ? inputLabel.label : inputLabel}
@@ -53,7 +68,7 @@ export default function Filters({ data: filtersData }: Props) {
 				})}
 			</Accordion>
 		));
-	}, [currentSearchParams, filtersData]);
+	}, [filterParams, filtersData]);
 
 	const applyFilters: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
@@ -98,7 +113,7 @@ export default function Filters({ data: filtersData }: Props) {
 			params.append(SEARCH_QUERIES.filters.name, JSON.stringify(filterQuery));
 		}
 
-		router.replace(`/upcoming-visits?${params.toString()}`);
+		router.replace(`/${type}-visits?${params.toString()}`);
 		setIsFormOpen(false);
 	};
 
