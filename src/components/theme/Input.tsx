@@ -54,12 +54,14 @@ export default memo(function Input({
 			/>
 			{enableClearButton && (props.defaultValue || showClearButton) && (
 				<button
+					type="button"
 					className={styles["clear-button"]}
 					onClick={(e) => {
 						e.preventDefault();
 						inputRef.current!.value = "";
-						onClear?.(e);
+						delete inputRef.current?.dataset[INVALID_INPUT_DATA_KEY];
 						setShowClearButton(false);
+						onClear?.(e);
 					}}
 				>
 					<XIcon />

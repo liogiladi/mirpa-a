@@ -51,11 +51,12 @@ export default function Filters({ type, data: filtersData }: Props) {
 				label={accordionLabel!}
 				contentClassName={styles["accordion-content"]}
 			>
-				{Object.entries(info).map(([id, inputLabel]) => {
+				{Object.entries(info).map(([id, inputLabel], index) => {
 					const isInputInfo = typeof inputLabel === "object";
 
 					return (
 						<Input
+							tabIndex={index + 1}
 							key={id}
 							id={id}
 							defaultValue={
