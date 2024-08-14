@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import styles from "./about.module.scss";
+import PageHeading from "@/components/PageHeading";
 
 export const metadata: Metadata = {
 	title: "אודות",
@@ -11,7 +12,7 @@ type Props = {};
 export default function index({}: Props) {
 	return (
 		<main id={styles["about-page"]}>
-			<h1>אודות</h1>
+			<PageHeading>אודות</PageHeading>
 			<p>
 				<strong>
 					* האתר, תכליתו והמידע השמור בו פיקטיביים לחלוטין *

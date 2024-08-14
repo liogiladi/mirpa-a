@@ -14,6 +14,29 @@
 
 :root {
 	direction: rtl;
+
+	&[data-mobile="true"] {
+		padding: 0;
+		font-size: 13px;
+
+		body {
+			padding: 0;
+			background: #1198a5;
+
+			header {
+				width: 100%;
+				padding-block: 0.8rem !important;
+			}
+
+			main {
+				border-radius: 0;
+
+				> h1 {
+					display: none;
+				}
+			}
+		}
+	}
 }
 
 html,
@@ -56,6 +79,10 @@ li {
 	box-sizing: initial;
 	margin: revert;
 	padding: revert;
+}
+
+ul {
+	padding-right: 0.625rem;
 }
 
 button,

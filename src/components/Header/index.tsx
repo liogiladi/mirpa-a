@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense } from "react";
 import Image from "next/image";
 import styles from "./header.module.scss";
@@ -22,6 +20,8 @@ const NAV_LINKS: readonly ToggleLinkInfo[] = Object.freeze([
 	{ name: "אודות", href: "/about" },
 ]);
 
+export const dynamic = globalThis.isMobile ? "force-dynamic" : "auto";
+
 export default function Header() {
 	return (
 		<header id={styles.header}>
@@ -33,13 +33,19 @@ export default function Header() {
 					height={107}
 					quality={1}
 				/>
-				<span>משלט ביקורים</span>
+				{globalThis.isMobile ? (
+					<h1>{globalThis.currentPageName}</h1>
+				) : (
+					<span>משלט ביקורים</span>
+				)}
 			</div>
-			<nav>
-				<Suspense>
-					<ToggleLinks variant="filled" links={NAV_LINKS} />
-				</Suspense>
-			</nav>
+			{!globalThis.isMobile && (
+				<nav>
+					<Suspense>
+						<ToggleLinks variant="filled" links={NAV_LINKS} />
+					</Suspense>
+				</nav>
+			)}
 		</header>
 	);
 }
