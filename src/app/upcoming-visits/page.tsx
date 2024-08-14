@@ -3,6 +3,7 @@ import styles from "./upcoming-visits.module.scss";
 import Visits from "@/server/visits";
 import { Assertions } from "@/server/assertions";
 
+import { isMobileCross } from "@/utils/mobile";
 import { getDateString } from "@/utils/dates";
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 import { SearchQuery } from "@/utils/types";
@@ -85,7 +86,7 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 			</h1>
 
 			<DateFilter />
-			{globalThis.isMobile ? (
+			{isMobileCross() ? (
 				<section id={styles["buttons"]}>
 					<Filters type="upcoming" data={ACCORDION_INFOS} />
 					<PrintForm />
