@@ -85,15 +85,23 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 			</h1>
 
 			<DateFilter />
-			<section id={styles["buttons"]}>
-				<section>
-					<PrintForm />
-				</section>
-				<section>
+			{globalThis.isMobile ? (
+				<section id={styles["buttons"]}>
 					<Filters type="upcoming" data={ACCORDION_INFOS} />
+					<PrintForm />
 					<Sorts type="upcoming" />
 				</section>
-			</section>
+			) : (
+				<section id={styles["buttons"]}>
+					<section>
+						<PrintForm />
+					</section>
+					<section>
+						<Filters type="upcoming" data={ACCORDION_INFOS} />
+						<Sorts type="upcoming" />
+					</section>
+				</section>
+			)}
 			<VisitRows type="upcoming" visits={visits || []} />
 		</main>
 	);
