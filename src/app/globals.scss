@@ -21,11 +21,11 @@
 
 		body {
 			padding: 0;
-			background: #1198a5;
+			background: colors.$primary;
 
 			header {
 				width: 100%;
-				padding-block: 0.8rem !important;
+				padding: 0 !important;
 			}
 
 			main {

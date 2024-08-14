@@ -1,3 +1,5 @@
+@use "../../app/colors" as colors;
+
 #header {
 	position: relative;
 	display: flex;
@@ -6,12 +8,12 @@
 	padding-top: 1.5rem;
 	padding-bottom: 1.2rem;
 	color: white;
-	overflow: hidden;
 
 	#brand {
 		display: flex;
 		align-items: center;
 		gap: 1.5rem;
+		overflow: hidden;
 
 		span {
 			font-size: 1.9rem;
@@ -27,22 +29,35 @@
 	}
 }
 
-:root[data-mobile="true"] #header #brand {
-	width: 100%;
+:root[data-mobile="true"] #header {
+	#brand {
+		width: 100%;
+		padding-block: 0.8rem;
 
-	img {
-		position: absolute;
-		left: 1rem;
-		scale: 1.6;
-		opacity: 0.05;
+		img {
+			position: absolute;
+			left: 1rem;
+			scale: 1.6;
+			z-index: 2;
+			opacity: 0.05;
+		}
+
+		span,
+		h1 {
+			width: 100%;
+			text-align: center;
+			font-size: 1.6rem;
+			font-weight: 700;
+			text-shadow: none;
+		}
 	}
 
-	span,
-	h1 {
-		width: 100%;
-		text-align: center;
-		font-size: 1.5rem;
-		font-weight: 700;
-		text-shadow: none;
+	nav {
+		position: absolute;
+		bottom: -100vh;
+		width: 100vw;
+		height: 100vh;
+		background: colors.$primary;
+		z-index: 0;
 	}
 }

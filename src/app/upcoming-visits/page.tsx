@@ -35,7 +35,8 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 	Assertions.visitsSearchParams(searchParams!);
 
 	const dateFilter = String(
-		searchParams[SEARCH_QUERIES.dateFilter.name] || getDateString(new Date())
+		searchParams[SEARCH_QUERIES.dateFilter.name] ||
+			getDateString(new Date())
 	);
 
 	const dateRange =
@@ -71,13 +72,18 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 			<h1>
 				{searchParams[SEARCH_QUERIES.dateFilter.name]
 					? `ביקורים ל-${getDateString(
-							new Date(String(searchParams[SEARCH_QUERIES.dateFilter.name])),
+							new Date(
+								String(
+									searchParams[SEARCH_QUERIES.dateFilter.name]
+								)
+							),
 							{ format: true }
 					  )}`
 					: `ביקורים מ-${getDateString(new Date(), {
 							format: true,
 					  })}`}
 			</h1>
+
 			<DateFilter />
 			<section id={styles["buttons"]}>
 				<section>
