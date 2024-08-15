@@ -69,3 +69,29 @@
 		}
 	}
 }
+
+:root[data-mobile="true"] #sorts {
+	form {
+		position: fixed;
+		z-index: 2;
+		inset-block: 0;
+		width: 100vw;
+		height: 100vh;
+		border-radius: 0;
+
+		legend {
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: colors.$primary;
+		}
+
+		label {
+			font-size: 1.2rem;
+		}
+
+		#buttons {
+			display: flex;
+			gap: 1rem;
+		}
+	}
+}

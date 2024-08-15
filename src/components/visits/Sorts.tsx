@@ -1,7 +1,6 @@
 "use client";
 
 import {
-	FocusEventHandler,
 	FormEventHandler,
 	memo,
 	useEffect,
@@ -20,6 +19,7 @@ import Button from "@/components/theme/Button";
 import SortArrow from "@/components/icons/SortArrowIcon";
 
 import { VisitType } from "./VisitRows";
+import { isMobileCross } from "@/utils/mobile";
 
 const radioButtonInfos: Record<Sort, string> = {
 	"visit-datetime": "זמן ביקור",
@@ -43,7 +43,8 @@ export default memo(function Sorts({ type }: Props) {
 
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [selectedSort, setSelectedSort] = useState<Sort>("visit-datetime");
-	const [orderDirection, setOrderDireection] = useState<OrderDirection>("ASC");
+	const [orderDirection, setOrderDireection] =
+		useState<OrderDirection>("ASC");
 
 	useEffect(() => {
 		const sort =
@@ -51,8 +52,9 @@ export default memo(function Sorts({ type }: Props) {
 			"visit-datetime";
 
 		const direction =
-			currentSearchParams.get(SEARCH_QUERIES.orderDirection.name)?.valueOf() ||
-			"ASC";
+			currentSearchParams
+				.get(SEARCH_QUERIES.orderDirection.name)
+				?.valueOf() || "ASC";
 
 		setSelectedSort(sort as Sort);
 		setOrderDireection(direction as OrderDirection);
@@ -94,6 +96,8 @@ export default memo(function Sorts({ type }: Props) {
 		setIsFormOpen(false);
 	};
 
+	const isMobile = isMobileCross();
+
 	return (
 		<div id={styles.sorts}>
 			<Button
@@ -114,13 +118,21 @@ export default memo(function Sorts({ type }: Props) {
 				tabIndex={0}
 				id={styles["sort-date-popup"]}
 				data-open={isFormOpen}
-				onBlur={(e) => handleBlurOnOutsideClick(e, () => setIsFormOpen(false))}
+				onBlur={(e) =>
+					handleBlurOnOutsideClick(e, () => {
+						if (!isMobile) setIsFormOpen(false);
+					})
+				}
 				onSubmit={submitSpecificDate}
 			>
+				{isMobile && <legend>מיון נתונים</legend>}
 				<fieldset ref={fieldsetRef}>{radioButtons}</fieldset>
-				<Button variant="filled" colorVariant="primary">
-					החל
-				</Button>
+				<div id={styles.buttons}>
+					<Button variant="filled" colorVariant="primary">
+						החל
+					</Button>
+					{isMobile && <Button variant="outline">ביטול</Button>}
+				</div>
 				<button
 					id={styles["sort-direction-button"]}
 					style={{
@@ -128,7 +140,9 @@ export default memo(function Sorts({ type }: Props) {
 					}}
 					onClick={(e) => {
 						e.preventDefault();
-						setOrderDireection((prev) => (prev === "ASC" ? "DESC" : "ASC"));
+						setOrderDireection((prev) =>
+							prev === "ASC" ? "DESC" : "ASC"
+						);
 					}}
 				>
 					<SortArrow />
