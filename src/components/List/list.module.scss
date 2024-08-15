@@ -1,0 +1,21 @@
+@use "../../app/colors" as colors;
+
+.list {
+	padding: 0;
+	margin: 0;
+	overflow: auto;
+
+	li {
+		display: flex;
+		justify-content: center;
+		padding: 0.6rem;
+		font-size: 1.15rem;
+
+		&:nth-child(odd) {
+			background-color: colors.$lighter-gray;
+			color: colors.$gray;
+			font-weight: 700;
+			overflow: auto;
+		}
+	}
+}

@@ -8,14 +8,16 @@ type Props<Width extends number> = {
 	width: Width;
 	columns: TupleOfLength<string, Width>;
 	rows: TupleOfLength<ReactNode | null, Width>[];
+	className?: string;
 };
 
 export default genericMemo(function Table<Width extends number>({
 	columns,
 	rows,
+	className = "",
 }: Props<Width>) {
 	return (
-		<table className="table">
+		<table className={`table ${className}`}>
 			<thead>
 				<tr>
 					{(columns as string[]).map((column) => (
