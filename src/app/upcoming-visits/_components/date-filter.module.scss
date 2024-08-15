@@ -29,4 +29,13 @@
 
 :root[data-mobile="true"] #date-filter {
 	width: 100%;
+
+	ul {
+		border: 0;
+	}
+
+	form {
+		top: 3.5rem;
+		translate: -50%;
+	}
 }
