@@ -1,6 +1,5 @@
 import { handleBlurOnOutsideClick } from "@/utils/dom";
 import React, {
-	FormEventHandler,
 	FormHTMLAttributes,
 	forwardRef,
 	ReactNode,

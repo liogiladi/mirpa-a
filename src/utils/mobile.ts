@@ -1,4 +1,4 @@
-export function isMobileCross(): boolean {
+export function isMobileCrossEnvironment(): boolean {
 	return (
 		globalThis.isMobile ||
 		(typeof document !== "undefined" &&

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+	memo,
 	MouseEventHandler,
 	useCallback,
 	useMemo,
@@ -25,7 +26,7 @@ type Props = {
 	data: Readonly<FilterIdToInfo<any>[]>;
 };
 
-export default function Filters({ type, data: filtersData }: Props) {
+export default memo(function Filters({ type, data: filtersData }: Props) {
 	const router = useRouter();
 	const currentSearchParams = useSearchParams();
 	const [isFilterActive, setIsFilterActive] = useState(false);
@@ -154,4 +155,4 @@ export default function Filters({ type, data: filtersData }: Props) {
 			<section className={styles.accordions}>{accordions}</section>
 		</PopoverForm>
 	);
-}
+});

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { isMobileCross } from "@/utils/mobile";
+import { isMobileCrossEnvironment } from "@/utils/mobile";
 
 const DetectMobileContext = createContext<boolean>(false);
 
@@ -10,7 +10,7 @@ export function useDetectMobile() {
 }
 
 export function DetectMobileContextProvider({ children }: PropsWithChildren) {
-	const [isMobile] = useState(isMobileCross());
+	const [isMobile] = useState(isMobileCrossEnvironment());
 
 	return (
 		<DetectMobileContext.Provider value={isMobile}>
