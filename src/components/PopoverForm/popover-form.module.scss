@@ -1,0 +1,78 @@
+@use "../../app/colors" as colors;
+
+.popover {
+	position: relative;
+
+	&:has(form[data-open="true"]) > button {
+		outline: 1px solid colors.$primary;
+	}
+
+	form {
+		position: absolute;
+		top: 2.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		width: 14rem;
+		border: 1px solid colors.$primary;
+		border-radius: 5px;
+		background: white;
+
+		&[data-open="false"] {
+			display: none;
+		}
+	}
+
+	.extra-footer-buttons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+	}
+}
+
+:root[data-mobile="true"] form[data-open="true"] {
+	position: fixed;
+	z-index: 2;
+	inset-block: 0;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	grid-template-columns: 1fr;
+	width: 100vw;
+	height: 100vh;
+	max-height: unset;
+	padding: 1rem;
+	border-radius: 0;
+
+	legend {
+		position: relative;
+		place-self: center;
+		width: 100%;
+		margin-bottom: 1rem;
+		text-align: center;
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: colors.$primary;
+
+		.close-button {
+			box-sizing: content-box;
+			position: absolute;
+			top: 50%;
+			right: 5px;
+			display: flex;
+			margin: 0;
+			background: none;
+			transform: translateY(-50%);
+
+			svg {
+				fill: colors.$gray;
+			}
+		}
+	}
+
+	.extra-footer-buttons {
+		padding-top: 0.8rem;
+		gap: 1rem;
+	}
+}

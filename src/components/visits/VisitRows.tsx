@@ -2,10 +2,12 @@
 
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import styles from "./visit-rows.module.scss";
+
 import { JoinedVisit } from "@/utils/dbTypes";
-import { isMobileCross } from "@/utils/mobile";
 import { getDateString, getTimeString } from "@/utils/dates";
 import { TupleOfLength } from "@/utils/types";
+
+import { useDetectMobile } from "@/contexts/detectMobile";
 
 import VisitRow from "./VisitRow";
 import VisitInfoDialog from "./VisitInfoDialog";
@@ -20,6 +22,7 @@ type Props = {
 };
 
 export default function VisitRows({ type, visits }: Props) {
+	const isMobile = useDetectMobile();
 	const [selectedVisitInfo, setSelectedVisitInfo] =
 		useState<JoinedVisit | null>(null);
 
@@ -29,8 +32,6 @@ export default function VisitRows({ type, visits }: Props) {
 		},
 		[visits]
 	);
-
-	const isMobile = isMobileCross();
 
 	const rows: TupleOfLength<ReactNode, 5>[] | ReactNode[] = useMemo(
 		() =>

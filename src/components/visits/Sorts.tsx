@@ -1,5 +1,4 @@
 "use client";
-
 import {
 	FormEventHandler,
 	memo,
@@ -13,13 +12,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./sorts.module.scss";
 
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
-import { handleBlurOnOutsideClick } from "@/utils/dom";
-
-import Button from "@/components/theme/Button";
 import SortArrow from "@/components/icons/SortArrowIcon";
 
 import { VisitType } from "./VisitRows";
-import { isMobileCross } from "@/utils/mobile";
+import PopoverForm, { PopoverSubmitHandler } from "../PopoverForm";
 
 const radioButtonInfos: Record<Sort, string> = {
 	"visit-datetime": "זמן ביקור",
@@ -34,14 +30,11 @@ type Props = {
 
 export default memo(function Sorts({ type }: Props) {
 	const sortsId = useId();
-
 	const router = useRouter();
 	const currentSearchParams = useSearchParams();
 
-	const formRef = useRef<HTMLFormElement>(null);
 	const fieldsetRef = useRef<HTMLFieldSetElement>(null);
 
-	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [selectedSort, setSelectedSort] = useState<Sort>("visit-datetime");
 	const [orderDirection, setOrderDireection] =
 		useState<OrderDirection>("ASC");
@@ -77,10 +70,7 @@ export default memo(function Sorts({ type }: Props) {
 		[selectedSort, sortsId]
 	);
 
-	const submitSpecificDate: FormEventHandler<HTMLFormElement> = (e) => {
-		e.preventDefault();
-		if (!formRef.current) return;
-
+	const submitSpecificDate: PopoverSubmitHandler = (e, close) => {
 		if (!selectedSort || !orderDirection) {
 			return alert("invalid sort values");
 		}
@@ -93,61 +83,33 @@ export default memo(function Sorts({ type }: Props) {
 		params.append(SEARCH_QUERIES.orderDirection.name, orderDirection);
 
 		router.replace(`/${type}-visits?${params.toString()}`);
-		setIsFormOpen(false);
+		close();
 	};
 
-	const isMobile = isMobileCross();
-
 	return (
-		<div id={styles.sorts}>
-			<Button
-				variant="outline"
-				colorVariant={isFormOpen ? "primary" : undefined}
-				onClick={() => {
-					if (formRef.current) {
-						formRef.current.dataset.open = "true";
-						formRef.current.focus();
-						setIsFormOpen(true);
-					}
+		<PopoverForm
+			id={styles["sorts-form"]}
+			title={"מיון נתונים"}
+			openingButtonOptions={{
+				name: "מיון",
+			}}
+			onSubmit={submitSpecificDate}
+		>
+			<fieldset ref={fieldsetRef}>{radioButtons}</fieldset>
+			<button
+				id={styles["sort-direction-button"]}
+				style={{
+					rotate: orderDirection === "ASC" ? "180deg" : "0deg",
+				}}
+				onClick={(e) => {
+					e.preventDefault();
+					setOrderDireection((prev) =>
+						prev === "ASC" ? "DESC" : "ASC"
+					);
 				}}
 			>
-				מיון
-			</Button>
-			<form
-				ref={formRef}
-				tabIndex={0}
-				id={styles["sort-date-popup"]}
-				data-open={isFormOpen}
-				onBlur={(e) =>
-					handleBlurOnOutsideClick(e, () => {
-						if (!isMobile) setIsFormOpen(false);
-					})
-				}
-				onSubmit={submitSpecificDate}
-			>
-				{isMobile && <legend>מיון נתונים</legend>}
-				<fieldset ref={fieldsetRef}>{radioButtons}</fieldset>
-				<div id={styles.buttons}>
-					<Button variant="filled" colorVariant="primary">
-						החל
-					</Button>
-					{isMobile && <Button variant="outline">ביטול</Button>}
-				</div>
-				<button
-					id={styles["sort-direction-button"]}
-					style={{
-						rotate: orderDirection === "ASC" ? "180deg" : "0deg",
-					}}
-					onClick={(e) => {
-						e.preventDefault();
-						setOrderDireection((prev) =>
-							prev === "ASC" ? "DESC" : "ASC"
-						);
-					}}
-				>
-					<SortArrow />
-				</button>
-			</form>
-		</div>
+				<SortArrow />
+			</button>
+		</PopoverForm>
 	);
 });

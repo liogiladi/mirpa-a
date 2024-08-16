@@ -3,7 +3,8 @@ import styles from "./visit-info-dialog.module.scss";
 
 import { JoinedVisit } from "@/utils/dbTypes";
 import { getDateString, getTimeString } from "@/utils/dates";
-import { isMobileCross } from "@/utils/mobile";
+
+import { useDetectMobile } from "@/contexts/detectMobile";
 
 import Dialog from "@/components/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
@@ -30,6 +31,7 @@ function infoToElement(label: string, value: string | null | undefined) {
 }
 
 export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
+	const isMobile = useDetectMobile();
 	const infoModalRef = useRef<HTMLDialogElement>(null);
 
 	const creationDate = visitInfo?.datetime
@@ -39,8 +41,6 @@ export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
 	if (visitInfo) {
 		infoModalRef.current?.showModal();
 	}
-
-	const isMobile = isMobileCross();
 
 	return (
 		<Dialog

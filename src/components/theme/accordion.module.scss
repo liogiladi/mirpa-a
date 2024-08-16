@@ -31,3 +31,9 @@
 		}
 	}
 }
+
+:root[data-mobile="true"] .accordion {
+	summary {
+		font-size: 1.2rem;
+	}
+}

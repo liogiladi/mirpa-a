@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation";
 
 import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
-import { isMobileCross } from "@/utils/mobile";
 
+import { useDetectMobile } from "@/contexts/detectMobile";
 import ToggleLinks from "@/components/ToggleLinks";
 
 type Props = {
@@ -18,6 +18,7 @@ export default memo(function DateFilterToggleLinks({
 	specificDateUrlId,
 	specificDateFormRef,
 }: Props) {
+	const isMobile = useDetectMobile();
 	const currentParams = useSearchParams();
 
 	const getUpdatedSearchParamsURL = (
@@ -28,7 +29,6 @@ export default memo(function DateFilterToggleLinks({
 		return params.toString();
 	};
 
-	const isMobile = isMobileCross();
 	const currentDateQueryParam = currentParams.get(
 		SEARCH_QUERIES.dateFilter.name
 	);
