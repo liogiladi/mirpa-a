@@ -57,9 +57,7 @@ export default memo(function Header({ isMobile }: Props) {
 				<MobileMenu />
 			) : (
 				<nav>
-					<Suspense>
-						<ToggleLinks variant="filled" links={NAV_LINKS} />
-					</Suspense>
+					<ToggleLinks variant="filled" links={NAV_LINKS} />
 				</nav>
 			)}
 		</header>
