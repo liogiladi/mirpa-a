@@ -32,9 +32,9 @@
 	}
 }
 
-:root[data-mobile="true"] form[data-open="true"] {
+@at-root [data-mobile="true"] .popover form[data-open="true"] {
 	position: fixed;
-	z-index: 2;
+	z-index: 5;
 	inset-block: 0;
 	display: grid;
 	grid-template-rows: auto 1fr auto;

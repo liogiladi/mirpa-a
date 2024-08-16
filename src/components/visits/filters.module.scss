@@ -47,7 +47,7 @@
 	}
 }
 
-:root[data-mobile="true"] #filters-form[data-open="true"] {
+@at-root [data-mobile="true"] #filters-form[data-open="true"] {
 	position: fixed;
 	z-index: 2;
 	inset-block: 0;

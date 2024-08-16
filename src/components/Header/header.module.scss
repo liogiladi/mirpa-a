@@ -30,7 +30,7 @@
 	}
 }
 
-:root[data-mobile="true"] #header {
+@at-root [data-mobile="true"] #header {
 	#brand {
 		width: 100%;
 		padding-block: 0.8rem;

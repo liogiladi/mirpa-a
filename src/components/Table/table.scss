@@ -50,7 +50,7 @@
 	}
 }
 
-:root[data-mobile="true"] .table {
+@at-root [data-mobile="true"] .table {
 	th,
 	td {
 		padding-block: 0.7rem !important;

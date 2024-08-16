@@ -48,7 +48,7 @@
 	}
 }
 
-:root[data-mobile="true"] #sorts-form {
+@at-root [data-mobile="true"] #sorts-form {
 	label {
 		font-size: 1.2rem;
 	}
