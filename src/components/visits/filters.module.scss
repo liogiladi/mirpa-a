@@ -1,25 +1,11 @@
 @use "../../app/colors" as colors;
 
 #filters-form {
-	position: absolute;
-	top: 2.5rem;
 	left: 50%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	width: 14rem;
 	max-height: 31.25rem;
 	padding: 0.8rem;
-	border: 1px solid colors.$primary;
-	border-radius: 5px;
-	background: white;
 	translate: -50%;
 	overflow-y: auto;
-
-	&[data-open="false"] {
-		display: none;
-	}
 
 	.accordions {
 		width: 100%;
@@ -36,45 +22,19 @@
 			}
 		}
 	}
-
-	.buttons {
-		display: flex;
-		gap: 1rem;
-
-		button {
-			margin-top: 1rem;
-		}
-	}
 }
 
 @at-root [data-mobile="true"] #filters-form[data-open="true"] {
-	position: fixed;
-	z-index: 2;
-	inset-block: 0;
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	grid-template-columns: 1fr;
-	width: 100vw;
-	height: 100vh;
 	max-height: unset;
-	border-radius: 0;
-
-	legend {
-		place-self: center;
-		margin-bottom: 1rem;
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: colors.$primary;
-	}
-
-	label {
-		font-size: 1.2rem;
-	}
 
 	.accordions {
 		place-self: start;
 		height: 100%;
 		overflow: auto;
+
+		label {
+			font-size: 1.2rem;
+		}
 	}
 
 	.extra-footer-buttons {
