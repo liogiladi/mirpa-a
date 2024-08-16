@@ -28,8 +28,7 @@
 		padding-block: 0.5rem;
 		border-top: 1px solid colors.$light-gray;
 
-		button {
-			border: 0;
+		> button {
 			font-size: 0.9rem;
 		}
 	}

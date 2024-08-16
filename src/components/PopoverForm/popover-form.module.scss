@@ -61,6 +61,7 @@
 			top: 50%;
 			right: 5px;
 			display: flex;
+			border: 0;
 			margin: 0;
 			background: none;
 			transform: translateY(-50%);
@@ -74,5 +75,6 @@
 	.extra-footer-buttons {
 		padding-top: 0.8rem;
 		gap: 1rem;
+		font-size: 1rem;
 	}
 }
