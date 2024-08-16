@@ -53,9 +53,8 @@
 		font-size: 1.2rem;
 	}
 
-	#buttons {
-		display: flex;
-		justify-content: center;
-		gap: 1rem;
+	#sort-direction-button {
+		top: 1.2rem;
+		bottom: unset;
 	}
 }
