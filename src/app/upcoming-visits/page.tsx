@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import styles from "./upcoming-visits.module.scss";
 
 import Visits from "@/server/visits";
@@ -25,6 +26,11 @@ const ACCORDION_INFOS = Object.freeze([
 	{ ...VISITOR_FILTER_ID_TO_INFO, ...EXTRA_VISITOR_FILTER_ID_TO_INFO },
 	VISIT_FILTER_ID_TO_INFO,
 ]);
+
+export const metadata: Metadata = {
+	title: `משל"ט ביקורים | ביקורים עתידיים`,
+	description: "תיאור התכלית של משלט ביקורים",
+};
 
 type Props = {
 	searchParams?: SearchQuery;

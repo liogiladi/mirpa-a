@@ -1,9 +1,10 @@
 "use client";
 
 import { ReactNode, useMemo, useState } from "react";
-import styles from "./mobile-menu.module.scss";
-import { NAV_LINKS } from "../Header";
 import { usePathname } from "next/navigation";
+import styles from "./mobile-menu.module.scss";
+
+import { NAV_LINKS } from "../Header";
 import FullLogoIcon from "../icons/FullLogoIcon";
 
 export default function MobileMenu() {

@@ -3,7 +3,7 @@ import styles from "./about.module.scss";
 import PageHeading from "@/components/PageHeading";
 
 export const metadata: Metadata = {
-	title: "אודות",
+	title: `משל"ט ביקורים | אודות`,
 	description: "תיאור התכלית של משלט ביקורים",
 };
 

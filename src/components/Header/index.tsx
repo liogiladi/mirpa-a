@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, Suspense } from "react";
+import { memo } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.scss";
