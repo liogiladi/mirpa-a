@@ -1,36 +1,36 @@
 {
-  "name": "mirpa-a",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbo",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "generateTypes": "supabase gen types typescript --project-id nrvivtkokikskyunzfvr > ./src/server/db.types.ts"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.45.0",
-    "@types/ua-parser-js": "^0.7.39",
-    "next": "14.2.5",
-    "playwright": "^1.45.3",
-    "react": "^18",
-    "react-dom": "^18.3.1",
-    "sass": "^1.77.8",
-    "server-only": "^0.0.1",
-    "supabase": "^1.187.10",
-    "ua-parser-js": "^1.0.38"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "typescript": "^5"
-  },
-  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC"
+	"name": "mirpa-a",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbo",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"generateTypes": "supabase gen types typescript --project-id nrvivtkokikskyunzfvr > ./src/server/db.types.ts"
+	},
+	"dependencies": {
+		"@supabase/supabase-js": "^2.45.0",
+		"next": "14.2.5",
+		"playwright": "^1.45.3",
+		"react": "^18",
+		"react-dom": "^18.3.1",
+		"sass": "^1.77.8",
+		"server-only": "^0.0.1",
+		"supabase": "^1.187.10",
+		"ua-parser-js": "^1.0.38"
+	},
+	"devDependencies": {
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"@types/ua-parser-js": "^0.7.39",
+		"eslint": "^8",
+		"eslint-config-next": "14.2.5",
+		"typescript": "^5"
+	},
+	"description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+	"main": "index.js",
+	"author": "",
+	"license": "ISC"
 }
