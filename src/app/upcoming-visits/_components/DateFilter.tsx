@@ -36,7 +36,10 @@ export default memo(function DateFilter() {
 
 			const params = new URLSearchParams(currentParams);
 			params.delete(SEARCH_QUERIES.dateFilterType.name);
-			params.set(SEARCH_QUERIES.toggleLinkActive.name, SPECIFIC_DATE_URL_ID);
+			params.set(
+				SEARCH_QUERIES.toggleLinkActive.name,
+				SPECIFIC_DATE_URL_ID
+			);
 			params.set(SEARCH_QUERIES.dateFilter.name, `${dateString} 00:00`);
 
 			router.replace(`/upcoming-visits?${params.toString()}`);

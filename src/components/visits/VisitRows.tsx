@@ -1,11 +1,18 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
 import styles from "./visit-rows.module.scss";
+
 import { JoinedVisit } from "@/utils/dbTypes";
+import { getDateString, getTimeString } from "@/utils/dates";
+import { TupleOfLength } from "@/utils/types";
+
+import { useDetectMobile } from "@/contexts/detectMobile";
 
 import VisitRow from "./VisitRow";
 import VisitInfoDialog from "./VisitInfoDialog";
+import Table from "../Table";
+import InfoIcon from "../icons/InfoIcon";
 
 export type VisitType = "upcoming" | "requested";
 
@@ -15,6 +22,7 @@ type Props = {
 };
 
 export default function VisitRows({ type, visits }: Props) {
+	const isMobile = useDetectMobile();
 	const [selectedVisitInfo, setSelectedVisitInfo] =
 		useState<JoinedVisit | null>(null);
 
@@ -25,16 +33,33 @@ export default function VisitRows({ type, visits }: Props) {
 		[visits]
 	);
 
-	const rows = useMemo(
+	const rows: TupleOfLength<ReactNode, 5>[] | ReactNode[] = useMemo(
 		() =>
-			visits.map((visit, index) => (
-				<VisitRow
-					key={visit.id}
-					data={visit}
-					onClick={() => openInfoModal(index)}
-				/>
-			)),
-		[openInfoModal, visits]
+			visits.map((visit, index) => {
+				if (isMobile) {
+					const date = new Date(visit.datetime);
+
+					return [
+						`${visit.visitor.first_name} ${visit.visitor.last_name}`,
+						`${visit.patient.first_name} ${visit.patient.last_name}`,
+						getDateString(date, { format: true }),
+						getTimeString(date),
+						<InfoIcon
+							key={visit.id}
+							onClick={() => openInfoModal(index)}
+						/>,
+					] as TupleOfLength<ReactNode, 5>;
+				} else {
+					return (
+						<VisitRow
+							key={visit.id}
+							data={visit}
+							onClick={() => openInfoModal(index)}
+						/>
+					);
+				}
+			}),
+		[isMobile, openInfoModal, visits]
 	);
 
 	if (rows.length === 0)
@@ -42,7 +67,16 @@ export default function VisitRows({ type, visits }: Props) {
 
 	return (
 		<>
-			<section id={styles["visit-rows"]}>{rows}</section>
+			{isMobile ? (
+				<Table
+					className={styles["visits-table"]}
+					width={5}
+					columns={["שם המבקר", "שם מטופל", "תאריך", "שעה", "מידע"]}
+					rows={rows as TupleOfLength<ReactNode, 5>[]}
+				/>
+			) : (
+				<section id={styles["visit-rows"]}>{rows}</section>
+			)}
 			<VisitInfoDialog
 				type={type}
 				visitInfo={selectedVisitInfo}

@@ -1,15 +1,17 @@
 "use client";
 
-import { Suspense } from "react";
+import { memo } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import styles from "./header.module.scss";
 
 import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
 import ToggleLinks, { ToggleLinkInfo } from "../ToggleLinks";
+import MobileMenu from "../MobileMenu";
 
-const NAV_LINKS: readonly ToggleLinkInfo[] = Object.freeze([
+export const NAV_LINKS = Object.freeze([
 	{
 		name: "ביקורים עתידיים",
 		href: `/upcoming-visits?${
@@ -20,9 +22,15 @@ const NAV_LINKS: readonly ToggleLinkInfo[] = Object.freeze([
 	{ name: "ניהול מטופלים", href: "/patients-management" },
 	{ name: "דיווחי תקלות", href: "/error-reports" },
 	{ name: "אודות", href: "/about" },
-]);
+]) satisfies readonly ToggleLinkInfo[];
 
-export default function Header() {
+type Props = {
+	isMobile: boolean;
+};
+
+export default memo(function Header({ isMobile }: Props) {
+	const pathname = usePathname();
+
 	return (
 		<header id={styles.header}>
 			<div id={styles.brand}>
@@ -33,13 +41,25 @@ export default function Header() {
 					height={107}
 					quality={1}
 				/>
-				<span>משלט ביקורים</span>
+				{isMobile ? (
+					<h1>
+						{
+							NAV_LINKS.find((navLink) =>
+								navLink.href.includes(pathname)
+							)?.name
+						}
+					</h1>
+				) : (
+					<span>משלט ביקורים</span>
+				)}
 			</div>
-			<nav>
-				<Suspense>
+			{isMobile ? (
+				<MobileMenu />
+			) : (
+				<nav>
 					<ToggleLinks variant="filled" links={NAV_LINKS} />
-				</Suspense>
-			</nav>
+				</nav>
+			)}
 		</header>
 	);
-}
+});

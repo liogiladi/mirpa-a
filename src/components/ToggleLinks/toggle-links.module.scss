@@ -2,6 +2,7 @@
 
 .toggle-links {
 	display: flex;
+	align-items: center;
 	width: auto;
 	list-style: none;
 	overflow: hidden;
@@ -56,5 +57,16 @@
 			color: black;
 			font-weight: 600;
 		}
+	}
+}
+
+@at-root [data-mobile="true"] *:is(.toggle-links, .outline, .filled) {
+	box-sizing: border-box;
+	width: 100%;
+	border-radius: 0;
+	padding-block: 0.7rem;
+
+	a {
+		font-size: 0.9rem;
 	}
 }

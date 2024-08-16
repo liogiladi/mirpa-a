@@ -1,8 +1,10 @@
+import { Metadata } from "next";
 import styles from "./upcoming-visits.module.scss";
 
 import Visits from "@/server/visits";
 import { Assertions } from "@/server/assertions";
 
+import { isMobileNodeJS } from "@/utils/mobile";
 import { getDateString } from "@/utils/dates";
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 import { SearchQuery } from "@/utils/types";
@@ -25,6 +27,11 @@ const ACCORDION_INFOS = Object.freeze([
 	VISIT_FILTER_ID_TO_INFO,
 ]);
 
+export const metadata: Metadata = {
+	title: `משל"ט ביקורים | ביקורים עתידיים`,
+	description: "תיאור התכלית של משלט ביקורים",
+};
+
 type Props = {
 	searchParams?: SearchQuery;
 };
@@ -35,7 +42,8 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 	Assertions.visitsSearchParams(searchParams!);
 
 	const dateFilter = String(
-		searchParams[SEARCH_QUERIES.dateFilter.name] || getDateString(new Date())
+		searchParams[SEARCH_QUERIES.dateFilter.name] ||
+			getDateString(new Date())
 	);
 
 	const dateRange =
@@ -71,23 +79,36 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 			<h1>
 				{searchParams[SEARCH_QUERIES.dateFilter.name]
 					? `ביקורים ל-${getDateString(
-							new Date(String(searchParams[SEARCH_QUERIES.dateFilter.name])),
+							new Date(
+								String(
+									searchParams[SEARCH_QUERIES.dateFilter.name]
+								)
+							),
 							{ format: true }
 					  )}`
 					: `ביקורים מ-${getDateString(new Date(), {
 							format: true,
 					  })}`}
 			</h1>
+
 			<DateFilter />
-			<section id={styles["buttons"]}>
-				<section>
-					<PrintForm />
-				</section>
-				<section>
+			{(await isMobileNodeJS()) ? (
+				<section id={styles["buttons"]}>
 					<Filters type="upcoming" data={ACCORDION_INFOS} />
+					<PrintForm />
 					<Sorts type="upcoming" />
 				</section>
-			</section>
+			) : (
+				<section id={styles["buttons"]}>
+					<section>
+						<PrintForm />
+					</section>
+					<section>
+						<Filters type="upcoming" data={ACCORDION_INFOS} />
+						<Sorts type="upcoming" />
+					</section>
+				</section>
+			)}
 			<VisitRows type="upcoming" visits={visits || []} />
 		</main>
 	);

@@ -1,9 +1,12 @@
+"use client";
+
 import { memo, RefObject } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
+import { useDetectMobile } from "@/contexts/detectMobile";
 import ToggleLinks from "@/components/ToggleLinks";
 
 type Props = {
@@ -15,6 +18,7 @@ export default memo(function DateFilterToggleLinks({
 	specificDateUrlId,
 	specificDateFormRef,
 }: Props) {
+	const isMobile = useDetectMobile();
 	const currentParams = useSearchParams();
 
 	const getUpdatedSearchParamsURL = (
@@ -25,6 +29,19 @@ export default memo(function DateFilterToggleLinks({
 		return params.toString();
 	};
 
+	const currentDateQueryParam = currentParams.get(
+		SEARCH_QUERIES.dateFilter.name
+	);
+
+	const specificDateLabel =
+		isMobile &&
+		currentParams.get(SEARCH_QUERIES.toggleLinkActive.name) &&
+		currentDateQueryParam
+			? getDateString(new Date(currentDateQueryParam), {
+					format: true,
+			  })
+			: "תאריך מסוים";
+
 	return (
 		<ToggleLinks
 			activeAccuracy="pathname-searchparams"
@@ -32,47 +49,56 @@ export default memo(function DateFilterToggleLinks({
 			links={[
 				{
 					name: "הכל",
-					href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
-						params.delete(SEARCH_QUERIES.dateFilter.name);
-						params.delete(SEARCH_QUERIES.toggleLinkActive.name);
-						params.set(
-							SEARCH_QUERIES.dateFilterType.name,
-							SEARCH_QUERIES.dateFilterType.value
-						);
-					})}`,
+					href: `/upcoming-visits?${getUpdatedSearchParamsURL(
+						(params) => {
+							params.delete(SEARCH_QUERIES.dateFilter.name);
+							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+							params.set(
+								SEARCH_QUERIES.dateFilterType.name,
+								SEARCH_QUERIES.dateFilterType.value
+							);
+						}
+					)}`,
 				},
 				{
 					name: "היום",
-					href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
-						params.delete(SEARCH_QUERIES.dateFilterType.name);
-						params.delete(SEARCH_QUERIES.toggleLinkActive.name);
-						params.set(
-							SEARCH_QUERIES.dateFilter.name,
-							getDateString(new Date())
-						);
-					})}`,
+					href: `/upcoming-visits?${getUpdatedSearchParamsURL(
+						(params) => {
+							params.delete(SEARCH_QUERIES.dateFilterType.name);
+							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+							params.set(
+								SEARCH_QUERIES.dateFilter.name,
+								getDateString(new Date())
+							);
+						}
+					)}`,
 					extraActiveMatches: ["/upcoming-visits"],
 				},
 				{
 					name: "מחר",
-					href: `/upcoming-visits?${getUpdatedSearchParamsURL((params) => {
-						params.delete(SEARCH_QUERIES.dateFilterType.name);
-						params.delete(SEARCH_QUERIES.toggleLinkActive.name);
-						params.set(
-							SEARCH_QUERIES.dateFilter.name,
-							getDateString(new Date(), { daysBuffer: 1 })
-						);
-					})}`,
+					href: `/upcoming-visits?${getUpdatedSearchParamsURL(
+						(params) => {
+							params.delete(SEARCH_QUERIES.dateFilterType.name);
+							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
+							params.set(
+								SEARCH_QUERIES.dateFilter.name,
+								getDateString(new Date(), { daysBuffer: 1 })
+							);
+						}
+					)}`,
 				},
 				{
-					name: "תאריך מסוים",
+					name: specificDateLabel,
 					urlId: specificDateUrlId,
 					anchorExtraProps: {
 						onClick: (e) => {
 							e.preventDefault();
 
 							if (specificDateFormRef.current) {
-								specificDateFormRef.current.dataset.open = "true";
+								specificDateFormRef.current.setAttribute(
+									"data-open",
+									"true"
+								);
 								specificDateFormRef.current.focus();
 							}
 						},
@@ -82,7 +108,7 @@ export default memo(function DateFilterToggleLinks({
 			clickCallback={(e) => {
 				if (
 					specificDateFormRef.current &&
-					e.currentTarget.innerHTML !== "תאריך מסוים"
+					e.currentTarget.innerHTML !== specificDateLabel
 				) {
 					specificDateFormRef.current.dataset.open = "false";
 				}
