@@ -1,3 +1,5 @@
+import { PropsWithChildren } from "react";
+
 export declare global {
 	namespace globalThis {
 		var isMobile: boolean;
@@ -5,5 +7,7 @@ export declare global {
 	}
 
 	type OmitStrict<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-	type PropsWithRequiredChildren<P> = P & { children: React.ReactNode };
+	type PropsWithRequiredChildren<P = unknown> = PropsWithChildren & {
+		children: React.ReactNode;
+	};
 }
