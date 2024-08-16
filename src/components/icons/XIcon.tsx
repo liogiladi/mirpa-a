@@ -1,6 +1,6 @@
-import { SVGProps } from "react";
+import { memo, SVGProps } from "react";
 
-export default function XIcon(props: SVGProps<SVGSVGElement>) {
+export default memo(function XIcon(props: SVGProps<SVGSVGElement>) {
 	return (
 		<svg
 			width="19"
@@ -28,4 +28,4 @@ export default function XIcon(props: SVGProps<SVGSVGElement>) {
 			/>
 		</svg>
 	);
-}
+});
