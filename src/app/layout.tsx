@@ -18,13 +18,13 @@ export default async function RootLayout({
 	globalThis.isMobile = await isMobileNodeJS();
 
 	return (
-		<DetectMobileContextProvider>
-			<html lang="en" data-mobile={isMobile}>
-				<body>
+		<html lang="en" data-mobile={isMobile}>
+			<body>
+				<DetectMobileContextProvider>
 					<Header isMobile={isMobile} />
 					{children}
-				</body>
-			</html>
-		</DetectMobileContextProvider>
+				</DetectMobileContextProvider>
+			</body>
+		</html>
 	);
 }

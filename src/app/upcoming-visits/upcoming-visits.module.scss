@@ -32,19 +32,4 @@
 			font-size: 0.9rem;
 		}
 	}
-
-	.visits-table {
-		td:has(svg) {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			svg {
-				width: 50%;
-				height: 100%;
-				fill: colors.$light-gray;
-				overflow: visible;
-			}
-		}
-	}
 }

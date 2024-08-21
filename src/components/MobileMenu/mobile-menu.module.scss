@@ -1,13 +1,14 @@
 #mobile-menu {
-	position: fixed;
+	position: absolute;
 	z-index: 2;
-	right: 10px;
-	top: 10px;
+	right: 1rem;
+	top: 50%;
 	width: 1.813rem;
-	padding: 5px;
+	padding: 3px;
 	background-color: var(--bright);
 	cursor: pointer;
 	transition: opacity 0.3s;
+	translate: 0 -50%;
 
 	rect {
 		fill: white;
@@ -45,7 +46,7 @@
 	transform-origin: top;
 	transform: scaleY(0);
 	transition: 0.3s transform;
-	z-index: 1 !important;
+	z-index: 2 !important;
 
 	ul {
 		position: fixed;
