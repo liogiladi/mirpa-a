@@ -18,11 +18,9 @@
 
 .visits-table {
 	td:has(svg) {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
 		svg {
+			display: block;
+			margin: auto;
 			width: 1.3rem;
 			height: 100%;
 			fill: colors.$primary;
