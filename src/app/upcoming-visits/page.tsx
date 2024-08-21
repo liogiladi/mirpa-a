@@ -1,13 +1,12 @@
 import { Metadata } from "next";
 import styles from "./upcoming-visits.module.scss";
 
-import Visits from "@/server/visits";
 import { Assertions } from "@/server/assertions";
 
 import { isMobileNodeJS } from "@/utils/mobile";
 import { getDateString } from "@/utils/dates";
-import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
-import { SearchQuery } from "@/utils/types";
+import { SEARCH_QUERIES } from "@/utils/searchQueries";
+import { SearchParams } from "@/utils/types";
 import {
 	EXTRA_VISITOR_FILTER_ID_TO_INFO,
 	PATIENT_FILTER_ID_TO_INFO,
@@ -17,9 +16,11 @@ import {
 
 import Filters from "@/components/visits/Filters";
 import Sorts from "@/components/visits/Sorts";
-import VisitRows from "@/components/visits/VisitRows";
 import DateFilter from "./_components/DateFilter";
 import PrintForm from "./_components/PrintForm";
+import UpcomingVisitRows from "./_components/UpcomingVisitRows";
+import { Suspense } from "react";
+import LoadingDataFallback from "@/components/LoadingDataFallback";
 
 const ACCORDION_INFOS = Object.freeze([
 	PATIENT_FILTER_ID_TO_INFO,
@@ -33,46 +34,13 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-	searchParams?: SearchQuery;
+	searchParams?: SearchParams;
 };
 
 export const revalidate = 0;
 
 export default async function UpcomingVisits({ searchParams }: Props) {
 	Assertions.visitsSearchParams(searchParams!);
-
-	const dateFilter = String(
-		searchParams[SEARCH_QUERIES.dateFilter.name] ||
-			getDateString(new Date())
-	);
-
-	const dateRange =
-		searchParams[SEARCH_QUERIES.dateFilterType.name] ===
-		SEARCH_QUERIES.dateFilterType.value
-			? SEARCH_QUERIES.dateFilter.values.min
-			: SEARCH_QUERIES.dateFilter.values.specific;
-
-	const otherFilters = searchParams[SEARCH_QUERIES.filters.name]
-		? JSON.parse(`[${searchParams[SEARCH_QUERIES.filters.name]}]`)
-		: [];
-
-	const visits = await Visits.getAllFilteredUpcomingJoined({
-		date: {
-			value: dateFilter,
-			range: dateRange,
-		},
-		filters: otherFilters,
-		sort:
-			searchParams[SEARCH_QUERIES.sortBy.name] &&
-			searchParams[SEARCH_QUERIES.orderDirection.name]
-				? {
-						by: searchParams[SEARCH_QUERIES.sortBy.name]! as Sort,
-						direction: searchParams[
-							SEARCH_QUERIES.orderDirection.name
-						]! as OrderDirection,
-				  }
-				: undefined,
-	});
 
 	return (
 		<main id={styles["upcoming-visits-page"]}>
@@ -109,7 +77,9 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 					</section>
 				</section>
 			)}
-			<VisitRows type="upcoming" visits={visits || []} />
+			<Suspense fallback={<LoadingDataFallback />}>
+				<UpcomingVisitRows searchParams={searchParams} />
+			</Suspense>
 		</main>
 	);
 }

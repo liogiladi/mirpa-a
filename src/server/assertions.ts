@@ -1,12 +1,12 @@
 "server-only";
 
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
-import { SearchQuery } from "@/utils/types";
+import { SearchParams } from "@/utils/types";
 import assert from "assert";
 
 export class Assertions {
 	static visitsSearchParams(
-		params: URLSearchParams | SearchQuery
+		params: URLSearchParams | SearchParams
 	): asserts params {
 		assert(params, "No search params");
 
@@ -21,7 +21,9 @@ export class Assertions {
 				: params.get(SEARCH_QUERIES.dateFilter.name) &&
 						!isNaN(
 							new Date(
-								String(params.get(SEARCH_QUERIES.dateFilter.name)!)
+								String(
+									params.get(SEARCH_QUERIES.dateFilter.name)!
+								)
 							).getTime()
 						),
 			"Invalid date search param"
