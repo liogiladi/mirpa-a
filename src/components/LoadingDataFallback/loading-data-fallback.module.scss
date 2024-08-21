@@ -1,4 +1,4 @@
-@use "../../app/colors" as colors;
+@use "../../app/colors";
 
 .loading-data-fallback {
 	position: relative;
@@ -34,4 +34,8 @@
 			left: 100%;
 		}
 	}
+}
+
+@at-root [data-mobile="true"] .loading-data-fallback {
+	border-radius: 0;
 }
