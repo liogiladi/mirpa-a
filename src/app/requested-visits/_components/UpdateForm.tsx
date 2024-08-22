@@ -1,20 +1,22 @@
-import { useId, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./update-form.module.scss";
+
+import { approveRequest, rejectRequest } from "../_actions/updates";
+import { useDetectMobile } from "@/contexts/detectMobile";
 
 import Button from "@/components/theme/Button";
 import Input from "@/components/theme/Input";
 import Validations from "@/utils/validations";
-import { approveRequest, rejectRequest } from "../_actions/updates";
 
 type Props = {
 	visitId: string;
 };
 
 export default function UpdateForm({ visitId }: Props) {
+	const isMobile = useDetectMobile();
 	const [actionType, setActionType] = useState<"approve" | "reject">(
 		"approve"
 	);
-	const inputId = useId();
 	const rejectionFormRef = useRef<HTMLFormElement>(null);
 
 	if (actionType === "approve") {
@@ -25,7 +27,10 @@ export default function UpdateForm({ visitId }: Props) {
 				className={styles["update-form"]}
 				onSubmit={(e) => e.preventDefault()}
 			>
-				<Button variant={"filled"} colorVariant="primary">
+				<Button
+					variant={isMobile ? "outline" : "filled"}
+					colorVariant="primary"
+				>
 					אישור
 				</Button>
 				<Button
@@ -59,12 +64,15 @@ export default function UpdateForm({ visitId }: Props) {
 				>
 					ביטול
 				</Button>
-				<Button variant={"filled"} colorVariant="warning">
+				<Button
+					variant={isMobile ? "outline" : "filled"}
+					colorVariant="warning"
+				>
 					אישור סירוב
 				</Button>
 			</section>
 			<Input
-				id={inputId}
+				id={"rejection-reason"}
 				label={"סיבת סירוב"}
 				required
 				pattern={Validations.hebrew.toString()}
