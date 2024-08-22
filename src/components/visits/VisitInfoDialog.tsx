@@ -86,6 +86,9 @@ export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 							getDateString(creationDate, { format: true }),
 							"זמן יצירת הבקשה:",
 							getTimeString(creationDate),
+							...(type === "requested-rejected"
+								? ["סיבת דחייה", visitInfo.rejection_reason]
+								: []),
 						]}
 					/>
 				) : (
@@ -142,7 +145,7 @@ export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 							)}
 							{type === "requested-rejected" &&
 								infoToElement(
-									"סיבת סירוב:",
+									"סיבת דחייה:",
 									visitInfo.rejection_reason
 								)}
 						</section>

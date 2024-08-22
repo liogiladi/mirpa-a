@@ -62,7 +62,7 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 
 			<DateFilter />
 			{(await isMobileNodeJS()) ? (
-				<section id={styles["buttons"]}>
+				<section className={styles["buttons"]}>
 					<Filters type="upcoming" data={ACCORDION_INFOS} />
 					<PrintForm />
 					<Sorts type="upcoming" />
