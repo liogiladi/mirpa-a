@@ -21,7 +21,7 @@ import Sorts from "@/components/visits/Sorts";
 import DateFilter from "./_components/DateFilter";
 import PrintForm from "./_components/PrintForm";
 import UpcomingVisitRows from "./_components/UpcomingVisitRows";
-import LoadingDataFallback from "@/components/LoadingDataFallback";
+import LoadingDataFallback from "@/components/general/LoadingDataFallback";
 
 const ACCORDION_INFOS: readonly FilterIdToInfo<any>[] = Object.freeze([
 	PATIENT_FILTER_ID_TO_INFO,

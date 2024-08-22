@@ -11,13 +11,13 @@ import {
 	VISIT_FILTER_ID_TO_INFO,
 	VISIT_DATETIME_FILTER_ID_TO_INFO,
 } from "@/utils/filters";
+import { Assertions } from "@/server/assertions";
 
-import LoadingDataFallback from "@/components/LoadingDataFallback";
-import Filters from "@/components/visits/Filters";
-import Sorts from "@/components/visits/Sorts";
+import LoadingDataFallback from "@/components/general/LoadingDataFallback";
 import RequestedVisitRows from "./_components/RequestedVisitRows";
 import StatusFilter from "./_components/StatusFilter";
-import { Assertions } from "@/server/assertions";
+import Filters from "@/components/visits/Filters";
+import Sorts from "@/components/visits/Sorts";
 
 const ACCORDION_INFOS: readonly FilterIdToInfo<any>[] = Object.freeze([
 	PATIENT_FILTER_ID_TO_INFO,

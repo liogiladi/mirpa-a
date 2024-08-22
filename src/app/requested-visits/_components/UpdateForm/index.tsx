@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import styles from "./update-form.module.scss";
 
-import { approveRequest, rejectRequest } from "../_actions/updates";
+import { approveRequest, rejectRequest } from "@/server/actions";
 import { useDetectMobile } from "@/contexts/detectMobile";
 import Validations from "@/utils/validations";
 

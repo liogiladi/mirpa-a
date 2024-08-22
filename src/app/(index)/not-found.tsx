@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./not-found.module.scss";
+import styles from "@/styles/not-found.module.scss";
 
 export default function GlobalError() {
 	return (

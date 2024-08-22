@@ -4,7 +4,7 @@ import "server-only";
 
 import { PropsWithChildren } from "react";
 import { getDateString, getTimeString } from "@/utils/dates";
-import FullLogoIcon from "../icons/FullLogoIcon";
+import FullLogoIcon from "@/components/icons/FullLogoIcon";
 
 type Props = {
 	title: string;

@@ -11,15 +11,17 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./filters.module.scss";
 
-import { filters, SEARCH_QUERIES } from "@/utils/searchQueries";
+import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import { FilterIdToInfo, validateFormData } from "@/utils/filters";
 
 import Button from "@/components/theme/Button";
 import Input, { INVALID_INPUT_DATA_KEY } from "@/components/theme/Input";
 import Accordion from "@/components/theme/Accordion";
-import PopoverForm, { PopoverSubmitHandler } from "../PopoverForm";
 
-import { VisitType } from "./VisitRows";
+import { VisitType } from "../VisitRows";
+import PopoverForm, {
+	PopoverSubmitHandler,
+} from "@/components/general/PopoverForm";
 
 type Props = {
 	type: VisitType;

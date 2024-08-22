@@ -5,9 +5,9 @@ import styles from "./visit-row.module.scss";
 import { JoinedVisit } from "@/utils/dbTypes";
 
 import InfoIcon from "@/components/icons/InfoIcon";
-import VisitMainInfo from "./VisitMainInfo";
-import { VisitType } from "./VisitRows";
-import RowArrow from "../icons/RowArrow";
+import RowArrow from "@/components/icons/RowArrow";
+import { VisitType } from "..";
+import VisitMainInfo from "../../VisitInfoDialog/VisitMainInfo";
 
 type Props = {
 	type: VisitType;

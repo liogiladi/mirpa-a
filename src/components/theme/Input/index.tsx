@@ -6,7 +6,7 @@ import {
 	useState,
 } from "react";
 import styles from "./input.module.scss";
-import XIcon from "../icons/XIcon";
+import XIcon from "@/components/icons/XIcon";
 
 type Props = {
 	id: string;

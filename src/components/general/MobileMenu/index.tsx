@@ -4,8 +4,8 @@ import { ReactNode, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./mobile-menu.module.scss";
 
-import { NAV_LINKS } from "../Header";
-import FullLogoIcon from "../icons/FullLogoIcon";
+import { NAV_LINKS } from "@/components/theme/Header";
+import FullLogoIcon from "@/components/icons/FullLogoIcon";
 
 export default function MobileMenu() {
 	const [isOpen, setIsOpen] = useState(false);

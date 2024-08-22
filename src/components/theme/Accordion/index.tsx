@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import AccordionArrowIcon from "../icons/AccordionArrowIcon";
+import AccordionArrowIcon from "@/components/icons/AccordionArrowIcon";
 import styles from "./accordion.module.scss";
 
 type Props = {

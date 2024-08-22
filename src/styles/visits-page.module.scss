@@ -8,7 +8,7 @@
 	.buttons {
 		position: absolute;
 		display: flex;
-		justify-content: end;
+		justify-content: flex-end;
 		width: calc(100% - 3rem);
 
 		> section {

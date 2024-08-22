@@ -8,7 +8,7 @@ import {
 	getUpdatedSearchParamsURL,
 	SEARCH_QUERIES,
 } from "@/utils/searchQueries";
-import ToggleLinks from "@/components/ToggleLinks";
+import ToggleLinks from "@/components/theme/ToggleLinks";
 
 export default memo(function StatusFilter() {
 	const currentParams = useSearchParams();

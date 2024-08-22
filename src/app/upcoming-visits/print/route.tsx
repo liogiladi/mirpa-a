@@ -12,7 +12,7 @@ import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 import { getDateString, getTimeString } from "@/utils/dates";
 
 import PDFPage from "@/components/pdf/PDFPage";
-import Table from "@/components/Table";
+import Table from "@/components/theme/Table";
 
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;

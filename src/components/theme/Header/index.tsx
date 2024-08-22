@@ -9,7 +9,7 @@ import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
 import ToggleLinks, { ToggleLinkInfo } from "../ToggleLinks";
-import MobileMenu from "../MobileMenu";
+import MobileMenu from "../../general/MobileMenu";
 
 export const NAV_LINKS = Object.freeze([
 	{

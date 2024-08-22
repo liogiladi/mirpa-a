@@ -14,8 +14,10 @@ import styles from "./sorts.module.scss";
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 import SortArrow from "@/components/icons/SortArrowIcon";
 
-import { VisitType } from "./VisitRows";
-import PopoverForm, { PopoverSubmitHandler } from "../PopoverForm";
+import { VisitType } from "../VisitRows";
+import PopoverForm, {
+	PopoverSubmitHandler,
+} from "@/components/general/PopoverForm";
 
 const radioButtonInfos: Record<Sort, string> = {
 	"visit-datetime": "זמן ביקור",

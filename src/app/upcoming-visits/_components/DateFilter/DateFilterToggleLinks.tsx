@@ -10,7 +10,7 @@ import {
 } from "@/utils/searchQueries";
 
 import { useDetectMobile } from "@/contexts/detectMobile";
-import ToggleLinks from "@/components/ToggleLinks";
+import ToggleLinks from "@/components/theme/ToggleLinks";
 
 type Props = {
 	specificDateUrlId: string;

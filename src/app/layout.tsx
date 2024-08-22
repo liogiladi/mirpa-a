@@ -4,7 +4,7 @@ import "@/styles/globals.scss";
 import { isMobileNodeJS } from "@/utils/mobile";
 
 import { DetectMobileContextProvider } from "@/contexts/detectMobile";
-import Header from "@/components/Header";
+import Header from "@/components/theme/Header";
 
 export const metadata: Metadata = {
 	title: `המרפאה | משל"ט ביקורים`,

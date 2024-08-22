@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import styles from "./about.module.scss";
-import PageHeading from "@/components/PageHeading";
+import styles from "./page.module.scss";
+import PageHeading from "@/components/general/PageHeading";
 
 export const metadata: Metadata = {
 	title: `משל"ט ביקורים | אודות`,
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 type Props = {};
 
-export default function index({}: Props) {
+export default function Index({}: Props) {
 	return (
 		<main id={styles["about-page"]}>
 			<PageHeading>אודות</PageHeading>

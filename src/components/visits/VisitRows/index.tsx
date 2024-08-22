@@ -11,10 +11,10 @@ import { VisitStatus } from "@/utils/searchQueries";
 import { useDetectMobile } from "@/contexts/detectMobile";
 
 import VisitRow from "./VisitRow";
-import VisitInfoDialog from "./VisitInfoDialog";
-import Table from "../Table";
-import InfoIcon from "../icons/InfoIcon";
-import RowArrow from "../icons/RowArrow";
+import VisitInfoDialog from "../VisitInfoDialog";
+import Table from "@/components/theme/Table";
+import InfoIcon from "@/components/icons/InfoIcon";
+import RowArrow from "@/components/icons/RowArrow";
 
 export type VisitType = "upcoming" | "requested" | `requested-${VisitStatus}`;
 

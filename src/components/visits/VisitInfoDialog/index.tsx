@@ -6,12 +6,12 @@ import { getDateString, getTimeString } from "@/utils/dates";
 
 import { useDetectMobile } from "@/contexts/detectMobile";
 
-import Dialog from "@/components/Dialog";
+import Dialog from "@/components/theme/Dialog";
 import VisitMainInfo from "./VisitMainInfo";
-import List from "../List";
-import XIcon from "../icons/XIcon";
+import List from "@/components/theme/List";
+import XIcon from "@/components/icons/XIcon";
 
-import { VisitType } from "./VisitRows";
+import { VisitType } from "../VisitRows";
 import UpdateForm from "@/app/requested-visits/_components/UpdateForm";
 
 type Props = {

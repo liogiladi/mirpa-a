@@ -11,8 +11,8 @@ import styles from "./popover-form.module.scss";
 
 import { useDetectMobile } from "@/contexts/detectMobile";
 
-import Button from "../theme/Button";
-import XIcon from "../icons/XIcon";
+import Button from "@/components/theme/Button";
+import XIcon from "@/components/icons/XIcon";
 
 export type PopoverSubmitHandler = (
 	e: React.FormEvent<HTMLFormElement>,
