@@ -15,7 +15,7 @@ import { VisitType } from "./VisitRows";
 import UpdateForm from "@/app/requested-visits/_components/UpdateForm";
 
 type Props = {
-	type: VisitType;
+	type: Exclude<VisitType, "requested">;
 	visitInfo: JoinedVisit | null;
 	onClose?: ReactEventHandler<HTMLDialogElement>;
 };
@@ -140,11 +140,19 @@ export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 								"זמן יצירת הבקשה:",
 								getTimeString(creationDate)
 							)}
+							{type === "requested-rejected" &&
+								infoToElement(
+									"סיבת סירוב:",
+									visitInfo.rejection_reason
+								)}
 						</section>
 					</>
 				))}
-			{type === "requested" && visitInfo && (
-				<UpdateForm visitId={visitInfo.id} />
+			{type === "requested-pending" && visitInfo && (
+				<UpdateForm
+					visitId={visitInfo.id}
+					closeDialog={() => infoModalRef.current?.close()}
+				/>
 			)}
 		</Dialog>
 	);

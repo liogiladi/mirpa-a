@@ -11,7 +11,7 @@ export type ToggleLinkInfo = { name: string; extraActiveMatches?: string[] } & (
 	| { href: string }
 	| {
 			urlId: string;
-			anchorExtraProps: OmitStrict<
+			anchorExtraProps: OmitProperties<
 				HTMLProps<HTMLAnchorElement>,
 				"href" | "name"
 			>;

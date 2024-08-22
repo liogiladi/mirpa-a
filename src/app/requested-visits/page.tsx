@@ -47,8 +47,10 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 			<h1>בקשות ביקור</h1>
 			<StatusFilter />
 			<section className={styles["buttons"]}>
-				<Filters type="requested" data={ACCORDION_INFOS} />
-				<Sorts type="requested" />
+				<section>
+					<Filters type="requested" data={ACCORDION_INFOS} />
+					<Sorts type="requested" />
+				</section>
 			</section>
 			<Suspense fallback={<LoadingDataFallback />}>
 				<RequestedVisitRows searchParams={searchParams} />

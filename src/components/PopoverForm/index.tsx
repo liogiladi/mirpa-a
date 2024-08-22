@@ -27,7 +27,7 @@ type Props = {
 	};
 	onSubmit: PopoverSubmitHandler;
 	footerButtons?: ReactNode;
-} & OmitStrict<
+} & OmitProperties<
 	FormHTMLAttributes<HTMLFormElement>,
 	"tabIndex" | "onBlur" | "onSubmit" | "title"
 >;

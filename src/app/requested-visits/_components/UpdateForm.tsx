@@ -10,13 +10,15 @@ import Validations from "@/utils/validations";
 
 type Props = {
 	visitId: string;
+	closeDialog: () => void;
 };
 
-export default function UpdateForm({ visitId }: Props) {
+export default function UpdateForm({ visitId, closeDialog }: Props) {
 	const isMobile = useDetectMobile();
 	const [actionType, setActionType] = useState<"approve" | "reject">(
 		"approve"
 	);
+
 	const rejectionFormRef = useRef<HTMLFormElement>(null);
 
 	if (actionType === "approve") {
@@ -25,7 +27,7 @@ export default function UpdateForm({ visitId }: Props) {
 				id={styles["approve-form"]}
 				action={approveRequest.bind(null, visitId)}
 				className={styles["update-form"]}
-				onSubmit={(e) => e.preventDefault()}
+				onSubmit={() => closeDialog()}
 			>
 				<Button
 					variant={isMobile ? "outline" : "filled"}
@@ -39,7 +41,7 @@ export default function UpdateForm({ visitId }: Props) {
 					colorVariant="warning"
 					onClick={() => setActionType("reject")}
 				>
-					סירוב
+					דחייה
 				</Button>
 			</form>
 		);
@@ -51,7 +53,7 @@ export default function UpdateForm({ visitId }: Props) {
 			id={styles["reject-form"]}
 			action={rejectRequest.bind(null, visitId)}
 			className={styles["update-form"]}
-			onSubmit={(e) => e.preventDefault()}
+			onSubmit={() => closeDialog()}
 		>
 			<section>
 				<Button
@@ -68,19 +70,21 @@ export default function UpdateForm({ visitId }: Props) {
 					variant={isMobile ? "outline" : "filled"}
 					colorVariant="warning"
 				>
-					אישור סירוב
+					אישור דחייה
 				</Button>
 			</section>
 			<Input
 				id={"rejection-reason"}
-				label={"סיבת סירוב"}
+				name={"rejection-reason"}
+				label={"סיבת דחייה"}
 				required
-				pattern={Validations.hebrew.toString()}
+				pattern={Validations.hebrewDescription.source}
 				onInvalid={(e) =>
 					e.currentTarget.setCustomValidity(
 						"על הערך להכיל אותיות בעברית, רווחים ונקודות בלבד"
 					)
 				}
+				onChange={(e) => e.target.setCustomValidity("")}
 			/>
 		</form>
 	);

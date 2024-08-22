@@ -40,7 +40,7 @@ export const VISITOR_FILTER_ID_TO_INFO: FilterIdToInfo<"visitor"> = {
 	},
 };
 
-export const EXTRA_VISITOR_FILTER_ID_TO_INFO: OmitStrict<
+export const EXTRA_VISITOR_FILTER_ID_TO_INFO: OmitProperties<
 	FilterIdToInfo<"extra-visitor">,
 	"accordionLabel"
 > = {
@@ -61,7 +61,7 @@ export const EXTRA_VISITOR_FILTER_ID_TO_INFO: OmitStrict<
 	},
 };
 
-export const VISIT_FILTER_ID_TO_INFO: OmitStrict<
+export const VISIT_FILTER_ID_TO_INFO: OmitProperties<
 	FilterIdToInfo<"visit">,
 	"visit-datetime"
 > = {
@@ -72,7 +72,7 @@ export const VISIT_FILTER_ID_TO_INFO: OmitStrict<
 	},
 };
 
-export const VISIT_DATETIME_FILTER_ID_TO_INFO: OmitStrict<
+export const VISIT_DATETIME_FILTER_ID_TO_INFO: OmitProperties<
 	FilterIdToInfo<"visit">,
 	"accordionLabel" | "visit-creation-datetime"
 > = {

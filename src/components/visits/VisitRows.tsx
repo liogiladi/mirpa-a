@@ -13,11 +13,12 @@ import VisitRow from "./VisitRow";
 import VisitInfoDialog from "./VisitInfoDialog";
 import Table from "../Table";
 import InfoIcon from "../icons/InfoIcon";
+import { VisitStatus } from "@/utils/searchQueries";
 
-export type VisitType = "upcoming" | "requested";
+export type VisitType = "upcoming" | "requested" | `requested-${VisitStatus}`;
 
 type Props = {
-	type: VisitType;
+	type: Exclude<VisitType, "requested">;
 	visits: NonNullable<JoinedVisit>[];
 };
 

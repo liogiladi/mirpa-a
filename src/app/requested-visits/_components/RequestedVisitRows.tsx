@@ -34,5 +34,12 @@ export default async function RequestedVisitRows({ searchParams }: Props) {
 				: undefined,
 	});
 
-	return <VisitRows type="requested" visits={visits || []} />;
+	const status = searchParams[SEARCH_QUERIES.status.name];
+
+	return (
+		<VisitRows
+			type={`requested-${status as VisitStatus}`}
+			visits={visits || []}
+		/>
+	);
 }

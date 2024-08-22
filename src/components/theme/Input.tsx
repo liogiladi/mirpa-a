@@ -13,7 +13,7 @@ type Props = {
 	label: string;
 	enableClearButton?: boolean;
 	onClear?: MouseEventHandler<HTMLButtonElement>;
-} & OmitStrict<InputHTMLAttributes<HTMLInputElement>, "id" | "onInput">;
+} & OmitProperties<InputHTMLAttributes<HTMLInputElement>, "id" | "onInput">;
 
 export const INVALID_INPUT_DATA_KEY = "invalid";
 
@@ -40,6 +40,8 @@ export default memo(function Input({
 				name={id}
 				placeholder="הזן כאן..."
 				onInput={(e) => {
+					e.currentTarget.setCustomValidity("");
+
 					if (inputRef.current?.dataset[INVALID_INPUT_DATA_KEY]) {
 						delete inputRef.current.dataset[INVALID_INPUT_DATA_KEY];
 					}
