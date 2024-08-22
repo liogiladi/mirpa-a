@@ -2,7 +2,7 @@
 
 import { FormEventHandler, memo, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./date-filter.module.scss";
+import styles from "@/styles/links-filter.module.scss";
 
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import { handleBlurOnOutsideClick } from "@/utils/dom";
@@ -48,7 +48,7 @@ export default memo(function DateFilter() {
 	};
 
 	return (
-		<div id={styles["date-filter"]}>
+		<div id={styles["links-filter"]}>
 			<DateFilterToggleLinks
 				specificDateUrlId={SPECIFIC_DATE_URL_ID}
 				specificDateFormRef={specificDateFormRef}

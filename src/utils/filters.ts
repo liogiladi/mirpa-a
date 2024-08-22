@@ -8,8 +8,8 @@ export type InputInfo = HTMLProps<HTMLInputElement> & {
 
 type AccordionLabel = { accordionLabel: string };
 
-export type FilterIdToInfo<T extends keyof Filter> = AccordionLabel &
-	Record<Filter[T], string | InputInfo>;
+export type FilterIdToInfo<T extends keyof Filter = keyof Filter> =
+	AccordionLabel & Record<Filter[T], string | InputInfo>;
 
 export const PATIENT_FILTER_ID_TO_INFO: FilterIdToInfo<"patient"> = {
 	accordionLabel: "פרטי מטופל",
@@ -40,7 +40,7 @@ export const VISITOR_FILTER_ID_TO_INFO: FilterIdToInfo<"visitor"> = {
 	},
 };
 
-export const EXTRA_VISITOR_FILTER_ID_TO_INFO: Omit<
+export const EXTRA_VISITOR_FILTER_ID_TO_INFO: OmitStrict<
 	FilterIdToInfo<"extra-visitor">,
 	"accordionLabel"
 > = {
@@ -61,7 +61,10 @@ export const EXTRA_VISITOR_FILTER_ID_TO_INFO: Omit<
 	},
 };
 
-export const VISIT_FILTER_ID_TO_INFO: FilterIdToInfo<"visit"> = {
+export const VISIT_FILTER_ID_TO_INFO: OmitStrict<
+	FilterIdToInfo<"visit">,
+	"visit-datetime"
+> = {
 	accordionLabel: "פרטי ביקור",
 	"visit-creation-datetime": {
 		label: "זמן יצירת הבקשה",
@@ -69,7 +72,17 @@ export const VISIT_FILTER_ID_TO_INFO: FilterIdToInfo<"visit"> = {
 	},
 };
 
-const FILTER_VALIDATORS: Record<
+export const VISIT_DATETIME_FILTER_ID_TO_INFO: OmitStrict<
+	FilterIdToInfo<"visit">,
+	"accordionLabel" | "visit-creation-datetime"
+> = {
+	"visit-datetime": {
+		label: "זמן הביקור",
+		type: "datetime-local",
+	},
+};
+
+export const FILTER_VALIDATORS: Record<
 	Filter[keyof Filter],
 	((value: string) => boolean) | RegExp
 > = Object.freeze({
@@ -89,6 +102,7 @@ const FILTER_VALIDATORS: Record<
 	"extra-visitor-phone-number": Validations.phoneNumber,
 	"extra-visitor-email": Validations.email,
 	"visit-creation-datetime": Validations.date,
+	"visit-datetime": Validations.date,
 });
 
 class InputError extends Error {
@@ -115,7 +129,9 @@ export function validateFormData(
 			const validator = FILTER_VALIDATORS[key as Filter[keyof Filter]];
 
 			const presumableError = new InputError(
-				`השדה "${typeof info === "object" ? info.label : info}" אינו תקין`,
+				`השדה "${
+					typeof info === "object" ? info.label : info
+				}" אינו תקין`,
 				key
 			);
 

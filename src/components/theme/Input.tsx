@@ -13,7 +13,7 @@ type Props = {
 	label: string;
 	enableClearButton?: boolean;
 	onClear?: MouseEventHandler<HTMLButtonElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "id" | "onInput">;
+} & OmitStrict<InputHTMLAttributes<HTMLInputElement>, "id" | "onInput">;
 
 export const INVALID_INPUT_DATA_KEY = "invalid";
 
@@ -44,9 +44,15 @@ export default memo(function Input({
 					}
 
 					if (enableClearButton) {
-						if (e.currentTarget.value.length > 0 && !showClearButton)
+						if (
+							e.currentTarget.value.length > 0 &&
+							!showClearButton
+						)
 							setShowClearButton(true);
-						else if (e.currentTarget.value.length === 0 && showClearButton)
+						else if (
+							e.currentTarget.value.length === 0 &&
+							showClearButton
+						)
 							setShowClearButton(false);
 					}
 				}}
@@ -59,7 +65,9 @@ export default memo(function Input({
 					onClick={(e) => {
 						e.preventDefault();
 						inputRef.current!.value = "";
-						delete inputRef.current?.dataset[INVALID_INPUT_DATA_KEY];
+						delete inputRef.current?.dataset[
+							INVALID_INPUT_DATA_KEY
+						];
 						setShowClearButton(false);
 						onClear?.(e);
 					}}

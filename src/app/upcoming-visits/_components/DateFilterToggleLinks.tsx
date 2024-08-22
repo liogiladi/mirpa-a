@@ -4,7 +4,10 @@ import { memo, RefObject } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { getDateString } from "@/utils/dates";
-import { SEARCH_QUERIES } from "@/utils/searchQueries";
+import {
+	getUpdatedSearchParamsURL,
+	SEARCH_QUERIES,
+} from "@/utils/searchQueries";
 
 import { useDetectMobile } from "@/contexts/detectMobile";
 import ToggleLinks from "@/components/ToggleLinks";
@@ -20,14 +23,6 @@ export default memo(function DateFilterToggleLinks({
 }: Props) {
 	const isMobile = useDetectMobile();
 	const currentParams = useSearchParams();
-
-	const getUpdatedSearchParamsURL = (
-		updateCallback: (params: URLSearchParams) => void
-	): string => {
-		const params = new URLSearchParams(currentParams);
-		updateCallback(params);
-		return params.toString();
-	};
 
 	const currentDateQueryParam = currentParams.get(
 		SEARCH_QUERIES.dateFilter.name
@@ -50,6 +45,7 @@ export default memo(function DateFilterToggleLinks({
 				{
 					name: "הכל",
 					href: `/upcoming-visits?${getUpdatedSearchParamsURL(
+						currentParams,
 						(params) => {
 							params.delete(SEARCH_QUERIES.dateFilter.name);
 							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
@@ -63,6 +59,7 @@ export default memo(function DateFilterToggleLinks({
 				{
 					name: "היום",
 					href: `/upcoming-visits?${getUpdatedSearchParamsURL(
+						currentParams,
 						(params) => {
 							params.delete(SEARCH_QUERIES.dateFilterType.name);
 							params.delete(SEARCH_QUERIES.toggleLinkActive.name);
@@ -77,6 +74,7 @@ export default memo(function DateFilterToggleLinks({
 				{
 					name: "מחר",
 					href: `/upcoming-visits?${getUpdatedSearchParamsURL(
+						currentParams,
 						(params) => {
 							params.delete(SEARCH_QUERIES.dateFilterType.name);
 							params.delete(SEARCH_QUERIES.toggleLinkActive.name);

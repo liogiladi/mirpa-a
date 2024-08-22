@@ -1,5 +1,6 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
-import styles from "./upcoming-visits.module.scss";
+import styles from "@/styles/visits-page.module.scss";
 
 import { Assertions } from "@/server/assertions";
 
@@ -9,6 +10,7 @@ import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import { SearchParams } from "@/utils/types";
 import {
 	EXTRA_VISITOR_FILTER_ID_TO_INFO,
+	FilterIdToInfo,
 	PATIENT_FILTER_ID_TO_INFO,
 	VISIT_FILTER_ID_TO_INFO,
 	VISITOR_FILTER_ID_TO_INFO,
@@ -19,10 +21,9 @@ import Sorts from "@/components/visits/Sorts";
 import DateFilter from "./_components/DateFilter";
 import PrintForm from "./_components/PrintForm";
 import UpcomingVisitRows from "./_components/UpcomingVisitRows";
-import { Suspense } from "react";
 import LoadingDataFallback from "@/components/LoadingDataFallback";
 
-const ACCORDION_INFOS = Object.freeze([
+const ACCORDION_INFOS: readonly FilterIdToInfo<any>[] = Object.freeze([
 	PATIENT_FILTER_ID_TO_INFO,
 	{ ...VISITOR_FILTER_ID_TO_INFO, ...EXTRA_VISITOR_FILTER_ID_TO_INFO },
 	VISIT_FILTER_ID_TO_INFO,
@@ -40,10 +41,10 @@ type Props = {
 export const revalidate = 0;
 
 export default async function UpcomingVisits({ searchParams }: Props) {
-	Assertions.visitsSearchParams(searchParams!);
+	Assertions.upcomingVisitsSearchParams(searchParams);
 
 	return (
-		<main id={styles["upcoming-visits-page"]}>
+		<main className={styles["visits-page"]}>
 			<h1>
 				{searchParams[SEARCH_QUERIES.dateFilter.name]
 					? `ביקורים ל-${getDateString(
@@ -67,7 +68,7 @@ export default async function UpcomingVisits({ searchParams }: Props) {
 					<Sorts type="upcoming" />
 				</section>
 			) : (
-				<section id={styles["buttons"]}>
+				<section className={styles["buttons"]}>
 					<section>
 						<PrintForm />
 					</section>

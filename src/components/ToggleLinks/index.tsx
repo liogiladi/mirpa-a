@@ -11,7 +11,10 @@ export type ToggleLinkInfo = { name: string; extraActiveMatches?: string[] } & (
 	| { href: string }
 	| {
 			urlId: string;
-			anchorExtraProps: Omit<HTMLProps<HTMLAnchorElement>, "href" | "name">;
+			anchorExtraProps: OmitStrict<
+				HTMLProps<HTMLAnchorElement>,
+				"href" | "name"
+			>;
 	  }
 );
 
@@ -55,8 +58,9 @@ export default function ToggleLinks({
 								? (activeAccuracy === "pathname"
 										? href.split("?")[0]
 										: href) === `${pathname}${paramsURL}`
-								: params.get(SEARCH_QUERIES.toggleLinkActive.name) ===
-								  link.urlId
+								: params.get(
+										SEARCH_QUERIES.toggleLinkActive.name
+								  ) === link.urlId
 						}
 					>
 						<Link
