@@ -59,6 +59,11 @@
 			height: 100%;
 		}
 	}
+
+	&:has(input:is([type="date"], [type="datetime-local"])) .clear-button {
+		left: -20px;
+		background-color: white;
+	}
 }
 
 @at-root [data-mobile="true"] .input {

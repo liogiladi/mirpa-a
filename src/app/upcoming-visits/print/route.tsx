@@ -17,7 +17,7 @@ import Table from "@/components/Table";
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;
 
-	Assertions.visitsSearchParams(searchParams);
+	Assertions.upcomingVisitsSearchParams(searchParams);
 
 	const dateFilter = String(
 		searchParams.get(SEARCH_QUERIES.dateFilter.name) ||

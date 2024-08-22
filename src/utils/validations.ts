@@ -1,14 +1,17 @@
 export default class Validations {
+	static uuid: RegExp =
+		/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
 	static hebrew: RegExp = /^[א-ת]{1,}$/;
+	static hebrewDescription = /^[א-ת\d ,.]{0,}$/;
 	static hebrewName: RegExp = /^[א-ת]{2,12}$/;
 	static phoneNumber: RegExp = /^0?(([23489]{1}[0-9]{7})|[57]{1}[0-9]{8})+$/;
 	static email: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 	static cid(value: string): boolean {
 		if (value.length > 9 || isNaN(Number(value))) return false;
 
-		let digitsArray = Array.from(`${"0".repeat(9 - value.length)}${value}`).map(
-			(char) => Number(char)
-		);
+		let digitsArray = Array.from(
+			`${"0".repeat(9 - value.length)}${value}`
+		).map((char) => Number(char));
 
 		digitsArray = digitsArray.map((value, index) => {
 			if ((index + 1) % 2 === 0) {

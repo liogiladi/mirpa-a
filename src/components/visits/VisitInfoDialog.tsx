@@ -12,9 +12,10 @@ import List from "../List";
 import XIcon from "../icons/XIcon";
 
 import { VisitType } from "./VisitRows";
+import UpdateForm from "@/app/requested-visits/_components/UpdateForm";
 
 type Props = {
-	type: VisitType;
+	type: Exclude<VisitType, "requested">;
 	visitInfo: JoinedVisit | null;
 	onClose?: ReactEventHandler<HTMLDialogElement>;
 };
@@ -30,7 +31,7 @@ function infoToElement(label: string, value: string | null | undefined) {
 	);
 }
 
-export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
+export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 	const isMobile = useDetectMobile();
 	const infoModalRef = useRef<HTMLDialogElement>(null);
 
@@ -85,6 +86,9 @@ export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
 							getDateString(creationDate, { format: true }),
 							"זמן יצירת הבקשה:",
 							getTimeString(creationDate),
+							...(type === "requested-rejected"
+								? ["סיבת דחייה", visitInfo.rejection_reason]
+								: []),
 						]}
 					/>
 				) : (
@@ -139,9 +143,20 @@ export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
 								"זמן יצירת הבקשה:",
 								getTimeString(creationDate)
 							)}
+							{type === "requested-rejected" &&
+								infoToElement(
+									"סיבת דחייה:",
+									visitInfo.rejection_reason
+								)}
 						</section>
 					</>
 				))}
+			{type === "requested-pending" && visitInfo && (
+				<UpdateForm
+					visitId={visitInfo.id}
+					closeDialog={() => infoModalRef.current?.close()}
+				/>
+			)}
 		</Dialog>
 	);
 }

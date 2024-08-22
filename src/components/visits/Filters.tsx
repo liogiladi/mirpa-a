@@ -11,7 +11,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./filters.module.scss";
 
-import { SEARCH_QUERIES } from "@/utils/searchQueries";
+import { filters, SEARCH_QUERIES } from "@/utils/searchQueries";
 import { FilterIdToInfo, validateFormData } from "@/utils/filters";
 
 import Button from "@/components/theme/Button";
@@ -138,7 +138,11 @@ export default memo(function Filters({ type, data: filtersData }: Props) {
 			title={"סינון נתונים"}
 			openingButtonOptions={{
 				name: "סינון",
-				extraHighlightCondition: isFilterActive,
+				extraHighlightCondition:
+					isFilterActive ||
+					Boolean(
+						currentSearchParams.get(SEARCH_QUERIES.filters.name)
+					),
 			}}
 			onSubmit={applyFilters}
 			footerButtons={

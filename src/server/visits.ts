@@ -12,7 +12,7 @@ import { getDateString } from "@/utils/dates";
 
 export default class Visits {
 	static async getAllFilteredUpcomingJoined(
-		options: QueryOptions
+		options: UpcomingVisitsQueryOptions
 	): Promise<JoinedVisit[]> {
 		const { date, filters, sort } = options;
 		let query = db
@@ -52,6 +52,37 @@ export default class Visits {
 
 		return data;
 	}
+
+	static async getAllFiltereRequestedJoined(
+		options: RequestedVisitsQueryOptions
+	): Promise<JoinedVisit[]> {
+		const { status, filters, sort } = options;
+		let query = db
+			.from("joined_visits")
+			.select("*")
+			.gte("datetime", getDateString(new Date()))
+			.is("approved", status === "pending" ? null : false);
+
+		if (filters) {
+			for (const [filterId, value] of filters) {
+				query = query.eq(filterIdToColumn(filterId), value);
+			}
+		}
+
+		if (sort) {
+			query = query.order(sortValueToColumn(sort.by), {
+				ascending: sort.direction === "ASC",
+			});
+		} else {
+			query = query.order("datetime");
+		}
+
+		const { data, error } = await query.returns<JoinedVisit[]>();
+
+		if (error) throw error;
+
+		return data;
+	}
 }
 
 export type SortOptions = {
@@ -59,11 +90,17 @@ export type SortOptions = {
 	direction: OrderDirection;
 };
 
-type QueryOptions = Partial<{
+type UpcomingVisitsQueryOptions = Partial<{
 	date: {
 		value: string;
 		range: keyof typeof SEARCH_QUERIES.dateFilter.values;
 	};
+	filters: [Filter[keyof Filter], string][];
+	sort: SortOptions;
+}>;
+
+type RequestedVisitsQueryOptions = Partial<{
+	status: "pending" | "rejected";
 	filters: [Filter[keyof Filter], string][];
 	sort: SortOptions;
 }>;
@@ -115,5 +152,7 @@ function filterIdToColumn(filter: Filter[keyof Filter]) {
 			return "extra_visitor ->> relation";
 		case "visit-creation-datetime":
 			return "created_at";
+		case "visit-datetime":
+			return "datetime";
 	}
 }

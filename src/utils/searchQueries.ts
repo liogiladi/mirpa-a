@@ -27,11 +27,14 @@ export const filters = {
 		"phone-number",
 		"familial-realtion",
 	],
-	visit: ["creation-datetime"],
+	visit: ["creation-datetime", "datetime"],
 } as const;
 export type Filter = {
 	[R in keyof typeof filters]: `${R}-${(typeof filters)[R][number]}`;
 };
+
+const visitStatuses = ["pending", "rejected"] as const;
+export type VisitStatus = (typeof visitStatuses)[number];
 
 export const SEARCH_QUERIES = {
 	dateFilterType: {
@@ -59,4 +62,17 @@ export const SEARCH_QUERIES = {
 	filters: {
 		name: "filters",
 	},
+	status: {
+		name: "status",
+		values: visitStatuses,
+	},
 } as const;
+
+export function getUpdatedSearchParamsURL(
+	currentParams: URLSearchParams,
+	updateCallback: (params: URLSearchParams) => void
+): string {
+	const params = new URLSearchParams(currentParams);
+	updateCallback(params);
+	return params.toString();
+}

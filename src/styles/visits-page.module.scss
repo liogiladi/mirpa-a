@@ -1,32 +1,41 @@
-@use "../colors";
+@use "../app/colors";
 
-#upcoming-visits-page {
+.visits-page {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 
-	#buttons {
+	.buttons {
 		position: absolute;
 		display: flex;
-		justify-content: space-between;
+		justify-content: end;
 		width: calc(100% - 3rem);
 
 		> section {
 			display: flex;
 			gap: 0.5rem;
 		}
+
+		&:has(section > form) {
+			justify-content: space-between;
+		}
 	}
 }
 
-@at-root [data-mobile="true"] #upcoming-visits-page {
+@at-root [data-mobile="true"] .visits-page {
 	padding: 0;
 
-	#buttons {
+	.buttons {
 		bottom: 0;
 		justify-content: space-evenly;
 		width: 100%;
 		padding-block: 0.5rem;
 		border-top: 1px solid colors.$light-gray;
+
+		> section {
+			justify-content: space-evenly;
+			width: 100%;
+		}
 
 		> button {
 			font-size: 0.9rem;

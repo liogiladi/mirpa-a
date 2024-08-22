@@ -1,4 +1,7 @@
-export function taintObj<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+export function taintObj<T, K extends keyof T>(
+	obj: T,
+	keys: K[]
+): OmitProperties<T, K> {
 	const tainted = { ...obj };
 
 	for (const key of keys) {

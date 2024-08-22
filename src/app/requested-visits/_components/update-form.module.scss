@@ -1,0 +1,48 @@
+@use "@/app/colors";
+
+.update-form {
+	padding-bottom: 1.4rem;
+	padding-inline: 1rem;
+
+	button {
+		padding: 0.3rem 1.5rem;
+		font-size: 1rem;
+	}
+}
+
+#approve-form {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
+
+#reject-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 1rem;
+
+	section {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	label,
+	input {
+		font-size: 0.9rem;
+		margin-bottom: 0;
+	}
+}
+
+@at-root [data-mobile="true"] .update-form {
+	width: 100%;
+	height: fit-content;
+	padding-block: 0.25rem;
+	border-top: 1px solid colors.$light-gray;
+	transition: height 0.1s;
+
+	input {
+		margin-bottom: 1rem !important;
+	}
+}
