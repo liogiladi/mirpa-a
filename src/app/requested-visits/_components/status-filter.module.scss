@@ -1,32 +1,9 @@
-@use "../../colors";
+@use "@/app/colors";
 
 #status-filter {
 	position: relative;
 	width: clamp(16.875rem, 26%, 20.875rem);
 	align-self: center;
-
-	form {
-		position: absolute;
-		z-index: 1;
-		top: 2.5rem;
-		left: 50%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		width: 80%;
-		height: fit-content;
-		padding: 1rem;
-		border: 1px solid colors.$gray;
-		border-radius: 5px;
-		background: white;
-		aspect-ratio: 20 / 9;
-		translate: -85%;
-
-		&[data-open="false"] {
-			display: none;
-		}
-	}
 }
 
 @at-root [data-mobile="true"] #status-filter {
@@ -34,10 +11,5 @@
 
 	ul {
 		border: 0;
-	}
-
-	form {
-		top: 3.5rem;
-		translate: -50%;
 	}
 }

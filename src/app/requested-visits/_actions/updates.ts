@@ -44,7 +44,8 @@ export async function rejectRequest(visitId: string, formData: FormData) {
 	const { error } = await db
 		.from("visits")
 		.update({ approved: false, rejection_reason: rejectionReason })
-		.eq("id", visitId);
+		.eq("id", visitId)
+		.is("approved", null);
 
 	if (error) {
 		//TODO: Global log error

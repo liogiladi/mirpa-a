@@ -60,6 +60,7 @@ export default class Visits {
 		let query = db
 			.from("joined_visits")
 			.select("*")
+			.gte("datetime", getDateString(new Date()))
 			.is("approved", status === "pending" ? null : false);
 
 		if (filters) {

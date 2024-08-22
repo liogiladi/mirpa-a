@@ -47,7 +47,10 @@ export default function VisitRows({ type, visits }: Props) {
 						getDateString(date, { format: true }),
 						getTimeString(date),
 						["upcoming", "requested-rejected"].includes(type) ? (
-							<InfoIcon />
+							<InfoIcon
+								key={visit.id}
+								onClick={() => openInfoModal(index)}
+							/>
 						) : (
 							<RowArrow
 								key={visit.id}

@@ -89,11 +89,6 @@ export class Assertions {
 
 		assert(validFilters, "Invalid filters");
 
-		const filtersQuery = params.get(SEARCH_QUERIES.filters.name);
-		if (filtersQuery && JSON.parse(filtersQuery) instanceof Array) {
-			console.log(JSON.parse(filtersQuery));
-		}
-
 		assert(
 			!params.get(SEARCH_QUERIES.sortBy.name) ||
 				(SEARCH_QUERIES.sortBy.values.includes(

@@ -3,10 +3,10 @@ import styles from "./update-form.module.scss";
 
 import { approveRequest, rejectRequest } from "../_actions/updates";
 import { useDetectMobile } from "@/contexts/detectMobile";
+import Validations from "@/utils/validations";
 
 import Button from "@/components/theme/Button";
 import Input from "@/components/theme/Input";
-import Validations from "@/utils/validations";
 
 type Props = {
 	visitId: string;
