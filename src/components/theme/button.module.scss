@@ -14,7 +14,7 @@
 		color: colors.$primary;
 	}
 
-	&.error {
+	&.warning {
 		color: colors.$error;
 	}
 
@@ -41,7 +41,7 @@
 			outline-color: colors.$primary;
 		}
 
-		&.error {
+		&.warning {
 			background-color: colors.$error;
 			outline-color: colors.$error;
 		}

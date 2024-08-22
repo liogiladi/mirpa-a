@@ -38,6 +38,7 @@ export default memo(function Input({
 				ref={inputRef}
 				id={id}
 				name={id}
+				placeholder="הזן כאן..."
 				onInput={(e) => {
 					if (inputRef.current?.dataset[INVALID_INPUT_DATA_KEY]) {
 						delete inputRef.current.dataset[INVALID_INPUT_DATA_KEY];

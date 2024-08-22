@@ -34,5 +34,5 @@ export default async function RequestedVisitRows({ searchParams }: Props) {
 				: undefined,
 	});
 
-	return <VisitRows type="upcoming" visits={visits || []} />;
+	return <VisitRows type="requested" visits={visits || []} />;
 }

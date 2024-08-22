@@ -12,6 +12,7 @@ import List from "../List";
 import XIcon from "../icons/XIcon";
 
 import { VisitType } from "./VisitRows";
+import UpdateForm from "@/app/requested-visits/_components/UpdateForm";
 
 type Props = {
 	type: VisitType;
@@ -30,7 +31,7 @@ function infoToElement(label: string, value: string | null | undefined) {
 	);
 }
 
-export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
+export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 	const isMobile = useDetectMobile();
 	const infoModalRef = useRef<HTMLDialogElement>(null);
 
@@ -142,6 +143,9 @@ export default function VisitInfoDialog({ visitInfo, onClose }: Props) {
 						</section>
 					</>
 				))}
+			{type === "requested" && visitInfo && (
+				<UpdateForm visitId={visitInfo.id} />
+			)}
 		</Dialog>
 	);
 }
