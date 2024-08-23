@@ -1,0 +1,38 @@
+@use "@/styles/colors";
+
+#patients-form {
+	display: grid;
+	grid-template-rows: 1fr auto;
+
+	#buttons {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+
+		button {
+			font-size: 1rem;
+		}
+
+		button:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+
+			&:hover {
+				outline-color: transparent;
+			}
+		}
+	}
+}
+
+@at-root [data-mobile="true"] #patients-form {
+	height: 100%;
+
+	> section:first-of-type {
+		width: 100%;
+		overflow: auto;
+
+		table tr:has(input[type="checkbox"]:checked) {
+			outline: 2px solid colors.$primary;
+		}
+	}
+}

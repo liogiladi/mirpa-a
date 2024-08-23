@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 
 import db from "@/server/db";
 import Validations from "@/utils/validations";
+import { PatientInfoToDelete } from "@/app/patients-management/_components/PatientsForm";
 
 export async function approveRequest(visitId: string) {
 	if (!Validations.uuid.test(visitId)) {
@@ -53,6 +54,27 @@ export async function rejectRequest(visitId: string, formData: FormData) {
 	}
 
 	//TODO: Notify user
+
+	revalidatePath(headers().get("referer")!);
+}
+
+export async function deletePatients(selectedPatientCIDs: string[]) {
+	if (selectedPatientCIDs.length === 0) {
+		throw new Error("לא נבחרו מטופלים למחיקה");
+	}
+
+	let query = db.from("patients").delete();
+
+	for (const cid of selectedPatientCIDs) {
+		query = query.or(`cid.eq.${cid}`);
+	}
+
+	const { error } = await query;
+
+	if (error) {
+		//TODO: Global log error
+		throw error;
+	}
 
 	revalidatePath(headers().get("referer")!);
 }

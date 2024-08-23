@@ -48,6 +48,14 @@
 			padding: 0.9em 1em;
 		}
 	}
+
+	input[type="checkbox"] {
+		display: block;
+		width: 1.2rem;
+		margin: auto;
+		aspect-ratio: 1;
+		accent-color: black;
+	}
 }
 
 @at-root [data-mobile="true"] .table {
