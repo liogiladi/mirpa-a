@@ -15,6 +15,7 @@ import Table from "@/components/theme/Table";
 import Button from "@/components/theme/Button";
 import DeleteAlertDialog from "../DeleteAlertDialog";
 import { useDetectMobile } from "@/contexts/detectMobile";
+import Link from "next/link";
 
 export type PatientInfoToDelete = Pick<
 	Tables<"patients">,
@@ -120,14 +121,15 @@ export default function PatientsForm({ data }: Props) {
 				/>
 			</section>
 			<section id={styles.buttons} className={visitsPageStyles.buttons}>
-				<Button
-					type="button"
-					variant="outline"
-					colorVariant="primary"
-					onClick={() => router.replace("/patients-management/add")}
-				>
-					הוספה
-				</Button>
+				<Link href={"/patients-management/add"}>
+					<Button
+						type="button"
+						variant="outline"
+						colorVariant="primary"
+					>
+						הוספה
+					</Button>
+				</Link>
 				<Button
 					type="button"
 					variant="outline"

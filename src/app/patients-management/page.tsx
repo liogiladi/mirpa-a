@@ -3,7 +3,6 @@ import styles from "./page.module.scss";
 import { SearchParams } from "@/utils/types";
 
 import LoadingDataFallback from "@/components/general/LoadingDataFallback";
-import PageHeading from "@/components/general/PageHeading";
 import PatientsData from "./_components/PatientsData";
 
 type Props = {
@@ -13,7 +12,7 @@ type Props = {
 export default async function PatientsManagement({ searchParams }: Props) {
 	return (
 		<main id={styles["patients-management"]}>
-			<PageHeading>ניהול מטופלים</PageHeading>
+			<h1>ניהול מטופלים</h1>
 			<Suspense fallback={<LoadingDataFallback />}>
 				<PatientsData searchParams={searchParams} />
 			</Suspense>
