@@ -5,6 +5,7 @@ import visitPageStyles from "@/styles/visits-page.module.scss";
 
 import Input from "@/components/theme/Input";
 import Button from "@/components/theme/Button";
+import FileInput from "@/components/theme/FileInput";
 
 type Props = {};
 
@@ -34,7 +35,11 @@ export default function AddPatient({}: Props) {
 							label={"תאריך לידה"}
 							required
 						/>
-						{/** TODO: Picture */}
+						<FileInput
+							id="profile-pic"
+							label={"תמונה"}
+							accept="image/*"
+						/>
 						<Input id={"address"} label={"כתובת מגורים"} />
 					</fieldset>
 					<fieldset>

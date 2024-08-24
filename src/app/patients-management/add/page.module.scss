@@ -51,8 +51,12 @@
 				font-weight: 500;
 			}
 
-			label {
+			> label,
+			> div > label:first-of-type {
 				font-size: 1rem;
+			}
+
+			> *:not(legend) {
 				width: 30%;
 			}
 		}
@@ -98,7 +102,7 @@
 				flex-direction: column;
 				flex-wrap: wrap;
 
-				label {
+				> * {
 					width: 100%;
 				}
 			}

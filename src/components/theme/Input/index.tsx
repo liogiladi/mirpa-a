@@ -18,6 +18,7 @@ type Props = {
 export const INVALID_INPUT_DATA_KEY = "invalid";
 
 export default memo(function Input({
+	type = "text",
 	id,
 	label,
 	className = "",
@@ -59,6 +60,8 @@ export default memo(function Input({
 							setShowClearButton(false);
 					}
 				}}
+				hidden={type === "file"}
+				type={type}
 				{...props}
 			/>
 			{enableClearButton && (props.defaultValue || showClearButton) && (
