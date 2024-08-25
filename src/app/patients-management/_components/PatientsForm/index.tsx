@@ -81,6 +81,10 @@ export default function PatientsForm({ data }: Props) {
 						height={30}
 						src={patient.profilePictureURL}
 						alt="patient profile pic"
+						onError={(e) =>
+							(e.currentTarget.src = "/default-profile-pic.png")
+						}
+						unoptimized
 					/>,
 					patient.first_name,
 					patient.last_name,

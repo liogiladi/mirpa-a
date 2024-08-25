@@ -138,6 +138,10 @@ export async function addPatient(signatureBase64: string, formData: FormData) {
 	const profilePicFile: File | null =
 		(formData.get("profile-pic")?.valueOf() as File) || null;
 
+	if (profilePicFile && profilePicFile.size > 1024 * 1024 * 3) {
+		throw new Error('גודל קובץ לא יכול לעלות על 10 מ"ב');
+	}
+
 	let profilePicPath = null;
 
 	if (profilePicFile.size > 0) {

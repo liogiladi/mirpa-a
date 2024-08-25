@@ -70,6 +70,7 @@ export default function AddPatient() {
 							name="profile-pic"
 							label={"תמונה"}
 							accept="image/*"
+							maxFileSizeMB={3}
 						/>
 						<Input
 							id={"address"}

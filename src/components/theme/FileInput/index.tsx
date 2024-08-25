@@ -6,12 +6,19 @@ type Props = {
 	id: string;
 	label: string;
 	onChange?(e: ChangeEvent<HTMLInputElement>): void;
+	maxFileSizeMB: number;
 } & OmitProperties<
 	HTMLProps<HTMLInputElement>,
 	"id" | "label" | "onChange" | "type" | "hidden"
 >;
 
-export default function FileInput({ id, label, onChange, ...props }: Props) {
+export default function FileInput({
+	id,
+	label,
+	onChange,
+	maxFileSizeMB,
+	...props
+}: Props) {
 	const [selectedFileName, setSelectedFileName] = useState("");
 
 	return (
@@ -24,7 +31,13 @@ export default function FileInput({ id, label, onChange, ...props }: Props) {
 					const file = e.target.files?.[0];
 
 					if (file) {
-						setSelectedFileName(file.name);
+						if (file.size > 1024 * 1024 * maxFileSizeMB) {
+							e.currentTarget.value = "";
+							setSelectedFileName("");
+
+							//TODO: Error Toast
+							alert("WA!");
+						} else setSelectedFileName(file.name);
 					}
 
 					onChange?.(e);
