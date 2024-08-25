@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { NextRequest } from "next/server";
 import { assert } from "console";
 import { chromium } from "playwright";
 import { Readable } from "stream";
@@ -10,6 +9,7 @@ import { Tables } from "@/server/db.types";
 
 import { getDateString, getTimeString } from "@/utils/dates";
 import Validations from "@/utils/validations";
+import { SearchParamsParamater } from "@/utils/types";
 
 import FullLogoIcon from "@/components/icons/FullLogoIcon";
 import PDFPage from "@/components/pdf/PDFPage";
@@ -23,19 +23,18 @@ const PATIENT_INFO_TO_LABELS: Partial<
 	birth_date: "תאריך לידה",
 });
 
-export async function GET(
-	req: NextRequest,
-	{ params }: { params: { cid: string } }
-) {
+export async function GET({
+	searchParams,
+}: SearchParamsParamater<{ cid: string }>) {
 	assert(
-		params.cid && Validations.cid(params.cid),
+		searchParams.cid && Validations.cid(searchParams.cid),
 		"invalid patient's state id"
 	);
 
 	const { data: patient, error } = await db
 		.from("patients")
 		.select()
-		.eq("cid", params.cid)
+		.eq("cid", searchParams.cid)
 		.single();
 
 	if (error || !patient) {
@@ -163,12 +162,6 @@ export async function GET(
 	const stream = readableToReadableStream(Readable.from(buffer));
 
 	const filename = `patient-reception-report-${patient.cid}`;
-
-	if (/[!@%\/\/\*\?\|:]/.test(filename)) {
-		throw new Error(
-			"file name cannot contain the following: !, @, %, /, \\, ?, *, :, |"
-		);
-	}
 
 	const response = new Response(stream, {
 		headers: {
