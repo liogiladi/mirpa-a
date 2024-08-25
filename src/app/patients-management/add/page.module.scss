@@ -1,0 +1,116 @@
+@use "@/styles/colors";
+
+#add-patient {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	width: min(50rem, 100%);
+	overflow: hidden;
+
+	header {
+		display: flex;
+		gap: 0.5rem;
+		margin-bottom: 2rem;
+
+		h2 {
+			font-weight: 600;
+		}
+
+		button {
+			width: 2rem;
+			height: 2rem;
+			padding-inline: rem;
+			border: 0;
+			color: colors.$primary;
+			background: none;
+			font-size: 1.5rem;
+			font-weight: 700;
+			cursor: pointer;
+		}
+	}
+
+	form {
+		display: grid;
+		grid-template-rows: 1fr auto;
+
+		section fieldset {
+			padding-block: 1.5rem;
+			border: 0;
+			border-top-width: 0px;
+			border-top-style: none;
+			border-top-color: currentcolor;
+			border-top: 1px solid lightgray;
+			font-size: 1rem;
+			display: flex;
+			gap: 1rem;
+			flex-wrap: wrap;
+			justify-content: space-between;
+
+			legend {
+				font-size: 1.3rem;
+				padding-left: 1rem;
+				font-weight: 500;
+			}
+
+			> label,
+			> div > label:first-of-type {
+				font-size: 1rem;
+			}
+
+			> *:not(legend) {
+				width: 30%;
+			}
+		}
+
+		section:nth-of-type(2) {
+			display: flex;
+			justify-content: center;
+
+			button {
+				font-size: 1.1rem;
+			}
+		}
+	}
+
+	fieldset:nth-of-type(2) {
+		justify-content: unset;
+		gap: 2.1rem;
+	}
+}
+
+@at-root [data-mobile="false"] #add-patient {
+	h1 {
+		display: none;
+	}
+}
+
+@at-root [data-mobile="true"] #add-patient {
+	padding: 0;
+
+	header {
+		padding: 1.3rem;
+		padding-bottom: 0;
+
+		button {
+			width: unset;
+			padding-left: 0.6rem;
+		}
+	}
+
+	form {
+		overflow: hidden;
+
+		section:first-of-type {
+			overflow: auto;
+			padding: 1.3rem;
+
+			fieldset {
+				flex-direction: column;
+				flex-wrap: wrap;
+
+				> * {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

@@ -17,18 +17,20 @@ export type Database = {
           created_at: string
           first_name: string
           last_name: string
-          profile_img_id: string | null
+          profile_img_bucket_path: string | null
           receiver_id: string
+          reciever_signature_img_bucket_path: string | null
         }
         Insert: {
           address?: string | null
           birth_date: string
           cid: string
-          created_at: string
+          created_at?: string
           first_name: string
           last_name: string
-          profile_img_id?: string | null
+          profile_img_bucket_path?: string | null
           receiver_id: string
+          reciever_signature_img_bucket_path?: string | null
         }
         Update: {
           address?: string | null
@@ -37,8 +39,9 @@ export type Database = {
           created_at?: string
           first_name?: string
           last_name?: string
-          profile_img_id?: string | null
+          profile_img_bucket_path?: string | null
           receiver_id?: string
+          reciever_signature_img_bucket_path?: string | null
         }
         Relationships: []
       }
@@ -85,7 +88,7 @@ export type Database = {
         }
         Insert: {
           approved?: boolean | null
-          created_at: string
+          created_at?: string
           datetime: string
           extra_visitor_id?: string | null
           id?: string

@@ -1,0 +1,13 @@
+#patients-management {
+	display: grid;
+	min-width: 50rem;
+	width: fit-content;
+	grid-template-rows: auto 1fr;
+}
+
+@at-root [data-mobile="true"] #patients-management {
+	grid-template-rows: 1fr;
+	width: 100%;
+	min-width: 0;
+	padding: 0;
+}

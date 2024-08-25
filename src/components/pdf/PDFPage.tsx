@@ -2,15 +2,20 @@
 /* eslint-disable @next/next/no-head-element */
 import "server-only";
 
-import { PropsWithChildren } from "react";
+import { CSSProperties, PropsWithChildren } from "react";
 import { getDateString, getTimeString } from "@/utils/dates";
 import FullLogoIcon from "@/components/icons/FullLogoIcon";
 
 type Props = {
 	title: string;
+	bodyStyle?: CSSProperties;
 };
 
-export default function PDFPage({ title, children }: PropsWithChildren<Props>) {
+export default function PDFPage({
+	title,
+	children,
+	bodyStyle,
+}: PropsWithChildren<Props>) {
 	const now = new Date();
 
 	return (
@@ -18,7 +23,7 @@ export default function PDFPage({ title, children }: PropsWithChildren<Props>) {
 			<head>
 				<title>{`המרפאה | ${title}`}</title>
 			</head>
-			<body>
+			<body style={bodyStyle}>
 				<header>
 					<div>
 						<h1>{title}</h1>

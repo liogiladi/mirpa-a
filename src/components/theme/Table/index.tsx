@@ -9,12 +9,14 @@ type Props<Width extends number> = {
 	columns: TupleOfLength<string, Width>;
 	rows: TupleOfLength<ReactNode | null, Width>[];
 	className?: string;
+	onRowClick?: (rowData: TupleOfLength<string, Width>) => void;
 };
 
 export default genericMemo(function Table<Width extends number>({
 	columns,
 	rows,
 	className = "",
+	onRowClick,
 }: Props<Width>) {
 	return (
 		<table className={`table ${className}`}>
@@ -27,7 +29,7 @@ export default genericMemo(function Table<Width extends number>({
 			</thead>
 			<tbody>
 				{rows.map((row, i) => (
-					<tr key={i}>
+					<tr key={i} onClick={(e) => onRowClick?.(row)}>
 						{(row as string[]).map((item, j) => (
 							<td key={`${i},${j}`}>{item || "-"}</td>
 						))}

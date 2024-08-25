@@ -22,8 +22,10 @@
 	}
 }
 
-@at-root [data-mobile="true"] .visits-page {
-	padding: 0;
+@at-root [data-mobile="true"] {
+	.visits-page {
+		padding: 0;
+	}
 
 	.buttons {
 		bottom: 0;

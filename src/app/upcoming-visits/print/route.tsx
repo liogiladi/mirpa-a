@@ -124,9 +124,9 @@ export async function GET(req: NextRequest) {
 		path: "./public/heebo.css",
 	});
 	await page.addStyleTag({
-		path: "./src/app/pdf-document.scss",
+		path: "./src/styles/pdf-document.scss",
 	});
-	await page.addStyleTag({ path: "./src/components/Table/table.scss" });
+	await page.addStyleTag({ path: "./src/components/theme/Table/table.scss" });
 
 	const buffer = await page.pdf({
 		format: "A4",

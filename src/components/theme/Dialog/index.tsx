@@ -1,4 +1,5 @@
 import {
+	HTMLProps,
 	MouseEventHandler,
 	PropsWithChildren,
 	ReactEventHandler,
@@ -13,7 +14,7 @@ type Props = {
 	closeOnBackdropClick: boolean;
 	className?: string;
 	onClose?: ReactEventHandler<HTMLDialogElement>;
-};
+} & Omit<HTMLProps<HTMLDialogElement>, "className" | "onClose" | "onClick">;
 
 export default function Dialog({
 	dialogRef,
@@ -21,6 +22,7 @@ export default function Dialog({
 	className = "",
 	onClose,
 	children,
+	...props
 }: PropsWithChildren<Props>) {
 	const handleBackdropClick: MouseEventHandler = useCallback(
 		(e) => {
@@ -46,6 +48,7 @@ export default function Dialog({
 			className={`${styles.dialog} ${className}`}
 			onClick={handleBackdropClick}
 			onClose={onClose}
+			{...props}
 		>
 			{children}
 		</dialog>

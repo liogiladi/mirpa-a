@@ -1,0 +1,13 @@
+.file-input {
+	label:nth-of-type(2) {
+		display: block;
+		border-bottom: 1px solid;
+		padding-block: 0.15rem;
+		margin-bottom: 1rem;
+		font-size: 0.9rem;
+		text-overflow: ellipsis;
+		text-wrap: nowrap;
+		overflow: hidden;
+		cursor: pointer;
+	}
+}
