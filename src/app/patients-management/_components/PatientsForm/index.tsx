@@ -61,7 +61,7 @@ export default function PatientsForm({ data }: Props) {
 		[selectedPatientCIDs]
 	);
 
-	const rows: TupleOfLength<ReactNode, 9>[] = useMemo(
+	const rows: TupleOfLength<ReactNode, 10>[] = useMemo(
 		() =>
 			data.map((patient) => {
 				const creationDate = new Date(patient.created_at);
@@ -89,6 +89,13 @@ export default function PatientsForm({ data }: Props) {
 					getDateString(creationDate, { format: true }),
 					getTimeString(creationDate),
 					patient.address,
+					<Link
+						key={`report-${patient.cid}`}
+						href={`/patients-management/reception-report/${patient.cid}`}
+						target="_blank"
+					>
+						צפייה
+					</Link>,
 				];
 			}),
 		[data, handleRowSelectionToggle, isMobile, selectedPatientCIDs]
@@ -101,14 +108,17 @@ export default function PatientsForm({ data }: Props) {
 				null,
 				Array.from(selectedPatientCIDs.keys())
 			)}
-			onSubmit={() => deleteDialogRef.current?.close()}
+			onSubmit={() => {
+				deleteDialogRef.current?.close();
+				setSelectedPatientCIDs(new Map());
+			}}
 		>
 			{data.length === 0 ? (
 				<span>אין מטופלים בעת זו</span>
 			) : (
 				<section>
 					<Table
-						width={9}
+						width={10}
 						columns={[
 							"",
 							"תמונה",
@@ -119,6 +129,7 @@ export default function PatientsForm({ data }: Props) {
 							"תאריך קליטה",
 							"שעת קליטה",
 							"כתובת",
+							`דו"ח קליטה`,
 						]}
 						rows={rows}
 						onRowClick={(rowData) => {
