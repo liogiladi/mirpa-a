@@ -25,17 +25,17 @@ const PATIENT_INFO_TO_LABELS: Partial<
 
 export async function GET(
 	_: Request,
-	{ searchParams }: SearchParamsParamater<{ cid: string }>
+	{ params }: SearchParamsParamater<{ cid: string }>
 ) {
 	assert(
-		searchParams.cid && Validations.cid(searchParams.cid),
+		params.cid && Validations.cid(params.cid),
 		"invalid patient's state id"
 	);
 
 	const { data: patient, error } = await db
 		.from("patients")
 		.select()
-		.eq("cid", searchParams.cid)
+		.eq("cid", params.cid)
 		.single();
 
 	if (error || !patient) {

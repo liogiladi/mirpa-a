@@ -10,6 +10,7 @@ import { addPatient } from "@/server/actions";
 
 import Validations from "@/utils/validations";
 import { getDateString } from "@/utils/dates";
+import { useDetectMobile } from "@/contexts/detectMobile";
 
 import Input from "@/components/theme/Input";
 import Button from "@/components/theme/Button";
@@ -17,8 +18,8 @@ import FileInput from "@/components/theme/FileInput";
 import Signature from "@/components/theme/Signature";
 
 export default function AddPatient() {
+	const isMobile = useDetectMobile();
 	const signatureDataRef = useRef<string>("");
-
 	const userId = v4();
 
 	return (
@@ -97,7 +98,10 @@ export default function AddPatient() {
 					</fieldset>
 				</section>
 				<section className={visitPageStyles.buttons}>
-					<Button variant={"filled"} colorVariant="primary">
+					<Button
+						variant={isMobile ? "outline" : "filled"}
+						colorVariant="primary"
+					>
 						הוספה
 					</Button>
 				</section>
