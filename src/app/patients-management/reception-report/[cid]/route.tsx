@@ -91,15 +91,23 @@ export async function GET(
 						alt="profile-pic"
 					/>
 					<section>
-						{new Array(10).fill(<span></span>)}
+						{new Array(10).fill(0).map((_, index) => (
+							<span key={`upper-spans-${index}`}></span>
+						))}
 						<span>
 							<strong>כתובת מגורים:</strong>
 							{patient.address || "אין נתון"}
 						</span>
-						{new Array(10).fill(<span></span>)}
+						{new Array(10).fill(0).map((_, index) => (
+							<span key={`lower-spans-${index}`}></span>
+						))}
 					</section>
 				</section>
-				<section>{new Array(43).fill(<span></span>)}</section>
+				<section>
+					{new Array(43).fill(0).map((_, index) => (
+						<span key={`body-spans-${index}`}></span>
+					))}
+				</section>
 			</section>
 			<section id="receiever-info">
 				<span>
