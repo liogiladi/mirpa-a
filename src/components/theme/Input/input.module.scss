@@ -16,7 +16,7 @@
 		}
 	}
 
-	&:has(input:is(:disabled, :read-only)) {
+	&:has(input:is(:disabled, :read-only:not([hidden]))) {
 		opacity: 0.5;
 	}
 

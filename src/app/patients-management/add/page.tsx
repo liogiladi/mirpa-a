@@ -9,6 +9,8 @@ import visitPageStyles from "@/styles/visits-page.module.scss";
 import { addPatient } from "@/server/actions";
 
 import Validations from "@/utils/validations";
+import { getDateString } from "@/utils/dates";
+
 import Input from "@/components/theme/Input";
 import Button from "@/components/theme/Button";
 import FileInput from "@/components/theme/FileInput";
@@ -60,6 +62,7 @@ export default function AddPatient() {
 							id={"birth-date"}
 							name={"birth-date"}
 							label={"תאריך לידה"}
+							max={getDateString(new Date())}
 							required
 						/>
 						<FileInput
