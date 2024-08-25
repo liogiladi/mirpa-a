@@ -23,9 +23,10 @@ const PATIENT_INFO_TO_LABELS: Partial<
 	birth_date: "תאריך לידה",
 });
 
-export async function GET({
-	searchParams,
-}: SearchParamsParamater<{ cid: string }>) {
+export async function GET(
+	_: Request,
+	{ searchParams }: SearchParamsParamater<{ cid: string }>
+) {
 	assert(
 		searchParams.cid && Validations.cid(searchParams.cid),
 		"invalid patient's state id"
