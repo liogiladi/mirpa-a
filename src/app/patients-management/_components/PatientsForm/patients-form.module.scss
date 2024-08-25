@@ -4,6 +4,13 @@
 	display: grid;
 	grid-template-rows: 1fr auto;
 
+	> span {
+		color: lightgray;
+		text-align: center;
+		font-size: 1rem;
+		font-weight: 600;
+	}
+
 	img {
 		display: block;
 		height: 100%;
