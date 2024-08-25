@@ -4,6 +4,7 @@ export default class Validations {
 	static hebrew: RegExp = /^[א-ת]{1,}$/;
 	static hebrewDescription = /^[א-ת\d ,.]{0,}$/;
 	static hebrewName: RegExp = /^[א-ת]{2,12}$/;
+	static address: RegExp = /^[\d א-ת]{2,12}$/;
 	static phoneNumber: RegExp = /^0?(([23489]{1}[0-9]{7})|[57]{1}[0-9]{8})+$/;
 	static email: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 	static cid(value: string): boolean {

@@ -16,6 +16,10 @@
 		}
 	}
 
+	&:has(input:is(:disabled, :read-only)) {
+		opacity: 0.5;
+	}
+
 	input {
 		font-family: Heebo;
 		border: 0;

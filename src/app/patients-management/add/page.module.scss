@@ -70,6 +70,11 @@
 			}
 		}
 	}
+
+	fieldset:nth-of-type(2) {
+		justify-content: unset;
+		gap: 2.1rem;
+	}
 }
 
 @at-root [data-mobile="false"] #add-patient {

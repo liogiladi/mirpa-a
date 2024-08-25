@@ -4,6 +4,14 @@
 	display: grid;
 	grid-template-rows: 1fr auto;
 
+	img {
+		display: block;
+		height: 100%;
+		border-radius: 50%;
+		margin: auto;
+		aspect-ratio: 1;
+	}
+
 	#buttons {
 		display: flex;
 		justify-content: center;

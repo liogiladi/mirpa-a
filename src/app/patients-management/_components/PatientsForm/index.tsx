@@ -16,14 +16,17 @@ import Button from "@/components/theme/Button";
 import DeleteAlertDialog from "../DeleteAlertDialog";
 import { useDetectMobile } from "@/contexts/detectMobile";
 import Link from "next/link";
+import Image from "next/image";
 
 export type PatientInfoToDelete = Pick<
 	Tables<"patients">,
 	"first_name" | "last_name"
 >;
 
+export type PatientData = Tables<"patients"> & { profilePictureURL: string };
+
 type Props = {
-	data: Tables<"patients">[];
+	data: PatientData[];
 };
 
 export default function PatientsForm({ data }: Props) {
@@ -72,7 +75,13 @@ export default function PatientsForm({ data }: Props) {
 							if (!isMobile) handleRowSelectionToggle(patient);
 						}}
 					/>,
-					null,
+					<Image
+						key={patient.cid}
+						width={30}
+						height={30}
+						src={patient.profilePictureURL}
+						alt="patient profile pic"
+					/>,
 					patient.first_name,
 					patient.last_name,
 					patient.cid,
@@ -94,32 +103,37 @@ export default function PatientsForm({ data }: Props) {
 			)}
 			onSubmit={() => deleteDialogRef.current?.close()}
 		>
-			<section>
-				<Table
-					width={9}
-					columns={[
-						"",
-						"תמונה",
-						"שם פרטי",
-						"שם משפחה",
-						"תעודת זהות",
-						"גיל",
-						"תאריך קליטה",
-						"שעת קליטה",
-						"כתובת",
-					]}
-					rows={rows}
-					onRowClick={(rowData) => {
-						if (isMobile) {
-							handleRowSelectionToggle({
-								first_name: rowData[2],
-								last_name: rowData[3],
-								cid: rowData[4],
-							});
-						}
-					}}
-				/>
-			</section>
+			{data.length === 0 ? (
+				<span>אין מטופלים בעת זו</span>
+			) : (
+				<section>
+					<Table
+						width={9}
+						columns={[
+							"",
+							"תמונה",
+							"שם פרטי",
+							"שם משפחה",
+							"תעודת זהות",
+							"גיל",
+							"תאריך קליטה",
+							"שעת קליטה",
+							"כתובת",
+						]}
+						rows={rows}
+						onRowClick={(rowData) => {
+							if (isMobile) {
+								handleRowSelectionToggle({
+									first_name: rowData[2],
+									last_name: rowData[3],
+									cid: rowData[4],
+								});
+							}
+						}}
+					/>
+				</section>
+			)}
+
 			<section id={styles.buttons} className={visitsPageStyles.buttons}>
 				<Link href={"/patients-management/add"}>
 					<Button
