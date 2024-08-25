@@ -10,9 +10,10 @@ import visitsPageStyles from "@/styles/visits-page.module.scss";
 import { Tables } from "@/server/db.types";
 import { deletePatients } from "@/server/actions";
 
-import { useDetectMobile } from "@/contexts/detectMobile";
+import toast from "react-hot-toast";
 import { getDateString, getTimeString } from "@/utils/dates";
 import { TupleOfLength } from "@/utils/types";
+import { useDetectMobile } from "@/contexts/detectMobile";
 
 import Table from "@/components/theme/Table";
 import Button from "@/components/theme/Button";
@@ -108,10 +109,15 @@ export default function PatientsForm({ data }: Props) {
 	return (
 		<form
 			id={styles["patients-form"]}
-			action={deletePatients.bind(
-				null,
-				Array.from(selectedPatientCIDs.keys())
-			)}
+			action={async () => {
+				try {
+					await deletePatients(
+						Array.from(selectedPatientCIDs.keys())
+					);
+				} catch (error) {
+					toast.error((error as Error).message);
+				}
+			}}
 			onSubmit={() => {
 				deleteDialogRef.current?.close();
 				setSelectedPatientCIDs(new Map());

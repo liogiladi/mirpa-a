@@ -10,8 +10,7 @@ export default async function PatientsData({ searchParams }: Props) {
 	const { data, error } = await db.from("patients").select("*");
 
 	if (error || !data) {
-		//TODO: Error page 500
-		return;
+		throw error;
 	}
 
 	const dataWithProfilePictures: PatientData[] = [];

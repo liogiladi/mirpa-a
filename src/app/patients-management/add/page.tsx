@@ -8,11 +8,12 @@ import visitPageStyles from "@/styles/visits-page.module.scss";
 
 import { addPatient } from "@/server/actions";
 
+import toast from "react-hot-toast";
 import Validations from "@/utils/validations";
 import { getDateString } from "@/utils/dates";
 import { useDetectMobile } from "@/contexts/detectMobile";
 
-import Input from "@/components/theme/Input";
+import Input, { INVALID_INPUT_DATA_KEY } from "@/components/theme/Input";
 import Button from "@/components/theme/Button";
 import FileInput from "@/components/theme/FileInput";
 import Signature from "@/components/theme/Signature";
@@ -31,7 +32,32 @@ export default function AddPatient() {
 			</header>
 			<form
 				action={async (data) => {
-					await addPatient(signatureDataRef.current, data);
+					try {
+						const invalidInputsNames = await addPatient(
+							signatureDataRef.current,
+							data
+						);
+
+						if (invalidInputsNames.length > 0) {
+							invalidInputsNames.forEach((name) => {
+								const input =
+									document.querySelector<HTMLInputElement>(
+										`input[name=${name}]`
+									);
+
+								if (input) {
+									input.dataset[INVALID_INPUT_DATA_KEY] =
+										"true";
+								}
+							});
+
+							toast.error("חלק מהשדות שהוזנו אינו תקין");
+						}
+					} catch (error) {
+						if (!(error as Error).message) {
+							//TODO: error page
+						} else toast.error((error as Error).message);
+					}
 				}}
 			>
 				<section>
@@ -41,7 +67,6 @@ export default function AddPatient() {
 							id={"first-name"}
 							name={"first-name"}
 							label={"שם פרטי"}
-							pattern={Validations.hebrewName.source}
 							required
 						/>
 						<Input

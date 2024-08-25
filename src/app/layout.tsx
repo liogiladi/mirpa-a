@@ -4,6 +4,8 @@ import "@/styles/globals.scss";
 import { isMobileNodeJS } from "@/utils/mobile";
 
 import { DetectMobileContextProvider } from "@/contexts/detectMobile";
+
+import { Toaster } from "react-hot-toast";
 import Header from "@/components/theme/Header";
 
 export const metadata: Metadata = {
@@ -24,6 +26,7 @@ export default async function RootLayout({
 					<Header isMobile={isMobile} />
 					{children}
 				</DetectMobileContextProvider>
+				<Toaster />
 			</body>
 		</html>
 	);

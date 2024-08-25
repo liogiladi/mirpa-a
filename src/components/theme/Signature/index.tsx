@@ -1,11 +1,9 @@
 import React, {
-	forwardRef,
 	memo,
 	MouseEventHandler,
 	MutableRefObject,
 	TouchEventHandler,
 	useEffect,
-	useImperativeHandle,
 	useRef,
 	useState,
 } from "react";
