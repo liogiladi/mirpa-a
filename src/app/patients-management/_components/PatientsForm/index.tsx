@@ -186,7 +186,7 @@ export default function PatientsForm({ data }: Props) {
 			}),
 		[data, handleRowSelectionToggle, isMobile, selectedPatientCIDs]
 	);
-
+	//TODO: SEARCH FORM SELECT/INPUT
 	return (
 		<form
 			id={styles["patients-form"]}

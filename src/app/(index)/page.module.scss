@@ -1,0 +1,227 @@
+@use "@/styles/colors";
+
+$primary: #00929b;
+
+#index {
+	padding: 0;
+
+	svg {
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		translate: -50% -50%;
+		width: 50vw;
+		aspect-ratio: 1/1;
+		height: 60vh;
+		filter: drop-shadow(0px 4px 13px rgba(0, 0, 0, 0.089));
+		transition: 0.3s ease-out;
+	}
+
+	> section {
+		width: 50vw;
+	}
+
+	#left-side {
+		position: relative;
+
+		span {
+			position: absolute;
+			left: 0;
+			top: 50vh;
+			color: white;
+			translate: 0 -50%;
+			height: fit-content;
+			display: block;
+			font-weight: 800;
+			font-size: clamp(3rem, 8vw, 10rem);
+			text-align: center;
+		}
+	}
+
+	#right-side {
+		position: absolute;
+		width: 50%;
+		height: 100%;
+		background-color: white;
+		overflow: hidden;
+		transition: 0.3s ease-out;
+		clip-path: inset(0 0 0 0);
+
+		form {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			padding: 2rem;
+			border-radius: 4px;
+			background-color: #ffffffe0;
+			backdrop-filter: blur(23px);
+			translate: -50% -50%;
+			opacity: 0;
+			transition: 0.2s;
+			pointer-events: none;
+
+			legend {
+				margin-bottom: 2rem;
+				border-radius: 3px;
+				padding: 0 3rem;
+				color: white;
+				background-color: colors.$primary;
+				font-size: 2rem;
+				font-weight: 700;
+				text-align: center;
+			}
+
+			label,
+			input,
+			button {
+				font-size: 1rem;
+			}
+
+			input,
+			select {
+				background: transparent;
+			}
+
+			button {
+				padding-block: 0.5rem;
+			}
+		}
+
+		form:nth-of-type(2) {
+			display: grid;
+			grid-template-rows: auto 1fr auto;
+			height: 90%;
+			animation: fadein 0.2s 0.15s forwards;
+
+			section {
+				overflow: auto;
+				padding-inline: 1rem;
+
+				fieldset {
+					border: 0;
+					margin-bottom: 1rem;
+
+					legend {
+						width: 100%;
+						border-bottom: 2px solid;
+						border-radius: 0;
+						color: $primary;
+						background: none;
+						text-align: center;
+						font-size: 1.3rem;
+					}
+				}
+			}
+		}
+
+		> svg {
+			position: fixed;
+			left: 50%;
+			transition: 0.3s ease-out;
+
+			path {
+				fill: $primary;
+			}
+		}
+
+		> button {
+			position: fixed;
+			left: 50%;
+			bottom: 1rem;
+			border: 0;
+			font-size: 1rem;
+			font-weight: 600;
+			translate: -50%;
+			background: none;
+			opacity: 0;
+			transition: 0.2s;
+			cursor: pointer;
+		}
+	}
+
+	&[data-shown-section="family"],
+	&[data-shown-section="family-full"] {
+		#right-side {
+			width: 100%;
+
+			> svg {
+				left: 75%;
+				scale: 1.3;
+			}
+		}
+	}
+
+	&[data-shown-section="family-full"] {
+		form:first-of-type:not(.hide) {
+			opacity: 1 !important;
+			pointer-events: all !important;
+		}
+
+		svg {
+			width: 100%;
+			height: 80%;
+			left: 100% !important;
+		}
+
+		#right-side > button {
+			opacity: 1 !important;
+			pointer-events: all !important;
+		}
+	}
+
+	&[data-shown-section="hamal"],
+	&[data-shown-section="hamal-full"] {
+		#left-side {
+			svg {
+				left: 25%;
+				scale: 1.3;
+			}
+		}
+
+		#right-side {
+			width: 0%;
+
+			svg {
+				left: 0;
+			}
+		}
+	}
+
+	&[data-shown-section="hamal-full"] {
+		#left-side {
+			svg {
+				left: 50%;
+				scale: 1.3;
+				animation: fadeout 0.3s 0.4s forwards;
+			}
+		}
+	}
+
+	&[data-shown-section="hamal"],
+	&[data-shown-section="family"] {
+		cursor: pointer;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+		pointer-events: none;
+	}
+	to {
+		opacity: 1;
+		pointer-events: all;
+	}
+}

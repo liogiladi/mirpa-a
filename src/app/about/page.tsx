@@ -6,11 +6,17 @@ export const metadata: Metadata = {
 	description: "תיאור התכלית של משלט ביקורים",
 };
 
-type Props = {};
+type Props = {
+	searchParams: {
+		transition: string;
+	};
+};
 
-export default function Index({}: Props) {
+export default async function Index({ searchParams }: Props) {
+	const transition = Boolean(searchParams.transition);
+
 	return (
-		<main id={styles["about-page"]}>
+		<main id={styles["about-page"]} data-fade-in={transition}>
 			<h1>אודות</h1>
 			<p>
 				<strong>
