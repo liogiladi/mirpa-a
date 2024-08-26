@@ -206,6 +206,22 @@ $primary: #00929b;
 	}
 }
 
+@at-root [data-mobile="true"] #index {
+	form {
+		width: 100%;
+	}
+
+	&[data-shown-section="family-full"] #right-side {
+		svg {
+			top: 0% !important;
+			left: 50% !important;
+			width: 100% !important;
+			scale: 1 !important;
+			opacity: 0.05;
+		}
+	}
+}
+
 @keyframes fadeout {
 	from {
 		opacity: 1;

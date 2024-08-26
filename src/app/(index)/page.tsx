@@ -4,11 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
 
+import { useDetectMobile } from "@/contexts/detectMobile";
+
 import LogoIcon from "@/components/icons/LogoIcon";
 import CreateVisitForm from "./_components/CreateVisitForm";
 import CheckPatientForm from "./_components/CheckPatientForm";
 
 export default function Index() {
+	const isMobile = useDetectMobile();
 	const [shownSection, setShownSection] = useState<
 		"hamal" | "hamal-full" | "family" | "family-full" | null
 	>(null);
@@ -21,16 +24,33 @@ export default function Index() {
 		<main
 			className="index"
 			id={styles.index}
-			onClick={() => {
-				if (shownSection === "hamal") {
-					setShownSection("hamal-full");
+			onClick={(e) => {
+				if (isMobile && !shownSection) {
+					setShownSection(() => {
+						const ratio = e.clientX / window.innerWidth;
 
-					setTimeout(() => {
-						router.push("/about?transition=fade-in");
-						router.refresh();
-					}, 1200);
-				} else if (shownSection === "family") {
-					setShownSection("family-full");
+						if (ratio > 0.65) return "family-full";
+						if (ratio < 0.4) {
+							setTimeout(() => {
+								router.push("/about?transition=fade-in");
+								router.refresh();
+							}, 1200);
+
+							return "hamal-full";
+						}
+						return null;
+					});
+				} else {
+					if (shownSection === "hamal") {
+						setShownSection("hamal-full");
+
+						setTimeout(() => {
+							router.push("/about?transition=fade-in");
+							router.refresh();
+						}, 1200);
+					} else if (shownSection === "family") {
+						setShownSection("family-full");
+					}
 				}
 			}}
 			onMouseMove={(e) => {

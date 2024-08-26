@@ -50,7 +50,9 @@ export default memo(function Header({ isMobile }: Props) {
 							NAV_LINKS.find(
 								(navLink) =>
 									navLink.href.includes(pathname) ||
-									pathname.startsWith(navLink.href)
+									pathname.startsWith(
+										navLink.href.split("?")[0]
+									)
 							)?.name
 						}
 					</h1>

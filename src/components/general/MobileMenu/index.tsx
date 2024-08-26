@@ -4,6 +4,7 @@ import { ReactNode, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./mobile-menu.module.scss";
 
+import Link from "next/link";
 import { NAV_LINKS } from "@/components/theme/Header";
 import FullLogoIcon from "@/components/icons/FullLogoIcon";
 
@@ -47,7 +48,10 @@ export default function MobileMenu() {
 				<rect width="50" height="5.69" y="37.055"></rect>
 			</svg>
 			<nav id={styles["mobile-nav"]}>
-				<ul>{links}</ul>
+				<ul>
+					{links}
+					<Link href={"/"}>צד לקוח</Link>
+				</ul>
 				<FullLogoIcon />
 			</nav>
 		</>
