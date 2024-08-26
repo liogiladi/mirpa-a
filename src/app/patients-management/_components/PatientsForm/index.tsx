@@ -157,7 +157,7 @@ export default function PatientsForm({ data }: Props) {
 						}}
 					/>,
 					// eslint-disable-next-line @next/next/no-img-element
-					<Image
+					<img
 						key={patient.cid}
 						width={30}
 						height={30}
