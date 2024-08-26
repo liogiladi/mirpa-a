@@ -169,6 +169,11 @@ export default function PatientsForm({ data }: Props) {
 					colorVariant="warning"
 					disabled={selectedPatientCIDs.size === 0}
 					onClick={() => deleteDialogRef.current?.showModal()}
+					title={
+						selectedPatientCIDs.size === 0
+							? "יש לבחור מטופלים למחיקה"
+							: undefined
+					}
 				>
 					מחיקה
 				</Button>
