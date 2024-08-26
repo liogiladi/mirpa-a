@@ -9,6 +9,9 @@ type Props = {
 	searchParams: SearchParams;
 };
 
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
+
 export default async function PatientsManagement({ searchParams }: Props) {
 	return (
 		<main id={styles["patients-management"]}>

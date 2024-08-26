@@ -194,5 +194,7 @@ export async function addPatient(
 		throw new Error("תקלה בהוספה");
 	}
 
-	redirect("/patients-management");
+	redirect(
+		"/patients-management?sort-by=reception-time&order-directions=DESC"
+	);
 }
