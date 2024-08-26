@@ -1,7 +1,5 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
-type Props = {};
-
-export default function Index({}: Props) {
-	return <main>page</main>;
+export default async function Index() {
+	redirect("/about");
 }
