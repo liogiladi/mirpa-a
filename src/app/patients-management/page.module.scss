@@ -3,6 +3,10 @@
 	min-width: 50rem;
 	width: fit-content;
 	grid-template-rows: auto 1fr;
+
+	#buttons {
+		position: absolute;
+	}
 }
 
 @at-root [data-mobile="true"] #patients-management {

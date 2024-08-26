@@ -10,6 +10,7 @@ import { assertCallback } from "@/utils/assertCallback";
 
 export async function approveRequest(visitId: string) {
 	if (!Validations.uuid.test(visitId)) {
+		console.error("Invalid visit id");
 		throw new Error("תקלה בעדכון");
 	}
 
@@ -20,6 +21,7 @@ export async function approveRequest(visitId: string) {
 		.is("approved", null);
 
 	if (error) {
+		console.error(error);
 		throw new Error("תקלה בעדכון");
 	}
 
@@ -28,6 +30,7 @@ export async function approveRequest(visitId: string) {
 
 export async function rejectRequest(visitId: string, formData: FormData) {
 	if (!Validations.uuid.test(visitId)) {
+		console.error("Invalid visit id");
 		throw new Error("תקלה בעדכון");
 	}
 
@@ -49,6 +52,7 @@ export async function rejectRequest(visitId: string, formData: FormData) {
 		.is("approved", null);
 
 	if (error) {
+		console.error(error);
 		throw new Error("תקלה בעדכון");
 	}
 
@@ -68,6 +72,7 @@ export async function deletePatients(selectedPatientCIDs: string[]) {
 
 	for (const cid of selectedPatientCIDs) {
 		if (!Validations.cid(cid)) {
+			console.error("Invalid cid");
 			throw new Error("תקלה במחיקה");
 		}
 
@@ -83,12 +88,14 @@ export async function deletePatients(selectedPatientCIDs: string[]) {
 	);
 
 	if (storageError) {
+		console.error(storageError);
 		throw new Error("תקלה בהעלאת תמונה");
 	}
 
 	const { error } = await query.or(cidsOrStatements.join(","));
 
 	if (error) {
+		console.error(error);
 		throw new Error("תקלה במחיקה");
 	}
 
@@ -103,6 +110,7 @@ export async function addPatient(
 
 	const userId = formData.get("user-id")?.toString();
 	if (!userId || !Validations.uuid.test(userId)) {
+		console.error("Invalid user id");
 		throw new Error("תקלה בהוספה");
 	}
 
@@ -162,11 +170,12 @@ export async function addPatient(
 		.from("pictures")
 		.upload(signatureImagePath, signatureImageFile);
 
+	console.log(new Date().toDateString());
+
 	const { error } = await db.from("patients").insert({
 		cid,
 		first_name: firstName,
 		last_name: lastName,
-		created_at: new Date().toDateString(),
 		receiver_id: userId,
 		birth_date: birthDate,
 		address,
@@ -175,6 +184,8 @@ export async function addPatient(
 	});
 
 	if (error) {
+		console.error(error);
+
 		if (error.code === "23505") {
 			// Patient cid already regitered
 			throw new Error("מטופל עם מספר ת.ז זה קיים במערכת");
