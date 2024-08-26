@@ -28,8 +28,12 @@ export default async function RootLayout({
 					showSpinner={!globalThis.isMobile}
 				/>
 				<DetectMobileContextProvider>
-					<Header isMobile={isMobile} />
-					<div id="main-wrapper">{children}</div>
+					<Header isMobile={globalThis.isMobile} />
+					{globalThis.isMobile ? (
+						children
+					) : (
+						<div id="main-wrapper">{children}</div>
+					)}
 				</DetectMobileContextProvider>
 				<Toaster />
 			</body>
