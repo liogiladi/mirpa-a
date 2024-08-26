@@ -20,7 +20,6 @@ export const NAV_LINKS = Object.freeze([
 	},
 	{ name: "בקשות ביקור", href: "/requested-visits?status=pending" },
 	{ name: "ניהול מטופלים", href: "/patients-management" },
-	{ name: "מענה ללקוחות", href: "/error-reports" },
 	{ name: "אודות", href: "/about" },
 ]) satisfies readonly ToggleLinkInfo[];
 

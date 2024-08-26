@@ -1,5 +1,6 @@
 import { ChangeEvent, HTMLProps, useState } from "react";
 import styles from "./file-input.module.scss";
+import toast from "react-hot-toast";
 import Input from "../Input";
 
 type Props = {
@@ -35,8 +36,9 @@ export default function FileInput({
 							e.currentTarget.value = "";
 							setSelectedFileName("");
 
-							//TODO: Error Toast
-							alert("WA!");
+							toast.error(
+								`גודל קובץ מקסימלי הינו ${maxFileSizeMB} מ"ב`
+							);
 						} else setSelectedFileName(file.name);
 					}
 

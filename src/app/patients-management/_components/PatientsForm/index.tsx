@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./patients-form.module.scss";
@@ -14,6 +13,7 @@ import { useDetectMobile } from "@/contexts/detectMobile";
 import { getDateString, getTimeString } from "@/utils/dates";
 import { TupleOfLength } from "@/utils/types";
 
+import toast from "react-hot-toast";
 import Table from "@/components/theme/Table";
 import Button from "@/components/theme/Button";
 import DeleteAlertDialog from "../DeleteAlertDialog";
@@ -33,7 +33,6 @@ export default function PatientsForm({ data }: Props) {
 	const deleteDialogRef = useRef<HTMLDialogElement>(null);
 	const isMobile = useDetectMobile();
 
-	const router = useRouter();
 	const [selectedPatientCIDs, setSelectedPatientCIDs] = useState<
 		Map<string, PatientInfoToDelete>
 	>(new Map());
@@ -108,10 +107,15 @@ export default function PatientsForm({ data }: Props) {
 	return (
 		<form
 			id={styles["patients-form"]}
-			action={deletePatients.bind(
-				null,
-				Array.from(selectedPatientCIDs.keys())
-			)}
+			action={async () => {
+				try {
+					await deletePatients(
+						Array.from(selectedPatientCIDs.keys())
+					);
+				} catch (error) {
+					toast.error((error as Error).message);
+				}
+			}}
 			onSubmit={() => {
 				deleteDialogRef.current?.close();
 				setSelectedPatientCIDs(new Map());
@@ -165,6 +169,11 @@ export default function PatientsForm({ data }: Props) {
 					colorVariant="warning"
 					disabled={selectedPatientCIDs.size === 0}
 					onClick={() => deleteDialogRef.current?.showModal()}
+					title={
+						selectedPatientCIDs.size === 0
+							? "יש לבחור מטופלים למחיקה"
+							: undefined
+					}
 				>
 					מחיקה
 				</Button>

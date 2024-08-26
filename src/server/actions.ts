@@ -3,10 +3,10 @@ import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import assert from "assert";
 import db from "@/server/db";
 import Validations from "@/utils/validations";
 import { dataURLtoFile } from "@/utils/dataURLToFile";
+import { assertCallback } from "@/utils/assertCallback";
 
 export async function approveRequest(visitId: string) {
 	if (!Validations.uuid.test(visitId)) {
@@ -20,11 +20,8 @@ export async function approveRequest(visitId: string) {
 		.is("approved", null);
 
 	if (error) {
-		//TODO: Global log error
-		throw error;
+		throw new Error("תקלה בעדכון");
 	}
-
-	//TODO: Notify user
 
 	revalidatePath(headers().get("referer")!);
 }
@@ -40,7 +37,9 @@ export async function rejectRequest(visitId: string, formData: FormData) {
 		!rejectionReason ||
 		!Validations.hebrewDescription.test(rejectionReason)
 	) {
-		throw new Error("סיבת דחייה לא תקינה");
+		throw new Error(
+			"סיבת הסירוב יכולה להכיל רק: אותיות בעברית, מספרים, פסיקים ונקודות"
+		);
 	}
 
 	const { error } = await db
@@ -50,11 +49,8 @@ export async function rejectRequest(visitId: string, formData: FormData) {
 		.is("approved", null);
 
 	if (error) {
-		//TODO: Global log error
-		throw error;
+		throw new Error("תקלה בעדכון");
 	}
-
-	//TODO: Notify user
 
 	revalidatePath(headers().get("referer")!);
 }
@@ -71,6 +67,10 @@ export async function deletePatients(selectedPatientCIDs: string[]) {
 	const cidsOrStatements: string[] = [];
 
 	for (const cid of selectedPatientCIDs) {
+		if (!Validations.cid(cid)) {
+			throw new Error("תקלה במחיקה");
+		}
+
 		cidsOrStatements.push(`cid.eq.${cid}`);
 		storagePathsToRemove.push(
 			`patients-profiles/${cid}.png`,
@@ -78,33 +78,33 @@ export async function deletePatients(selectedPatientCIDs: string[]) {
 		);
 	}
 
-	const { error } = await query.or(cidsOrStatements.join(","));
-
-	if (error) {
-		//TODO: Global log error
-		throw error;
-	}
-
 	const { error: storageError } = await stoargeQuery.remove(
 		storagePathsToRemove
 	);
 
 	if (storageError) {
-		//TODO: Global log error
-		console.log(storageError);
+		throw new Error("תקלה בהעלאת תמונה");
+	}
 
-		throw storageError;
+	const { error } = await query.or(cidsOrStatements.join(","));
+
+	if (error) {
+		throw new Error("תקלה במחיקה");
 	}
 
 	revalidatePath(headers().get("referer")!);
 }
 
-export async function addPatient(signatureBase64: string, formData: FormData) {
+export async function addPatient(
+	signatureBase64: string,
+	formData: FormData
+): Promise<string[] | undefined> {
+	const invalidInputsNames: string[] = [];
+
 	const userId = formData.get("user-id")?.toString();
-	assert(
-		userId && Validations.uuid.test(userId),
-		"מספר מזהה של מאשר לא תקין"
-	);
+	if (!userId || !Validations.uuid.test(userId)) {
+		throw new Error("תקלה בהוספה");
+	}
 
 	const signatureImageFile = signatureBase64
 		? dataURLtoFile(signatureBase64, userId)
@@ -112,27 +112,29 @@ export async function addPatient(signatureBase64: string, formData: FormData) {
 	if (!signatureImageFile) throw new Error("יש להביא חתימה מאשרת");
 
 	const firstName = formData.get("first-name")?.toString();
-	assert(
-		firstName && Validations.hebrewName.test(firstName),
-		"שם פרטי לא תקין"
+	assertCallback(firstName && Validations.hebrewName.test(firstName), () =>
+		invalidInputsNames.push("first-name")
 	);
 
 	const lastName = formData.get("last-name")?.toString();
-	assert(
-		lastName && Validations.hebrewName.test(lastName),
-		"שם משפחה לא תקין"
+	assertCallback(lastName && Validations.hebrewName.test(lastName), () =>
+		invalidInputsNames.push("last-name")
 	);
 
 	const cid = formData.get("state-id")?.toString();
-	assert(cid && Validations.cid(cid), "מספר ת.ז לא תקין");
+	assertCallback(cid && Validations.cid(cid), () =>
+		invalidInputsNames.push("state-id")
+	);
 
 	const birthDate = formData.get("birth-date")?.toString();
-	assert(birthDate && Validations.date(birthDate), "תאריך לידה לא תקין");
+	assertCallback(birthDate && Validations.date(birthDate), () =>
+		invalidInputsNames.push("birth-date")
+	);
 
 	const address = formData.get("address")?.toString() || null;
-	assert(
+	assertCallback(
 		!address || (address && Validations.address.test(address)),
-		"כתובת מגורים לא תקינה"
+		() => invalidInputsNames.push("address")
 	);
 
 	const profilePicFile: File | null =
@@ -144,15 +146,17 @@ export async function addPatient(signatureBase64: string, formData: FormData) {
 
 	let profilePicPath = null;
 
+	if (invalidInputsNames.length > 0) {
+		return invalidInputsNames;
+	}
+
 	if (profilePicFile.size > 0) {
-		//TODO: Register profile pic to bucket
 		profilePicPath = `patients-profiles/${cid}.png`;
 		await db.storage
 			.from("pictures")
 			.upload(profilePicPath, profilePicFile);
 	}
 
-	//TODO: Register signature pic to bucket
 	const signatureImagePath = `user-signatures/${cid}.png`;
 	await db.storage
 		.from("pictures")
@@ -172,12 +176,11 @@ export async function addPatient(signatureBase64: string, formData: FormData) {
 
 	if (error) {
 		if (error.code === "23505") {
-			//TODO: Patient cid already regitered
+			// Patient cid already regitered
 			throw new Error("מטופל עם מספר ת.ז זה קיים במערכת");
 		}
 
-		//TODO: Global log error
-		throw error;
+		throw new Error("תקלה בהוספה");
 	}
 
 	redirect("/patients-management");

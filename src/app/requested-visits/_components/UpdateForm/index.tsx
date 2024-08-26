@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import styles from "./update-form.module.scss";
 
+import toast from "react-hot-toast";
 import { approveRequest, rejectRequest } from "@/server/actions";
 import { useDetectMobile } from "@/contexts/detectMobile";
 import Validations from "@/utils/validations";
 
 import Button from "@/components/theme/Button";
-import Input from "@/components/theme/Input";
+import Input, { INVALID_INPUT_DATA_KEY } from "@/components/theme/Input";
 
 type Props = {
 	visitId: string;
@@ -25,7 +26,13 @@ export default function UpdateForm({ visitId, closeDialog }: Props) {
 		return (
 			<form
 				id={styles["approve-form"]}
-				action={approveRequest.bind(null, visitId)}
+				action={async () => {
+					try {
+						await approveRequest(visitId);
+					} catch (error) {
+						toast.error((error as Error).message);
+					}
+				}}
 				className={styles["update-form"]}
 				onSubmit={() => closeDialog()}
 			>
@@ -51,7 +58,13 @@ export default function UpdateForm({ visitId, closeDialog }: Props) {
 		<form
 			ref={rejectionFormRef}
 			id={styles["reject-form"]}
-			action={rejectRequest.bind(null, visitId)}
+			action={async (data) => {
+				try {
+					await rejectRequest(visitId, data);
+				} catch (error) {
+					toast.error((error as Error).message);
+				}
+			}}
 			className={styles["update-form"]}
 			onSubmit={() => closeDialog()}
 		>
@@ -79,12 +92,16 @@ export default function UpdateForm({ visitId, closeDialog }: Props) {
 				label={"סיבת דחייה"}
 				required
 				pattern={Validations.hebrewDescription.source}
-				onInvalid={(e) =>
+				onInvalid={(e) => {
 					e.currentTarget.setCustomValidity(
-						"על הערך להכיל אותיות בעברית, רווחים ונקודות בלבד"
-					)
-				}
-				onChange={(e) => e.target.setCustomValidity("")}
+						"על הערך להכיל אותיות בעברית, מספרים, פסיקים ונקודות בלבד"
+					);
+					e.currentTarget.dataset[INVALID_INPUT_DATA_KEY] = "true";
+				}}
+				onChange={(e) => {
+					e.target.setCustomValidity("");
+					e.currentTarget.dataset[INVALID_INPUT_DATA_KEY] = "false";
+				}}
 			/>
 		</form>
 	);

@@ -39,7 +39,7 @@ export async function GET(
 		.single();
 
 	if (error || !patient) {
-		throw new Error("תקלה בשרת");
+		throw error;
 	}
 
 	let profilePictureURL: string | null = null;

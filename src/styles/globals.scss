@@ -112,3 +112,20 @@ input[type="number"] {
 input {
 	direction: inherit;
 }
+
+#error-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	color: colors.$error;
+
+	h1 {
+		font-size: 6rem;
+		margin-bottom: 0;
+	}
+
+	h2 {
+		font-size: 2.5rem;
+	}
+}
