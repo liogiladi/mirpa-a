@@ -98,7 +98,7 @@ export async function deletePatients(selectedPatientCIDs: string[]) {
 export async function addPatient(
 	signatureBase64: string,
 	formData: FormData
-): Promise<string[]> {
+): Promise<string[] | undefined> {
 	const invalidInputsNames: string[] = [];
 
 	const userId = formData.get("user-id")?.toString();

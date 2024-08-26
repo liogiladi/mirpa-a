@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./patients-form.module.scss";
@@ -10,11 +9,11 @@ import visitsPageStyles from "@/styles/visits-page.module.scss";
 import { Tables } from "@/server/db.types";
 import { deletePatients } from "@/server/actions";
 
-import toast from "react-hot-toast";
+import { useDetectMobile } from "@/contexts/detectMobile";
 import { getDateString, getTimeString } from "@/utils/dates";
 import { TupleOfLength } from "@/utils/types";
-import { useDetectMobile } from "@/contexts/detectMobile";
 
+import toast from "react-hot-toast";
 import Table from "@/components/theme/Table";
 import Button from "@/components/theme/Button";
 import DeleteAlertDialog from "../DeleteAlertDialog";
@@ -34,7 +33,6 @@ export default function PatientsForm({ data }: Props) {
 	const deleteDialogRef = useRef<HTMLDialogElement>(null);
 	const isMobile = useDetectMobile();
 
-	const router = useRouter();
 	const [selectedPatientCIDs, setSelectedPatientCIDs] = useState<
 		Map<string, PatientInfoToDelete>
 	>(new Map());

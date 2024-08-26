@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import { useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
 import { v4 } from "uuid";
 
 import styles from "./page.module.scss";
@@ -19,15 +21,28 @@ import FileInput from "@/components/theme/FileInput";
 import Signature from "@/components/theme/Signature";
 
 export default function AddPatient() {
-	const isMobile = useDetectMobile();
+	const router = useRouter();
+
 	const signatureDataRef = useRef<string>("");
-	const userId = v4();
+	const userId = useRef<string>(v4());
 
 	return (
 		<main id={styles["add-patient"]}>
 			<h1>ניהול מטופלים</h1>
 			<header>
-				<button onClick={() => window.history.back()}>{">"}</button>
+				<button
+					onClick={() => {
+						if (
+							document.referrer.includes("/patients-management")
+						) {
+							router.back();
+						} else {
+							router.push("/patients-management");
+						}
+					}}
+				>
+					{">"}
+				</button>
 				<h2>קליטת מטופל</h2>
 			</header>
 			<form
@@ -38,7 +53,10 @@ export default function AddPatient() {
 							data
 						);
 
-						if (invalidInputsNames.length > 0) {
+						if (
+							invalidInputsNames &&
+							invalidInputsNames.length > 0
+						) {
 							invalidInputsNames.forEach((name) => {
 								const input =
 									document.querySelector<HTMLInputElement>(
@@ -52,10 +70,12 @@ export default function AddPatient() {
 							});
 
 							toast.error("חלק מהשדות שהוזנו אינו תקין");
+						} else {
+							toast.success("המטופל נוסף בהצלחה");
 						}
 					} catch (error) {
 						if (!(error as Error).message) {
-							//TODO: error page
+							toast.error("תקלה בהוספה");
 						} else toast.error((error as Error).message);
 					}
 				}}
@@ -111,7 +131,7 @@ export default function AddPatient() {
 							id={"user-id"}
 							name={"user-id"}
 							label={"מספר מזהה"}
-							value={userId}
+							value={userId.current}
 							readOnly
 						/>
 						<Signature
@@ -123,14 +143,24 @@ export default function AddPatient() {
 					</fieldset>
 				</section>
 				<section className={visitPageStyles.buttons}>
-					<Button
-						variant={isMobile ? "outline" : "filled"}
-						colorVariant="primary"
-					>
-						הוספה
-					</Button>
+					<SubmitButton />
 				</section>
 			</form>
 		</main>
+	);
+}
+
+function SubmitButton() {
+	const isMobile = useDetectMobile();
+	const formStatus = useFormStatus();
+
+	return (
+		<Button
+			variant={isMobile ? "outline" : "filled"}
+			colorVariant="primary"
+			disabled={formStatus.pending}
+		>
+			הוספה
+		</Button>
 	);
 }
