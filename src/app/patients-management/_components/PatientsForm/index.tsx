@@ -3,6 +3,7 @@
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./patients-form.module.scss";
 import visitsPageStyles from "@/styles/visits-page.module.scss";
 
@@ -12,6 +13,7 @@ import { deletePatients } from "@/server/actions";
 import { useDetectMobile } from "@/contexts/detectMobile";
 import { getDateString, getTimeString } from "@/utils/dates";
 import { TupleOfLength } from "@/utils/types";
+import { PatientsSort, SEARCH_QUERIES } from "@/utils/searchQueries";
 
 import toast from "react-hot-toast";
 import Table from "@/components/theme/Table";
@@ -25,6 +27,15 @@ export type PatientInfoToDelete = Pick<
 
 export type PatientData = Tables<"patients"> & { profilePictureURL: string };
 
+const SORTABLE_COLUMN_ID_TO_LABEL: Record<PatientsSort, string> = {
+	"first-name": "שם פרטי",
+	"last-name": "שם משפחה",
+	"state-id": "תעודת זהות",
+	"birth-date": "גיל",
+	address: "כתובת",
+	"reception-time": "זמן קליטה",
+};
+
 type Props = {
 	data: PatientData[];
 };
@@ -32,6 +43,8 @@ type Props = {
 export default function PatientsForm({ data }: Props) {
 	const deleteDialogRef = useRef<HTMLDialogElement>(null);
 	const isMobile = useDetectMobile();
+	const currentParams = useSearchParams();
+	const router = useRouter();
 
 	const [selectedPatientCIDs, setSelectedPatientCIDs] = useState<
 		Map<string, PatientInfoToDelete>
@@ -60,7 +73,76 @@ export default function PatientsForm({ data }: Props) {
 		[selectedPatientCIDs]
 	);
 
-	const rows: TupleOfLength<ReactNode, 10>[] = useMemo(
+	const columns = useMemo(
+		() =>
+			[
+				"",
+				"תמונה",
+				...Object.entries(SORTABLE_COLUMN_ID_TO_LABEL).map(
+					([id, label]) => (
+						<div key={id}>
+							<button
+								className={styles["sort-button"]}
+								type="button"
+								onClick={() => {
+									const searchParams = new URLSearchParams(
+										currentParams
+									);
+									searchParams.set(
+										SEARCH_QUERIES.sortPatientsBy.name,
+										id
+									);
+
+									if (
+										currentParams.get(
+											SEARCH_QUERIES.sortPatientsBy.name
+										) === id
+									) {
+										searchParams.set(
+											SEARCH_QUERIES.orderDirection.name,
+											currentParams.get(
+												SEARCH_QUERIES.orderDirection
+													.name
+											) ===
+												SEARCH_QUERIES.orderDirection
+													.values[0]
+												? SEARCH_QUERIES.orderDirection
+														.values[1]
+												: SEARCH_QUERIES.orderDirection
+														.values[0]
+										);
+									}
+
+									router.push(
+										`/patients-management?${searchParams.toString()}`
+									);
+								}}
+							>
+								{label}
+								<span
+									data-used={
+										currentParams.get(
+											SEARCH_QUERIES.sortPatientsBy.name
+										) === id
+									}
+									data-desc={
+										currentParams.get(
+											SEARCH_QUERIES.orderDirection.name
+										) === "DESC"
+									}
+								>
+									{">"}
+								</span>
+							</button>
+						</div>
+					)
+				),
+				'דוח" קליטה',
+			] as TupleOfLength<ReactNode, 9>,
+		[router, currentParams]
+	);
+
+	const rows: TupleOfLength<ReactNode, 9>[] = useMemo(
 		() =>
 			data.map((patient) => {
 				const creationDate = new Date(patient.created_at);
@@ -74,7 +156,8 @@ export default function PatientsForm({ data }: Props) {
 							if (!isMobile) handleRowSelectionToggle(patient);
 						}}
 					/>,
-					<Image
+					// eslint-disable-next-line @next/next/no-img-element
+					<img
 						key={patient.cid}
 						width={30}
 						height={30}
@@ -83,15 +166,15 @@ export default function PatientsForm({ data }: Props) {
 						onError={(e) =>
 							(e.currentTarget.src = "/default-profile-pic.png")
 						}
-						unoptimized
 					/>,
 					patient.first_name,
 					patient.last_name,
 					patient.cid,
 					"גיל",
-					getDateString(creationDate, { format: true }),
-					getTimeString(creationDate),
 					patient.address,
+					`${getDateString(creationDate, {
+						format: true,
+					})} ${getTimeString(creationDate)}`,
 					<Link
 						key={`report-${patient.cid}`}
 						href={`/patients-management/reception-report/${patient.cid}`}
@@ -126,19 +209,8 @@ export default function PatientsForm({ data }: Props) {
 			) : (
 				<section>
 					<Table
-						width={10}
-						columns={[
-							"",
-							"תמונה",
-							"שם פרטי",
-							"שם משפחה",
-							"תעודת זהות",
-							"גיל",
-							"תאריך קליטה",
-							"שעת קליטה",
-							"כתובת",
-							`דו"ח קליטה`,
-						]}
+						width={9}
+						columns={columns}
 						rows={rows}
 						onRowClick={(rowData) => {
 							if (isMobile) {

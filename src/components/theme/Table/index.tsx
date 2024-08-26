@@ -6,7 +6,7 @@ import { TupleOfLength } from "@/utils/types";
 
 type Props<Width extends number> = {
 	width: Width;
-	columns: TupleOfLength<string, Width>;
+	columns: TupleOfLength<ReactNode, Width>;
 	rows: TupleOfLength<ReactNode | null, Width>[];
 	className?: string;
 	onRowClick?: (rowData: TupleOfLength<string, Width>) => void;

@@ -100,4 +100,25 @@ export class Assertions {
 			"Invalid sort search param"
 		);
 	}
+
+	static patientsManagementSearchParams(
+		params: URLSearchParams | SearchParams | undefined | null
+	): asserts params {
+		assert(params, "No search params");
+
+		params = new URLSearchParams(
+			params as URLSearchParams | Record<string, string>
+		);
+
+		assert(
+			!params.get(SEARCH_QUERIES.sortPatientsBy.name) ||
+				(SEARCH_QUERIES.sortPatientsBy.values.includes(
+					params.get(SEARCH_QUERIES.sortBy.name) as any
+				) &&
+					SEARCH_QUERIES.orderDirection.values.includes(
+						params.get(SEARCH_QUERIES.orderDirection.name) as any
+					)),
+			"Invalid sort search param"
+		);
+	}
 }

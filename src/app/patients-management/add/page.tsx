@@ -37,7 +37,9 @@ export default function AddPatient() {
 						) {
 							router.back();
 						} else {
-							router.push("/patients-management");
+							router.push(
+								"/patients-management?sort-by=reception-time&order-directions=DESC"
+							);
 						}
 					}}
 				>

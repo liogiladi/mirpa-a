@@ -36,6 +36,16 @@ export type Filter = {
 const visitStatuses = ["pending", "rejected"] as const;
 export type VisitStatus = (typeof visitStatuses)[number];
 
+const patientsSorts = [
+	"first-name",
+	"last-name",
+	"state-id",
+	"birth-date",
+	"address",
+	"reception-time",
+] as const;
+export type PatientsSort = (typeof patientsSorts)[number];
+
 export const SEARCH_QUERIES = {
 	dateFilterType: {
 		name: "date-filter-type",
@@ -54,6 +64,10 @@ export const SEARCH_QUERIES = {
 	sortBy: {
 		name: "sort-by",
 		values: sorts,
+	},
+	sortPatientsBy: {
+		name: "sort-by",
+		values: patientsSorts,
 	},
 	orderDirection: {
 		name: "order-directions",

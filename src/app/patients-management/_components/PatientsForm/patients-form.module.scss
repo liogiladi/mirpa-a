@@ -37,6 +37,35 @@
 			}
 		}
 	}
+
+	.sort-button {
+		position: relative;
+		gap: 5px;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		font-size: 0.7rem;
+		font-weight: 800;
+		color: #afafaf;
+
+		span {
+			position: absolute;
+			left: -10px;
+			top: 50%;
+			display: block;
+			transform: rotate(-90deg);
+			color: gray;
+			translate: 0 -50%;
+
+			&[data-used="true"] {
+				color: black;
+
+				&[data-desc="false"] {
+					transform: rotate(90deg);
+				}
+			}
+		}
+	}
 }
 
 @at-root [data-mobile="true"] #patients-form {
