@@ -29,7 +29,7 @@ export default async function RootLayout({
 				/>
 				<DetectMobileContextProvider>
 					<Header isMobile={isMobile} />
-					{children}
+					<div id="main-wrapper">{children}</div>
 				</DetectMobileContextProvider>
 				<Toaster />
 			</body>

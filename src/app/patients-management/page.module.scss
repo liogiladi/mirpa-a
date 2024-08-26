@@ -1,7 +1,7 @@
 #patients-management {
 	display: grid;
 	min-width: 50rem;
-	width: fit-content;
+	width: fit-content !important;
 	grid-template-rows: auto 1fr;
 
 	#buttons {
