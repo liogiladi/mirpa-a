@@ -76,7 +76,6 @@ export default function AddPatient() {
 							toast.success("המטופל נוסף בהצלחה");
 						}
 					} catch (error) {
-						console.error(error);
 						if (!(error as Error).message) {
 							toast.error("תקלה בהוספה");
 						} else toast.error((error as Error).message);
