@@ -1,6 +1,6 @@
 {
 	"functions": {
-		"app/upcoming-visits/print/route.js": {
+		"app/upcoming-visits/print/route.tsx": {
 			"runtime": "nodejs20.x"
 		}
 	}
