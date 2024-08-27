@@ -9,22 +9,14 @@ import Input from "@/components/theme/Input";
 
 type Props = {
 	className?: string;
-	selectedPatientCID: string;
 	setSelectedPatientCID: Dispatch<string>;
 };
 
 export default function CheckPatientForm({
 	className,
-	selectedPatientCID,
 	setSelectedPatientCID,
 }: Props) {
 	const ref = useRef<HTMLFormElement>(null);
-
-	useEffect(() => {
-		if (!selectedPatientCID) {
-			ref.current?.reset();
-		}
-	}, [selectedPatientCID]);
 
 	return (
 		<form
@@ -33,6 +25,7 @@ export default function CheckPatientForm({
 				try {
 					await checkPatient(data);
 					setSelectedPatientCID(data.get("state-id")?.toString()!);
+					ref.current?.reset();
 				} catch (error) {
 					toast.error((error as Error).message);
 				}

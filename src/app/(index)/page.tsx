@@ -89,7 +89,6 @@ export default function Index() {
 
 				<CheckPatientForm
 					className={selectedPatientCID ? styles.hide : ""}
-					selectedPatientCID={selectedPatientCID}
 					setSelectedPatientCID={setSelectedPatientCID}
 				/>
 
