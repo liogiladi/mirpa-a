@@ -53,7 +53,7 @@ export type Database = {
           first_name: string
           last_name: string
           phone_number: string | null
-          relation: string
+          relation: string | null
         }
         Insert: {
           cid: string
@@ -62,7 +62,7 @@ export type Database = {
           first_name: string
           last_name: string
           phone_number?: string | null
-          relation: string
+          relation?: string | null
         }
         Update: {
           cid?: string
@@ -71,7 +71,7 @@ export type Database = {
           first_name?: string
           last_name?: string
           phone_number?: string | null
-          relation?: string
+          relation?: string | null
         }
         Relationships: []
       }

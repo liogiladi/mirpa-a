@@ -51,7 +51,49 @@ body {
 	background-size: cover;
 	font-family: "Heebo";
 
+	&:has(main.index) {
+		padding: 0;
+		grid-template-rows: 1fr;
+
+		#main-wrapper {
+			border-radius: 0 !important;
+			background-color: unset !important;
+			backdrop-filter: unset !important;
+		}
+
+		main {
+			border-radius: 0;
+			background-color: transparent;
+		}
+
+		header {
+			display: none !important;
+		}
+	}
+
+	&:has(main[data-fade-in="true"]) {
+		animation: fadein 0.5s forwards;
+	}
+
+	@keyframes fadein {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	#main-wrapper {
+		display: flex;
+		justify-content: center;
+		border-radius: 7px;
+		background-color: #00000012;
+		backdrop-filter: blur(8px);
+	}
+
 	main {
+		position: relative;
 		place-self: center;
 		padding: 1.5rem;
 		border-radius: 7px;

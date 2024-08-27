@@ -1,0 +1,173 @@
+@use "@/styles/colors";
+
+$primary: #00929b;
+
+#index {
+	padding: 0;
+
+	svg {
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		translate: -50% -50%;
+		width: 50vw;
+		aspect-ratio: 1/1;
+		height: 60vh;
+		filter: drop-shadow(0px 4px 13px rgba(0, 0, 0, 0.089));
+		transition: 0.3s ease-out;
+	}
+
+	> section {
+		width: 50vw;
+	}
+
+	#left-side {
+		position: relative;
+
+		span {
+			position: absolute;
+			left: 0;
+			top: 50vh;
+			color: white;
+			translate: 0 -50%;
+			height: fit-content;
+			display: block;
+			font-weight: 800;
+			font-size: clamp(3rem, 8vw, 10rem);
+			text-align: center;
+		}
+	}
+
+	#right-side {
+		position: absolute;
+		width: 50%;
+		height: 100%;
+		background-color: white;
+		overflow: hidden;
+		transition: 0.3s ease-out;
+		clip-path: inset(0 0 0 0);
+
+		> svg {
+			position: fixed;
+			left: 50%;
+			transition: 0.3s ease-out;
+
+			path {
+				fill: $primary;
+			}
+		}
+
+		> button {
+			position: fixed;
+			left: 50%;
+			bottom: 1rem;
+			border: 0;
+			font-size: 1rem;
+			font-weight: 600;
+			translate: -50%;
+			background: none;
+			opacity: 0;
+			transition: 0.2s;
+			cursor: pointer;
+		}
+	}
+
+	&[data-shown-section="family"],
+	&[data-shown-section="family-full"] {
+		#right-side {
+			width: 100%;
+
+			> svg {
+				left: 75%;
+				scale: 1.3;
+			}
+		}
+	}
+
+	&[data-shown-section="family-full"] {
+		form:first-of-type:not(.hide) {
+			opacity: 1 !important;
+			pointer-events: all !important;
+		}
+
+		svg {
+			width: 100%;
+			height: 80%;
+			left: 100% !important;
+		}
+
+		#right-side > button {
+			opacity: 1 !important;
+			pointer-events: all !important;
+		}
+	}
+
+	&[data-shown-section="hamal"],
+	&[data-shown-section="hamal-full"] {
+		#left-side {
+			svg {
+				left: 25%;
+				scale: 1.3;
+			}
+		}
+
+		#right-side {
+			width: 0%;
+
+			svg {
+				left: 0;
+			}
+		}
+	}
+
+	&[data-shown-section="hamal-full"] {
+		#left-side {
+			svg {
+				left: 50%;
+				scale: 1.3;
+				animation: fadeout 0.3s 0.4s forwards;
+			}
+		}
+	}
+
+	&[data-shown-section="hamal"],
+	&[data-shown-section="family"] {
+		cursor: pointer;
+	}
+}
+
+@at-root [data-mobile="true"] #index {
+	form {
+		width: 100%;
+	}
+
+	&[data-shown-section="family-full"] #right-side {
+		svg {
+			top: 0% !important;
+			left: 50% !important;
+			width: 100% !important;
+			scale: 1 !important;
+			opacity: 0.05;
+		}
+	}
+}
+
+@keyframes fadeout {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+		pointer-events: none;
+	}
+	to {
+		opacity: 1;
+		pointer-events: all;
+	}
+}

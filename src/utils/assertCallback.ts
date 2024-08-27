@@ -1,8 +1,8 @@
 export function assertCallback(
 	value: unknown,
-	callback: (value: unknown) => void
+	callback: () => void
 ): asserts value {
 	if (!value) {
-		callback(value);
+		callback();
 	}
 }

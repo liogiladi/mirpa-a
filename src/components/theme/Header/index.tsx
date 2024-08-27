@@ -8,6 +8,7 @@ import styles from "./header.module.scss";
 import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
+import Link from "next/link";
 import ToggleLinks, { ToggleLinkInfo } from "../ToggleLinks";
 import MobileMenu from "../../general/MobileMenu";
 
@@ -49,7 +50,9 @@ export default memo(function Header({ isMobile }: Props) {
 							NAV_LINKS.find(
 								(navLink) =>
 									navLink.href.includes(pathname) ||
-									pathname.startsWith(navLink.href)
+									pathname.startsWith(
+										navLink.href.split("?")[0]
+									)
 							)?.name
 						}
 					</h1>
@@ -61,6 +64,7 @@ export default memo(function Header({ isMobile }: Props) {
 				<MobileMenu />
 			) : (
 				<nav>
+					<Link href={"/"}>צד לקוח</Link>
 					<ToggleLinks variant="filled" links={NAV_LINKS} />
 				</nav>
 			)}

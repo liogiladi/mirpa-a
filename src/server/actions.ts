@@ -3,10 +3,13 @@ import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import assert from "assert";
 import db from "@/server/db";
+
 import Validations from "@/utils/validations";
 import { dataURLtoFile } from "@/utils/dataURLToFile";
 import { assertCallback } from "@/utils/assertCallback";
+import { RELATIONS } from "@/utils/constants";
 
 export async function approveRequest(visitId: string) {
 	if (!Validations.uuid.test(visitId)) {
@@ -188,7 +191,7 @@ export async function addPatient(
 
 		if (error.code === "23505") {
 			// Patient cid already regitered
-			throw new Error("מטופל עם מספר ת.ז זה קיים במערכת");
+			throw new Error("מטופל עם מספר זהות זה קיים במערכת");
 		}
 
 		throw new Error("תקלה בהוספה");
@@ -197,4 +200,203 @@ export async function addPatient(
 	redirect(
 		"/patients-management?sort-by=reception-time&order-directions=DESC"
 	);
+}
+
+export async function checkPatient(formData: FormData) {
+	const cid = formData.get("state-id")?.toString();
+
+	assert(cid && Validations.cid(cid), "מס' זהות שהוזן אינו תקין");
+
+	const { data, error } = await db
+		.from("patients")
+		.select("*")
+		.eq("cid", cid)
+		.maybeSingle();
+
+	if (error) {
+		console.error(error);
+		throw new Error("תקלה באימות");
+	}
+
+	if (!data) {
+		throw new Error("מטופל עם מס' זהות זה אינו נמצא במערכת");
+	}
+}
+
+export async function createVisit(patientCid: string, formData: FormData) {
+	assertCallback(patientCid && Validations.cid(patientCid), () => {
+		throw error;
+	});
+
+	const patient = await db
+		.from("patients")
+		.select("*")
+		.eq("cid", patientCid)
+		.maybeSingle();
+	assert(patient, "המטופל לא נמצא במערכת");
+
+	const invalidInputsNames: string[] = [];
+
+	const visitTime = formData.get("visit-time")?.toString();
+
+	assertCallback(visitTime && Validations.date(visitTime), () =>
+		invalidInputsNames.push("visitor-time")
+	);
+
+	const visitorCid = formData.get("visitor-state-id")?.toString();
+	assertCallback(visitorCid && Validations.cid(visitorCid), () =>
+		invalidInputsNames.push("visitor-state-id")
+	);
+
+	const visitorFirstName = formData.get("visitor-first-name")?.toString();
+	assertCallback(
+		visitorFirstName && Validations.hebrewName.test(visitorFirstName),
+		() => invalidInputsNames.push("visitor-first-name")
+	);
+
+	const visitorLastName = formData.get("visitor-last-name")?.toString();
+	assertCallback(
+		visitorLastName && Validations.hebrewName.test(visitorLastName),
+		() => invalidInputsNames.push("visitor-last-name")
+	);
+
+	const visitorPhoneNumber = formData.get("visitor-phone-number")?.toString();
+	assertCallback(
+		!visitorPhoneNumber ||
+			(visitorPhoneNumber &&
+				Validations.phoneNumber.test(visitorPhoneNumber)),
+		() => invalidInputsNames.push("visitor-phone-number")
+	);
+
+	const visitorEmail = formData.get("visitor-email")?.toString();
+	assertCallback(
+		!visitorEmail || (visitorEmail && Validations.email.test(visitorEmail)),
+		() => invalidInputsNames.push("visitor-email")
+	);
+
+	assert(
+		(!visitorPhoneNumber && visitorEmail) ||
+			(!visitorEmail && visitorPhoneNumber),
+		"יש להזין פרט ליצירת קשר"
+	);
+
+	let visitorRelation: string | null | undefined = formData
+		.get("visitor-relation")
+		?.toString();
+	if (visitorRelation === "בחר כאן") visitorRelation = null;
+
+	assertCallback(
+		!visitorRelation ||
+			(visitorRelation && RELATIONS.includes(visitorRelation)),
+		() => invalidInputsNames.push("visitor-relation")
+	);
+
+	const extraVisitorCid = formData.get("extra-visitor-state-id")?.toString();
+	const extraVisitorFirstName = formData
+		.get("extra-visitor-first-name")
+		?.toString();
+	const extraVisitorLastName = formData
+		.get("extra-visitor-last-name")
+		?.toString();
+
+	let extraVisitorRelation: string | null | undefined = formData
+		.get("extra-visitor-relation")
+		?.toString();
+	if (extraVisitorRelation === "בחר כאן") extraVisitorRelation = null;
+
+	const enteredExtraVisitor =
+		extraVisitorCid ||
+		extraVisitorFirstName ||
+		extraVisitorLastName ||
+		extraVisitorRelation;
+
+	assertCallback(
+		(!enteredExtraVisitor && !extraVisitorCid) ||
+			(extraVisitorCid && Validations.cid(extraVisitorCid)),
+		() => invalidInputsNames.push("extra-visitor-state-id")
+	);
+
+	assertCallback(
+		(!enteredExtraVisitor && !extraVisitorFirstName) ||
+			(extraVisitorFirstName &&
+				Validations.hebrewName.test(extraVisitorFirstName)),
+		() => invalidInputsNames.push("extra-visitor-first-name")
+	);
+
+	assertCallback(
+		(!enteredExtraVisitor && !extraVisitorLastName) ||
+			(extraVisitorLastName &&
+				Validations.hebrewName.test(extraVisitorLastName)),
+		() => invalidInputsNames.push("extra-visitor-last-name")
+	);
+
+	assertCallback(
+		!extraVisitorRelation ||
+			(extraVisitorRelation && RELATIONS.includes(extraVisitorRelation)),
+		() => invalidInputsNames.push("extra-visitor-relation")
+	);
+
+	if (invalidInputsNames.length > 0) {
+		return invalidInputsNames;
+	}
+
+	// Check if exists beforehand
+	const { data: visitorExists } = await db
+		.from("visitors")
+		.select()
+		.eq("cid", visitorCid)
+		.maybeSingle();
+
+	if (!visitorExists) {
+		const { error: visitorInsertError } = await db.from("visitors").insert({
+			cid: visitorCid,
+			first_name: visitorFirstName,
+			last_name: visitorLastName,
+			phone_number: visitorPhoneNumber,
+			email: visitorEmail,
+			relation: visitorRelation,
+		});
+
+		if (visitorInsertError) console.error(visitorInsertError);
+		assert(!visitorInsertError, "תקלה");
+	}
+
+	if (enteredExtraVisitor && extraVisitorCid) {
+		console.log(4);
+
+		const { data: extraVisitorExists } = await db
+			.from("visitors")
+			.select()
+			.eq("cid", extraVisitorCid)
+			.maybeSingle();
+
+		// Check if exists beforehand
+		if (!extraVisitorExists) {
+			console.log(5);
+
+			const { error: extraVisitorInsertError } = await db
+				.from("visitors")
+				.insert({
+					cid: extraVisitorCid!,
+					first_name: extraVisitorFirstName!,
+					last_name: extraVisitorLastName!,
+					relation: extraVisitorRelation,
+				});
+
+			if (extraVisitorInsertError) console.error(extraVisitorInsertError);
+			assert(!extraVisitorInsertError, "תקלה");
+		}
+	}
+
+	const { error } = await db.from("visits").insert({
+		datetime: visitTime,
+		patient_cid: patientCid,
+		visitor_id: visitorCid,
+		extra_visitor_id: enteredExtraVisitor ? extraVisitorCid : null,
+	});
+
+	if (error) {
+		console.error(error);
+		throw new Error("תקלה");
+	}
 }

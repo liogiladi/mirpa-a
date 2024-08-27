@@ -29,6 +29,37 @@
 			pointer-events: none;
 		}
 	}
+
+	nav {
+		display: flex;
+		gap: 1rem;
+
+		> a {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 0 3rem;
+			border: 0;
+			border-radius: 5px;
+			color: #06060640;
+			background: #ffffff69;
+			text-decoration: aliceblue;
+			font-size: 1rem;
+			font-weight: 700;
+			transition: 0.2s;
+			cursor: pointer;
+			backdrop-filter: blur(10px);
+
+			&:hover {
+				background-color: white;
+				color: black;
+			}
+
+			&:active {
+				scale: 0.9;
+			}
+		}
+	}
 }
 
 @at-root [data-mobile="true"] #header {
@@ -41,10 +72,11 @@
 
 		img {
 			position: absolute;
-			left: 1rem;
-			scale: 1.6;
 			z-index: 2;
+			left: 1rem;
 			opacity: 0.05;
+			transition: opacity 0.3s;
+			scale: 1.6;
 		}
 
 		span,
@@ -57,12 +89,18 @@
 		}
 	}
 
+	&:has(svg[data-open="true"]) {
+		#brand img {
+			opacity: 0;
+		}
+	}
+
 	nav {
 		position: absolute;
+		z-index: 0;
 		bottom: -100vh;
 		width: 100vw;
 		height: 100vh;
 		background: colors.$primary;
-		z-index: 0;
 	}
 }
