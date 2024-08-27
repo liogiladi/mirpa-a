@@ -48,6 +48,11 @@ export default async function PatientsData({ searchParams }: Props) {
 	const dataWithProfilePictures: PatientData[] = [];
 
 	for (const patient of data) {
+		// Note: not accurate but shall suffice for the moment
+		const age = Math.floor(
+			(Date.now() - new Date(patient.birth_date).getTime()) / 3.15576e10
+		);
+
 		dataWithProfilePictures.push({
 			...patient,
 			profilePictureURL: `${
@@ -56,6 +61,7 @@ export default async function PatientsData({ searchParams }: Props) {
 					.getPublicUrl(`patients-profiles/${patient.cid}.png`).data
 					.publicUrl
 			}?${Date.now()}`,
+			age,
 		});
 	}
 

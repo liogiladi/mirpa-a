@@ -25,7 +25,10 @@ export type PatientInfoToDelete = Pick<
 	"first_name" | "last_name"
 >;
 
-export type PatientData = Tables<"patients"> & { profilePictureURL: string };
+export type PatientData = Tables<"patients"> & {
+	profilePictureURL: string;
+	age: number;
+};
 
 const SORTABLE_COLUMN_ID_TO_LABEL: Record<PatientsSort, string> = {
 	"first-name": "שם פרטי",
@@ -170,7 +173,7 @@ export default function PatientsForm({ data }: Props) {
 					patient.first_name,
 					patient.last_name,
 					patient.cid,
-					"גיל",
+					patient.age.toFixed(1),
 					patient.address,
 					`${getDateString(creationDate, {
 						format: true,
@@ -186,7 +189,7 @@ export default function PatientsForm({ data }: Props) {
 			}),
 		[data, handleRowSelectionToggle, isMobile, selectedPatientCIDs]
 	);
-	//TODO: SEARCH FORM SELECT/INPUT
+
 	return (
 		<form
 			id={styles["patients-form"]}
