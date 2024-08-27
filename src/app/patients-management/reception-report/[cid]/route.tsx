@@ -190,9 +190,6 @@ export async function GET(
 
 		return response;
 	} catch (error) {
-		const response = new Response();
-		response.headers.set("error", (error as Error).message);
-
-		return response;
+		return Response.json(error);
 	}
 }
