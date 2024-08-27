@@ -1,5 +1,7 @@
 {
 	"functions": {
-		"app/upcoming-visits/print/route.tsx": {}
+		"app/upcoming-visits/print/route.tsx": {
+			"maxDuration": 100
+		}
 	}
 }
