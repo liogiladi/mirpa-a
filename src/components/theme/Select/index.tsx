@@ -25,7 +25,7 @@ export default memo(function Select({
 					{option[0]}
 				</option>
 			)),
-		[]
+		[id, options]
 	);
 
 	return (
