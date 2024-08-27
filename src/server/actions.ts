@@ -224,10 +224,7 @@ export async function checkPatient(formData: FormData) {
 }
 
 export async function createVisit(patientCid: string, formData: FormData) {
-	assertCallback(patientCid && Validations.cid(patientCid), (error) => {
-		console.log(patientCid);
-
-		console.error("Invalid patient cid");
+	assertCallback(patientCid && Validations.cid(patientCid), () => {
 		throw error;
 	});
 
@@ -277,13 +274,20 @@ export async function createVisit(patientCid: string, formData: FormData) {
 		() => invalidInputsNames.push("visitor-email")
 	);
 
-	const visitorRelation = formData.get("visitor-relation")?.toString();
-	console.log(visitorRelation);
+	assert(
+		(!visitorPhoneNumber && visitorEmail) ||
+			(!visitorEmail && visitorPhoneNumber),
+		"יש להזין פרט ליצירת קשר"
+	);
+
+	let visitorRelation: string | null | undefined = formData
+		.get("visitor-relation")
+		?.toString();
+	if (visitorRelation === "בחר כאן") visitorRelation = null;
 
 	assertCallback(
-		visitorRelation &&
-			(visitorRelation === "בחר כאן" ||
-				RELATIONS.includes(visitorRelation)),
+		!visitorRelation ||
+			(visitorRelation && RELATIONS.includes(visitorRelation)),
 		() => invalidInputsNames.push("visitor-relation")
 	);
 
@@ -295,8 +299,16 @@ export async function createVisit(patientCid: string, formData: FormData) {
 		.get("extra-visitor-last-name")
 		?.toString();
 
+	let extraVisitorRelation: string | null | undefined = formData
+		.get("extra-visitor-relation")
+		?.toString();
+	if (extraVisitorRelation === "בחר כאן") extraVisitorRelation = null;
+
 	const enteredExtraVisitor =
-		extraVisitorCid || extraVisitorFirstName || extraVisitorLastName;
+		extraVisitorCid ||
+		extraVisitorFirstName ||
+		extraVisitorLastName ||
+		extraVisitorRelation;
 
 	assertCallback(
 		(!enteredExtraVisitor && !extraVisitorCid) ||
@@ -318,13 +330,9 @@ export async function createVisit(patientCid: string, formData: FormData) {
 		() => invalidInputsNames.push("extra-visitor-last-name")
 	);
 
-	const extraVisitorRelation = formData
-		.get("extra-visitor-relation")
-		?.toString();
 	assertCallback(
-		extraVisitorRelation &&
-			(extraVisitorRelation === "בחר כאן" ||
-				RELATIONS.includes(extraVisitorRelation)),
+		!extraVisitorRelation ||
+			(extraVisitorRelation && RELATIONS.includes(extraVisitorRelation)),
 		() => invalidInputsNames.push("extra-visitor-relation")
 	);
 

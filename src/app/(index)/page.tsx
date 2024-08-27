@@ -25,8 +25,15 @@ export default function Index() {
 			className="index"
 			id={styles.index}
 			onClick={(e) => {
-				if (isMobile && !shownSection) {
-					setShownSection(() => {
+				if (
+					shownSection === "family-full" ||
+					shownSection === "hamal-full"
+				) {
+					return;
+				}
+
+				setShownSection((prev) => {
+					if (isMobile) {
 						const ratio = e.clientX / window.innerWidth;
 
 						if (ratio > 0.65) return "family-full";
@@ -38,20 +45,19 @@ export default function Index() {
 
 							return "hamal-full";
 						}
-						return null;
-					});
-				} else {
-					if (shownSection === "hamal") {
-						setShownSection("hamal-full");
 
+						return null;
+					} else if (prev === "hamal") {
 						setTimeout(() => {
 							router.push("/about?transition=fade-in");
 							router.refresh();
 						}, 1200);
-					} else if (shownSection === "family") {
-						setShownSection("family-full");
-					}
-				}
+
+						return "hamal-full";
+					} else if (prev === "family") return "family-full";
+
+					return null;
+				});
 			}}
 			onMouseMove={(e) => {
 				if (shownSection?.includes("full")) return;
@@ -83,11 +89,16 @@ export default function Index() {
 
 				<CheckPatientForm
 					className={selectedPatientCID ? styles.hide : ""}
+					selectedPatientCID={selectedPatientCID}
 					setSelectedPatientCID={setSelectedPatientCID}
 				/>
 
 				{selectedPatientCID && shownSection === "family-full" && (
-					<CreateVisitForm selectedPatientCID={selectedPatientCID} />
+					<CreateVisitForm
+						selectedPatientCID={selectedPatientCID}
+						setSelectedPatientCID={setSelectedPatientCID}
+						setShownSection={setShownSection}
+					/>
 				)}
 			</section>
 		</main>

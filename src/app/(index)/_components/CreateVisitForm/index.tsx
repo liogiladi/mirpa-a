@@ -1,6 +1,9 @@
 "use client";
 
+import { Dispatch, SetStateAction, useRef } from "react";
 import { createVisit } from "@/server/actions";
+import styles from "./create-visit-form.module.scss";
+import formStyles from "../form.module.scss";
 
 import toast from "react-hot-toast";
 import { getDateString } from "@/utils/dates";
@@ -12,11 +15,24 @@ import Select from "@/components/theme/Select";
 
 type Props = {
 	selectedPatientCID: string;
+	setSelectedPatientCID: Dispatch<string>;
+	setShownSection: Dispatch<
+		SetStateAction<"hamal" | "hamal-full" | "family" | "family-full" | null>
+	>;
 };
 
-export default function CreateVisitForm({ selectedPatientCID }: Props) {
+export default function CreateVisitForm({
+	selectedPatientCID,
+	setSelectedPatientCID,
+	setShownSection,
+}: Props) {
+	const ref = useRef<HTMLFormElement>(null);
+
 	return (
 		<form
+			ref={ref}
+			id={styles["create-visit-form"]}
+			className={formStyles.form}
 			action={async (data) => {
 				try {
 					document
@@ -30,8 +46,6 @@ export default function CreateVisitForm({ selectedPatientCID }: Props) {
 						selectedPatientCID,
 						data
 					);
-
-					console.log(invalidInputsNames);
 
 					if (invalidInputsNames && invalidInputsNames.length > 0) {
 						invalidInputsNames.forEach((name, index) => {
@@ -54,6 +68,12 @@ export default function CreateVisitForm({ selectedPatientCID }: Props) {
 						toast.error("חלק מהשדות שהוזנו אינו תקין");
 					} else {
 						toast.success("הבקשה נשלחה");
+
+						setTimeout(() => {
+							ref.current?.reset();
+							setShownSection(null);
+							setSelectedPatientCID("");
+						}, 1000);
 					}
 				} catch (error) {
 					if (!(error as Error).message) {
@@ -62,7 +82,7 @@ export default function CreateVisitForm({ selectedPatientCID }: Props) {
 				}
 			}}
 		>
-			<legend>קביעת ביקור עבור {}</legend>
+			<legend>קביעת ביקור</legend>
 			<section>
 				<fieldset>
 					<legend>פרטי ביקור</legend>

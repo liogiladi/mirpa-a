@@ -1,4 +1,5 @@
-import { Dispatch } from "react";
+import { Dispatch, useEffect, useRef } from "react";
+import formStyles from "./form.module.scss";
 
 import toast from "react-hot-toast";
 import { checkPatient } from "@/server/actions";
@@ -8,15 +9,26 @@ import Input from "@/components/theme/Input";
 
 type Props = {
 	className?: string;
+	selectedPatientCID: string;
 	setSelectedPatientCID: Dispatch<string>;
 };
 
 export default function CheckPatientForm({
 	className,
+	selectedPatientCID,
 	setSelectedPatientCID,
 }: Props) {
+	const ref = useRef<HTMLFormElement>(null);
+
+	useEffect(() => {
+		if (!selectedPatientCID) {
+			ref.current?.reset();
+		}
+	}, [selectedPatientCID]);
+
 	return (
 		<form
+			ref={ref}
 			action={async (data) => {
 				try {
 					await checkPatient(data);
@@ -25,7 +37,7 @@ export default function CheckPatientForm({
 					toast.error((error as Error).message);
 				}
 			}}
-			className={className}
+			className={`${formStyles.form} ${className}`}
 		>
 			<legend>אימות זהות מטופל</legend>
 			<Input
