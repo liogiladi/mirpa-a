@@ -48,7 +48,7 @@ _The managment in the mean time tracks and reviews the current data via several 
 
 -   [x] Basic Functionality
 -   [x] Mobile Adjustments
--   [x] Replace Sass with an alternative, maybe Less ([click here for context]())
+-   [ ] Replace Sass with an alternative, maybe Less ([click here for context]())
 -   [ ] Feedback via Email/SMS
 -   [ ] Authentication
 
