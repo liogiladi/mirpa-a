@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Live Site][website-shield]][website-url]
+[![Portfolio][portfolio-shield]][portfolio-url]
 
-## Getting Started
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+    <picture>
+        <source media="(prefers-color-scheme: light)" srcset="https://github.com/liogiladi/mirpa-a/blob/main/public/logo-black.svg?raw=true)">
+        <source media="(prefers-color-scheme: dark)" srcset="https://github.com/liogiladi/mirpa-a/blob/main/public/logo.svg?raw=true)">
+        <img />
+    </picture>
 
-First, run the development server:
+  <h3 align="center">The Clinic המרפאה</h3>
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<!-- ABOUT THE PROJECT -->
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About The Project
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The project simulates both the process of a client requesting a visit for a patient and the process of managing the requests, their approvals/rejections and the patients.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Built With
 
-## Learn More
+[![Next][Next.js]][Next-url]
+[![React][React.js]][React-url]
+[![PostgreSQL][PostgreSQL]][PostgreSQL-url]
+[![Supabase][Supabase]][Supabase-url]
 
-To learn more about Next.js, take a look at the following resources:
+<!-- USAGE EXAMPLES -->
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The flow is as follows:
 
-## Deploy on Vercel
+1. The management adds the patient to the database.
+2. The client requests a visit and can bring an additonal visitor.
+3. The management reviews the request and decides wether to approve or reject it.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+_The managment in the mean time tracks and reviews the current data via several offered utilties:_
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Filtering & Sorting
+2. Printing
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+-   [x] Basic Functionality
+-   [x] Mobile Adjustments
+-   [x] Replace Sass with an alternative, maybe Less ([click here for context]())
+-   [ ] Feedback via Email/SMS
+-   [ ] Authentication
+
+(Are you robot, suspicious activity, brute force mining the state ids on client side ect.)
+
+-   [ ] Multi-language Support
+    -   [ ] English
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+This README file uses an awesome template :) [check it out!](https://github.com/othneildrew/Best-README-Template)
+
+(The license is provided in the root folder)
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[website-shield]: https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white
+[website-url]: WEBSITE_URL
+[portfolio-shield]: https://img.shields.io/badge/Portfolio-255E63?style=for-the-badge&logo=About.me&logoColor=white
+[portfolio-url]: WEBSITE_URL
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[PostgreSQL]: https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white
+[PostgreSQL-url]: https://www.postgresql.org/
+[Supabase]: https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white
+[Supabase-url]: https://supabase.com/
