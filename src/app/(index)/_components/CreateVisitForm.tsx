@@ -84,7 +84,7 @@ export default function CreateVisitForm({ selectedPatientCID }: Props) {
 					<Input
 						id="visitor-state-id"
 						name="visitor-state-id"
-						label="מס' ת.ז"
+						label="מס' זהות"
 						type="number"
 						required
 					/>
@@ -128,7 +128,7 @@ export default function CreateVisitForm({ selectedPatientCID }: Props) {
 					<Input
 						id="extra-visitor-state-id"
 						name="extra-visitor-state-id"
-						label="מס' ת.ז"
+						label="מס' זהות"
 						type="number"
 					/>
 					<Input

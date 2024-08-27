@@ -191,7 +191,7 @@ export async function addPatient(
 
 		if (error.code === "23505") {
 			// Patient cid already regitered
-			throw new Error("מטופל עם מספר ת.ז זה קיים במערכת");
+			throw new Error("מטופל עם מספר זהות זה קיים במערכת");
 		}
 
 		throw new Error("תקלה בהוספה");
@@ -205,7 +205,7 @@ export async function addPatient(
 export async function checkPatient(formData: FormData) {
 	const cid = formData.get("state-id")?.toString();
 
-	assert(cid && Validations.cid(cid), "מס' ת.ז שהוזן אינו תקין");
+	assert(cid && Validations.cid(cid), "מס' זהות שהוזן אינו תקין");
 
 	const { data, error } = await db
 		.from("patients")
@@ -219,7 +219,7 @@ export async function checkPatient(formData: FormData) {
 	}
 
 	if (!data) {
-		throw new Error("מטופל עם מס' ת.ז זה אינו נמצא במערכת");
+		throw new Error("מטופל עם מס' זהות זה אינו נמצא במערכת");
 	}
 }
 

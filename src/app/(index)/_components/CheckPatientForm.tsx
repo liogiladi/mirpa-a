@@ -31,7 +31,7 @@ export default function CheckPatientForm({
 			<Input
 				id="state-id"
 				type="number"
-				label={"מס' ת.ז מטופל"}
+				label={"מס' זהות מטופל"}
 				required
 			/>
 			<Button variant={"filled"} colorVariant="primary">

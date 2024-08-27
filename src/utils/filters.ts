@@ -16,7 +16,7 @@ export const PATIENT_FILTER_ID_TO_INFO: FilterIdToInfo<"patient"> = {
 	"patient-first-name": "שם פרטי",
 	"patient-surname": "שם משפחה",
 	"patient-state-id": {
-		label: "מספר ת.ז",
+		label: "מספר זהות",
 		type: "number",
 	},
 };
@@ -26,7 +26,7 @@ export const VISITOR_FILTER_ID_TO_INFO: FilterIdToInfo<"visitor"> = {
 	"visitor-first-name": "שם פרטי",
 	"visitor-surname": "שם משפחה",
 	"visitor-state-id": {
-		label: "מספר ת.ז",
+		label: "מספר זהות",
 		type: "number",
 	},
 	"visitor-familial-realtion": "דרגת קרבה",
@@ -47,7 +47,7 @@ export const EXTRA_VISITOR_FILTER_ID_TO_INFO: OmitProperties<
 	"extra-visitor-first-name": "שם פרטי (מבקר נוסף)",
 	"extra-visitor-surname": "שם משפחה (מבקר נוסף)",
 	"extra-visitor-state-id": {
-		label: "מספר ת.ז (מבקר נוסף)",
+		label: "מספר זהות (מבקר נוסף)",
 		type: "number",
 	},
 	"extra-visitor-familial-realtion": "דרגת קרבה (מבקר נוסף)",

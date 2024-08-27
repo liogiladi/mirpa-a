@@ -19,7 +19,7 @@ const PATIENT_INFO_TO_LABELS: Partial<
 > = Object.freeze({
 	first_name: "שם פרטי",
 	last_name: "שם משפחה",
-	cid: "מספר תעודת זהות",
+	cid: "מספר זהות",
 	birth_date: "תאריך לידה",
 });
 

@@ -102,7 +102,7 @@ export default function AddPatient() {
 							type="number"
 							id={"state-id"}
 							name={"state-id"}
-							label={"מספר ת.ז"}
+							label={"מספר זהות"}
 							required
 						/>
 						<Input

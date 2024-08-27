@@ -60,7 +60,7 @@ export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 				(isMobile ? (
 					<List
 						data={[
-							"מספר ת.ז מבקר:",
+							"מספר זהות מבקר:",
 							visitInfo.visitor_id,
 							"טלפון מבקר:",
 							visitInfo?.visitor?.phone_number,
@@ -70,7 +70,7 @@ export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 							visitInfo?.visitor?.email,
 							...(visitInfo.extra_visitor
 								? [
-										"מספר ת.ז מבקר:",
+										"מספר זהות מבקר:",
 										visitInfo.extra_visitor_id,
 										"שם מבקר נוסף:",
 										`${visitInfo.extra_visitor.first_name} ${visitInfo.extra_visitor.last_name}`,
@@ -96,7 +96,7 @@ export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 						<VisitMainInfo data={visitInfo} />
 						<section>
 							{infoToElement(
-								"מספר ת.ז מבקר:",
+								"מספר זהות מבקר:",
 								visitInfo.visitor_id
 							)}
 							{infoToElement(
@@ -114,7 +114,7 @@ export default function VisitInfoDialog({ type, visitInfo, onClose }: Props) {
 							{visitInfo?.extra_visitor && (
 								<>
 									{infoToElement(
-										"מספר ת.ז מבקר:",
+										"מספר זהות מבקר:",
 										visitInfo.extra_visitor_id
 									)}
 									{infoToElement(
