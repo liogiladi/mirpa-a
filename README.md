@@ -3,8 +3,8 @@
 <div align="center">
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://github.com/liogiladi/mirpa-a/blob/main/public/logo.svg?raw=true)">
-        <source media="(prefers-color-scheme: light)" srcset="https://github.com/liogiladi/mirpa-a/blob/main/public/logo.svg?raw=true)">
-        <img src="https://github.com/liogiladi/mirpa-a/blob/main/public/logo.svg?raw=true)"/>
+        <source media="(prefers-color-scheme: light)" srcset="https://github.com/liogiladi/mirpa-a/blob/main/public/logo-black.svg?raw=true)">
+        <img />
     </picture>
  
 
