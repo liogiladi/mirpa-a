@@ -38,7 +38,7 @@ export default forwardRef<HTMLDialogElement, Props>(function DeleteAlertDialog(
 				האם ברצונך למחוק את המטופלים הבאים:
 				<section>{infos}</section>
 				<strong>
-					מחיקת מטופל תמחק כל ביקור/בקשת ביקור שמקושרים למטופל!
+					{`!הפעולה תמחק כל ביקור/בקשה שמקושרים למטופל(ים) הנ"ל`}
 				</strong>
 			</section>
 			<footer>
