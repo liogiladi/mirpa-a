@@ -180,7 +180,7 @@ export default function PatientsForm({ data }: Props) {
 					})} ${getTimeString(creationDate)}`,
 					<Link
 						key={`report-${patient.cid}`}
-						href={`/patients-management/reception-report/${patient.cid}`}
+						href={`/patients-management/print/${patient.cid}`}
 						target="_blank"
 					>
 						צפייה
