@@ -109,6 +109,14 @@ body {
 			font-size: 1.5rem;
 		}
 	}
+
+	@media print {
+		> header,
+		> #main-wrapper,
+		> main {
+			display: none !important;
+		}
+	}
 }
 
 ul,

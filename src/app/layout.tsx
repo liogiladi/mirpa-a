@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.scss";
+import "@/styles/pdf-document.scss";
 
 import { isMobileNodeJS } from "@/utils/mobile";
 

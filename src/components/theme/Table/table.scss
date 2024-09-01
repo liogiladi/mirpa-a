@@ -5,6 +5,7 @@
 	width: 100%;
 	border-collapse: collapse;
 	font-size: 1rem;
+	page-break-inside: auto;
 
 	thead {
 		font-size: 0.8em;
@@ -37,6 +38,11 @@
 		text-align: center;
 	}
 
+	tr {
+		page-break-inside: avoid;
+		page-break-after: auto;
+	}
+
 	tbody tr {
 		font-size: 0.8em;
 
@@ -56,12 +62,23 @@
 		aspect-ratio: 1;
 		accent-color: black;
 	}
+
+	@media print {
+		border-collapse: unset !important;
+		border-spacing: 0 !important;
+
+		td {
+			border-bottom: 1px solid #cacaca;
+		}
+	}
 }
 
 @at-root [data-mobile="true"] .table {
-	th,
-	td {
-		padding-block: 0.7rem !important;
-		text-wrap: nowrap;
+	@media screen {
+		th,
+		td {
+			padding-block: 0.7rem !important;
+			text-wrap: nowrap;
+		}
 	}
 }
