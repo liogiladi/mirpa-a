@@ -41,7 +41,7 @@ export default function Index() {
 							setTimeout(() => {
 								router.push("/about?transition=fade-in");
 								router.refresh();
-							}, 1200);
+							}, 1000);
 
 							return "hamal-full";
 						}
@@ -51,7 +51,7 @@ export default function Index() {
 						setTimeout(() => {
 							router.push("/about?transition=fade-in");
 							router.refresh();
-						}, 1200);
+						}, 1000);
 
 						return "hamal-full";
 					} else if (prev === "family") return "family-full";

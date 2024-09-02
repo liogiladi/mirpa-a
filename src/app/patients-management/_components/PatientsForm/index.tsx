@@ -2,7 +2,6 @@
 
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./patients-form.module.scss";
 import visitsPageStyles from "@/styles/visits-page.module.scss";
@@ -15,6 +14,8 @@ import { getDateString, getTimeString } from "@/utils/dates";
 import { TupleOfLength } from "@/utils/types";
 import { PatientsSort, SEARCH_QUERIES } from "@/utils/searchQueries";
 
+import { useReceptionReportData } from "@/contexts/printableReceptionReport";
+
 import toast from "react-hot-toast";
 import Table from "@/components/theme/Table";
 import Button from "@/components/theme/Button";
@@ -26,7 +27,8 @@ export type PatientInfoToDelete = Pick<
 >;
 
 export type PatientData = Tables<"patients"> & {
-	profilePictureURL: string;
+	profilePictureURL: string | null;
+	signaturePictureURL: string;
 	age: number;
 };
 
@@ -145,6 +147,8 @@ export default function PatientsForm({ data }: Props) {
 		[router, currentParams]
 	);
 
+	const setReceptionData = useReceptionReportData();
+
 	const rows: TupleOfLength<ReactNode, 9>[] = useMemo(
 		() =>
 			data.map((patient) => {
@@ -164,7 +168,10 @@ export default function PatientsForm({ data }: Props) {
 						key={patient.cid}
 						width={30}
 						height={30}
-						src={patient.profilePictureURL}
+						src={
+							patient.profilePictureURL ||
+							"/default-profile-pic.png"
+						}
 						alt="patient profile pic"
 						onError={(e) =>
 							(e.currentTarget.src = "/default-profile-pic.png")
@@ -178,16 +185,35 @@ export default function PatientsForm({ data }: Props) {
 					`${getDateString(creationDate, {
 						format: true,
 					})} ${getTimeString(creationDate)}`,
-					<Link
+					<button
+						type="button"
 						key={`report-${patient.cid}`}
-						href={`/patients-management/print/${patient.cid}`}
-						target="_blank"
+						onClick={() => {
+							setReceptionData?.((prev) => {
+								if (prev?.cid === patient.cid) {
+									window.print();
+									return prev;
+								}
+
+								return {
+									...patient,
+									signaturePictureURL:
+										patient.signaturePictureURL!,
+								};
+							});
+						}}
 					>
-						צפייה
-					</Link>,
+						הדפסה
+					</button>,
 				];
 			}),
-		[data, handleRowSelectionToggle, isMobile, selectedPatientCIDs]
+		[
+			data,
+			handleRowSelectionToggle,
+			isMobile,
+			selectedPatientCIDs,
+			setReceptionData,
+		]
 	);
 
 	return (

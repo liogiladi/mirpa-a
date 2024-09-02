@@ -1,0 +1,7 @@
+.printable {
+    display: none;
+
+    @media print {
+        display: unset !important;
+    }
+}

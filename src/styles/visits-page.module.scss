@@ -16,7 +16,7 @@
 			gap: 0.5rem;
 		}
 
-		&:has(section > form) {
+		&:has(section > button) {
 			justify-content: space-between;
 		}
 	}

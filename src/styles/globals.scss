@@ -90,6 +90,7 @@ body {
 		border-radius: 7px;
 		background-color: #00000012;
 		backdrop-filter: blur(8px);
+		overflow: hidden;
 	}
 
 	main {
@@ -107,6 +108,14 @@ body {
 			margin-bottom: 1.3rem;
 			text-align: center;
 			font-size: 1.5rem;
+		}
+	}
+
+	@media print {
+		> header,
+		> #main-wrapper,
+		> main {
+			display: none !important;
 		}
 	}
 }
