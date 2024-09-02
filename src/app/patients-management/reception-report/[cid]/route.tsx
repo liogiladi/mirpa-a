@@ -66,10 +66,7 @@ export async function GET(
 	const createdAtDate = new Date(patient.created_at);
 
 	const pdfContent = (
-		<PDFPage
-			title={title}
-			bodyStyle={{ display: "grid", gridTemplateRows: "auto 1fr" }}
-		>
+		<PDFPage title={title}>
 			<section id="personal-info">
 				<section>
 					{Object.entries(PATIENT_INFO_TO_LABELS).map(

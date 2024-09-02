@@ -1,9 +1,11 @@
 import db from "@/server/db";
 import { Tables } from "@/server/db.types";
-import { SearchParams } from "@/utils/types";
-import PatientsForm, { PatientData } from "../PatientsForm";
 import { Assertions } from "@/server/assertions";
+
+import { SearchParams } from "@/utils/types";
 import { PatientsSort, SEARCH_QUERIES } from "@/utils/searchQueries";
+import { ReceptionReportContextProvider } from "@/contexts/printableReceptionReport";
+import PatientsForm, { PatientData } from "../PatientsForm";
 
 type Props = {
 	searchParams: SearchParams;
@@ -53,17 +55,37 @@ export default async function PatientsData({ searchParams }: Props) {
 			(Date.now() - new Date(patient.birth_date).getTime()) / 3.15576e10
 		);
 
+		let profilePictureURL: string | null = null;
+
+		const { data, error: fileSearchError } = await db.storage
+			.from("pictures")
+			.list(`patients-profiles`);
+
+		const fileExists = data?.find(
+			(file) => file.name === `${patient.cid}.png`
+		);
+
+		if (!fileSearchError && fileExists) {
+			profilePictureURL = db.storage
+				.from("pictures")
+				.getPublicUrl(`patients-profiles/${patient.cid}.png`)
+				.data.publicUrl;
+		}
+
 		dataWithProfilePictures.push({
 			...patient,
-			profilePictureURL: `${
-				db.storage
-					.from("pictures")
-					.getPublicUrl(`patients-profiles/${patient.cid}.png`).data
-					.publicUrl
-			}?${Date.now()}`,
+			profilePictureURL,
+			signaturePictureURL: db.storage
+				.from("pictures")
+				.getPublicUrl(`user-signatures/${patient.cid}.png`).data
+				.publicUrl,
 			age,
 		});
 	}
 
-	return <PatientsForm data={dataWithProfilePictures} />;
+	return (
+		<ReceptionReportContextProvider>
+			<PatientsForm data={dataWithProfilePictures} />
+		</ReceptionReportContextProvider>
+	);
 }

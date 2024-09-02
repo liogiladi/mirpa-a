@@ -7,14 +7,17 @@ import useMounted from "@/hooks/useMounted";
 export default function Printable({
 	children,
 	portal = true,
-}: PropsWithRequiredChildren<{ portal?: boolean }>) {
+	id,
+}: PropsWithRequiredChildren<{ portal?: boolean; id?: string }>) {
 	const mounted = useMounted();
 
 	if (!mounted) return null;
 
 	if (portal) {
 		return createPortal(
-			<div className={styles.printable}>{children}</div>,
+			<div id={id} className={styles.printable}>
+				{children}
+			</div>,
 			document.body
 		);
 	}

@@ -1,14 +1,9 @@
-/* Title doesn't work otherwise */
-/* eslint-disable @next/next/no-head-element */
-import "server-only";
-
-import { CSSProperties, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { getDateString, getTimeString } from "@/utils/dates";
 import FullLogoIcon from "@/components/icons/FullLogoIcon";
 
 type Props = {
 	title: string;
-	bodyStyle?: CSSProperties;
 };
 
 export default function PDFPage({ title, children }: PropsWithChildren<Props>) {

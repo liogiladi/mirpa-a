@@ -30,7 +30,6 @@
 			position: relative;
 			width: 40%;
 			object-fit: cover;
-			filter: grayscale();
 			aspect-ratio: 1/1;
 			z-index: -1;
 		}
@@ -50,11 +49,11 @@
 				align-items: center;
 				gap: 0;
 				width: 100%;
-				border-top: 0.5px dashed;
+				border-top: 0.5px dashed rgba(0, 0, 0, 0.427);
 
 				&:has(strong) {
 					padding-block: 0.5rem;
-					border-bottom: 1px dashed;
+					border-bottom: 1px dashed rgba(0, 0, 0, 0.427);
 				}
 			}
 		}
@@ -68,7 +67,7 @@
 		span {
 			display: block;
 			width: 100%;
-			border-bottom: 1px dashed rgba(0, 0, 0, 0.24);
+			border-bottom: 1px dashed rgba(0, 0, 0, 0.336);
 		}
 	}
 }
@@ -92,4 +91,16 @@
 	width: 80%;
 	rotate: -30deg;
 	opacity: 0.1;
+}
+
+@media print {
+	#container {
+		display: grid !important;
+		grid-template-rows: auto 1fr !important;
+		height: 100vh !important;
+
+		main {
+			height: 100%;
+		}
+	}
 }
