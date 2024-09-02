@@ -44,8 +44,6 @@ export function ReceptionReportContextProvider({
 	const [data, setData] = useState<Data>(null);
 
 	useEffect(() => {
-		console.log(data);
-
 		if (data) {
 			setTimeout(() => {
 				window.print();

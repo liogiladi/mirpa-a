@@ -173,8 +173,6 @@ export async function addPatient(
 		.from("pictures")
 		.upload(signatureImagePath, signatureImageFile);
 
-	console.log(new Date().toDateString());
-
 	const { error } = await db.from("patients").insert({
 		cid,
 		first_name: firstName,
@@ -362,8 +360,6 @@ export async function createVisit(patientCid: string, formData: FormData) {
 	}
 
 	if (enteredExtraVisitor && extraVisitorCid) {
-		console.log(4);
-
 		const { data: extraVisitorExists } = await db
 			.from("visitors")
 			.select()
@@ -372,8 +368,6 @@ export async function createVisit(patientCid: string, formData: FormData) {
 
 		// Check if exists beforehand
 		if (!extraVisitorExists) {
-			console.log(5);
-
 			const { error: extraVisitorInsertError } = await db
 				.from("visitors")
 				.insert({
