@@ -48,11 +48,13 @@ export default function MobileMenu() {
 				<rect width="50" height="5.69" y="37.055"></rect>
 			</svg>
 			<nav id={styles["mobile-nav"]}>
-				<ul>
-					{links}
-					<Link href={"/"}>צד לקוח</Link>
-				</ul>
-				<FullLogoIcon />
+				<div id={styles["nav-content"]}>
+					<ul>
+						{links}
+						<Link href={"/"}>צד לקוח</Link>
+					</ul>
+					<FullLogoIcon />
+				</div>
 			</nav>
 		</>
 	);
