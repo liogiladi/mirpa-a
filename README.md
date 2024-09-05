@@ -49,7 +49,7 @@ _The managment in the mean time tracks and reviews the current data via several 
 -   [x] Basic Functionality
 -   [x] Mobile Adjustments
 -   [x] Replace pdf generation with client printing (headless browsers methods turned out to be a bummer on vercel)
--   [ ] Alternative for width/height animations due to performance hindrance on mobile
+-   [x] Alternative for width/height animations due to performance hindrance on mobile
 -   [ ] Replace Sass with an alternative, maybe Less ([click here for context](https://github.com/sass/sass-site/issues/988))
 -   [ ] Feedback via Email/SMS
 -   [ ] Authentication
