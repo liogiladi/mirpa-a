@@ -72,7 +72,7 @@ This README file uses an awesome template :) [check it out!](https://github.com/
 [website-shield]: https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white
 [website-url]: https://mirpa-a.vercel.app
 [portfolio-shield]: https://img.shields.io/badge/Portfolio-255E63?style=for-the-badge&logo=About.me&logoColor=white
-[portfolio-url]: http://lio-giladi-vercel.app
+[portfolio-url]: https://lio-giladi-vercel.app
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
