@@ -104,7 +104,7 @@
 		> svg {
 			position: absolute;
 			left: 50%;
-			bottom: 2.5rem;
+			top: calc(100cqh - 10rem);
 			width: 5.5rem;
 			fill: #fff;
 			transform: translateX(-50%);
