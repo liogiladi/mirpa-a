@@ -68,11 +68,11 @@ This README file uses an awesome template :) [check it out!](https://github.com/
 (The license is provided in the root folder)
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://linkedin.com/in/liogiladi
 [website-shield]: https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white
-[website-url]: WEBSITE_URL
+[website-url]: https://mirpa-a.vercel.app
 [portfolio-shield]: https://img.shields.io/badge/Portfolio-255E63?style=for-the-badge&logo=About.me&logoColor=white
-[portfolio-url]: WEBSITE_URL
+[portfolio-url]: http://liogiladi-vercel.app
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
