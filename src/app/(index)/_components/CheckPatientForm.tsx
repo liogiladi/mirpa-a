@@ -1,4 +1,6 @@
-import { Dispatch, useEffect, useRef } from "react";
+"use client";
+
+import { Dispatch, useRef } from "react";
 import formStyles from "./form.module.scss";
 
 import toast from "react-hot-toast";
