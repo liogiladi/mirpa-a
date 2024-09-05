@@ -73,9 +73,15 @@ $primary: #00929b;
 			pointer-events: all !important;
 		}
 
-		#right-side > button {
-			opacity: 1 !important;
-			pointer-events: all !important;
+		#right-side {
+			& > button {
+				opacity: 1 !important;
+				pointer-events: all !important;
+			}
+
+			svg {
+				transform: translate(100%) scale(1.7);
+			}
 		}
 	}
 
