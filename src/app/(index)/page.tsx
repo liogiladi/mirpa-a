@@ -36,8 +36,9 @@ export default function Index() {
 					if (isMobile) {
 						const ratio = e.clientX / window.innerWidth;
 
-						if (ratio > 0.65) return "family-full";
-						if (ratio < 0.4) {
+						if (ratio > (isMobile ? 0.5 : 0.65))
+							return "family-full";
+						if (ratio < (isMobile ? 0.5 : 0.4)) {
 							setTimeout(() => {
 								router.push("/about?transition=fade-in");
 								router.refresh();
