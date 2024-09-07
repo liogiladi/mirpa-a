@@ -15,6 +15,9 @@
 :root {
 	direction: rtl;
 	container-type: size;
+	background-image: url("/background.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
 
 	&[data-mobile="true"] {
 		padding: 0;
@@ -47,9 +50,6 @@ body {
 	grid-template-rows: auto 1fr;
 	padding-inline: clamp(1rem, 3vw, 3rem);
 	padding-bottom: clamp(0.8rem, 2vw, 2.3rem);
-	background-image: url("/background.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
 	font-family: "Heebo";
 
 	&:has(main.index) {
