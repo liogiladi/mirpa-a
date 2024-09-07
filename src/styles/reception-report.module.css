@@ -97,7 +97,7 @@
 	#container {
 		display: grid !important;
 		grid-template-rows: auto 1fr !important;
-		height: 100dvh !important;
+		height: 99.5dvh !important;
 
 		main {
 			height: 100%;
