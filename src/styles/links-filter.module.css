@@ -1,8 +1,8 @@
-@use "@/styles/colors";
 
-#date-filter {
+
+#links-filter {
 	position: relative;
-	width: clamp(16.875rem, 32%, 21.875rem);
+	width: clamp(16.875rem, 26%, 20.875rem);
 	align-self: center;
 
 	form {
@@ -17,7 +17,7 @@
 		width: 80%;
 		height: fit-content;
 		padding: 1rem;
-		border: 1px solid colors.$gray;
+		border: 1px solid var(--gray);
 		border-radius: 5px;
 		background: white;
 		aspect-ratio: 20 / 9;
@@ -29,7 +29,7 @@
 	}
 }
 
-:global(:root[data-mobile="true"]) #date-filter {
+:global(:root[data-mobile="true"]) #links-filter {
 	width: 100%;
 
 	ul {

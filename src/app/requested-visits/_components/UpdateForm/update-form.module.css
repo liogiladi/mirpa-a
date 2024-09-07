@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 
 .update-form {
 	padding-bottom: 1.4rem;
@@ -39,7 +39,7 @@
 	width: 100%;
 	height: fit-content;
 	padding-block: 0.25rem;
-	border-top: 1px solid colors.$light-gray;
+	border-top: 1px solid var(--light-gray);
 	transition: height 0.1s;
 
 	input {

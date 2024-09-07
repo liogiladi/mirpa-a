@@ -7,7 +7,7 @@ import React, {
 	useRef,
 	useState,
 } from "react";
-import styles from "./popover-form.module.scss";
+import styles from "./popover-form.module.css";
 
 import { useDetectMobile } from "@/contexts/detectMobile";
 

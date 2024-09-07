@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import styles from "./page.module.scss";
+import styles from "./page.module.css";
 import { SearchParams } from "@/utils/types";
 
 import LoadingDataFallback from "@/components/general/LoadingDataFallback";

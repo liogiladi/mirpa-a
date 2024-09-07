@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 
 .form {
 	position: fixed;
@@ -21,7 +21,7 @@
 		border-radius: 3px;
 		padding: 0 3rem;
 		color: white;
-		background-color: colors.$primary;
+		background-color: var(--primary-color);
 		font-size: 2rem;
 		font-weight: 700;
 		text-align: center;

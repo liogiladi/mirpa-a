@@ -1,7 +1,7 @@
 "use client";
 
 import { createPortal } from "react-dom";
-import styles from "./printable.module.scss";
+import styles from "./printable.module.css";
 import useMounted from "@/hooks/useMounted";
 
 export default function Printable({

@@ -1,16 +1,16 @@
-@use "@/styles/colors";
+
 .visit-row {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1.3rem;
-	border: 1px solid colors.$gray;
+	border: 1px solid var(--gray);
 	border-radius: 5px;
 	user-select: none;
 	cursor: pointer;
 
 	> svg {
-		fill: colors.$gray;
+		fill: var(--gray);
 	}
 
 	svg {
@@ -18,11 +18,11 @@
 	}
 
 	&:hover {
-		border-color: colors.$primary;
-		outline: 2px solid colors.$primary;
+		border-color: var(--primary-color);
+		outline: 2px solid var(--primary-color);
 
 		> svg {
-			fill: colors.$primary;
+			fill: var(--primary-color);
 		}
 	}
 }

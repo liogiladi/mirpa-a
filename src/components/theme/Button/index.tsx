@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, memo, PropsWithChildren } from "react";
-import styles from "./button.module.scss";
+import styles from "./button.module.css";
 
 type Props = {
 	variant: "filled" | "outline";

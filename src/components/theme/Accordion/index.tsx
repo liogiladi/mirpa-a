@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import AccordionArrowIcon from "@/components/icons/AccordionArrowIcon";
-import styles from "./accordion.module.scss";
+import styles from "./accordion.module.css";
 
 type Props = {
 	label: string;

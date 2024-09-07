@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 #visit-rows {
 	display: flex;
 	flex-direction: column;
@@ -9,7 +9,7 @@
 }
 
 #empty {
-	color: colors.$light-gray;
+	color: var(--light-gray);
 	margin: 1rem;
 	text-align: center;
 	font-weight: 700;
@@ -22,7 +22,7 @@
 			margin: auto;
 			width: 1.3rem;
 			height: 100%;
-			fill: colors.$primary;
+			fill: var(--primary-color);
 			overflow: visible;
 		}
 	}

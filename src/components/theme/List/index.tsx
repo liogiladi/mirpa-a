@@ -1,5 +1,5 @@
 import { memo, useId, useMemo } from "react";
-import styles from "./list.module.scss";
+import styles from "./list.module.css";
 
 type Props = {
 	data: (string | null | undefined)[];

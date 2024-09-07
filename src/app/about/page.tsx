@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import styles from "./page.module.scss";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
 	title: `משל"ט ביקורים | אודות`,

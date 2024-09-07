@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 .input {
 	position: relative;
 	display: flex;
@@ -9,10 +9,10 @@
 	font-weight: 500;
 
 	&:has(input[data-invalid="true"]) {
-		color: colors.$error;
+		color: var(--error-color);
 
 		input {
-			color: colors.$error;
+			color: var(--error-color);
 		}
 	}
 
@@ -33,7 +33,7 @@
 		}
 
 		&::placeholder {
-			color: colors.$gray;
+			color: var(--gray);
 		}
 	}
 
@@ -42,7 +42,7 @@
 		gap: 5px;
 
 		.required {
-			color: colors.$error;
+			color: var(--error-color);
 		}
 	}
 

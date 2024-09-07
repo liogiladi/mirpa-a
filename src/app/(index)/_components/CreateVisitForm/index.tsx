@@ -2,8 +2,8 @@
 
 import { Dispatch, SetStateAction, useRef } from "react";
 import { createVisit } from "@/server/actions";
-import styles from "./create-visit-form.module.scss";
-import formStyles from "../form.module.scss";
+import styles from "./create-visit-form.module.css";
+import formStyles from "../form.module.css";
 
 import toast from "react-hot-toast";
 import { getDateString } from "@/utils/dates";

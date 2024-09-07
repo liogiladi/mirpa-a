@@ -7,7 +7,7 @@ import {
 	useCallback,
 	useEffect,
 } from "react";
-import styles from "./dialog.module.scss";
+import styles from "./dialog.module.css";
 
 type Props = {
 	dialogRef: RefObject<HTMLDialogElement>;

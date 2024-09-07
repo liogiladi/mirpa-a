@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 
 .select {
 	position: relative;
@@ -10,10 +10,10 @@
 	font-weight: 500;
 
 	&:has(select[data-invalid="true"]) {
-		color: colors.$error;
+		color: var(--error-color);
 
 		select {
-			color: colors.$error;
+			color: var(--error-color);
 		}
 	}
 
@@ -31,7 +31,7 @@
 		}
 
 		&::placeholder {
-			color: colors.$gray;
+			color: var(--gray);
 		}
 	}
 
@@ -40,7 +40,7 @@
 		gap: 5px;
 
 		.required {
-			color: colors.$error;
+			color: var(--error-color);
 		}
 	}
 }

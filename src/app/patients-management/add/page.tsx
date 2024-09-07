@@ -5,8 +5,8 @@ import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import { v4 } from "uuid";
 
-import styles from "./page.module.scss";
-import visitPageStyles from "@/styles/visits-page.module.scss";
+import styles from "./page.module.css";
+import visitPageStyles from "@/styles/visits-page.module.css";
 
 import { addPatient } from "@/server/actions";
 

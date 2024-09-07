@@ -9,7 +9,7 @@ import {
 	useState,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./filters.module.scss";
+import styles from "./filters.module.css";
 
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import { FilterIdToInfo, validateFormData } from "@/utils/filters";

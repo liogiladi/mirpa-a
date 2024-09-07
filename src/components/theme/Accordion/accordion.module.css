@@ -1,9 +1,9 @@
-@use "@/styles/colors";
+
 .accordion {
 	width: 100%;
 	padding: 0.4rem 0.8rem;
 	border-radius: 3px;
-	border: 1px solid colors.$gray;
+	border: 1px solid var(--gray);
 	margin-bottom: 0.7rem;
 	color: rgb(151, 151, 151);
 	font-size: 0.9em;

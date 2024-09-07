@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 
 #header {
 	position: relative;
@@ -102,6 +102,6 @@
 		top: 4rem;
 		width: 100vw;
 		height: calc(100vh - 4rem);
-		background: colors.$primary;
+		background: var(--primary-color);
 	}
 }

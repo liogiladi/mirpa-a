@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 #sorts-form {
 	left: 0;
 	padding: 1rem;
@@ -22,7 +22,7 @@
 			}
 
 			&:not(:last-child) {
-				border-bottom: 1px solid colors.$light-gray;
+				border-bottom: 1px solid var(--light-gray);
 			}
 
 			input {
@@ -43,7 +43,7 @@
 
 		svg {
 			pointer-events: none;
-			fill: colors.$primary;
+			fill: var(--primary-color);
 		}
 	}
 }

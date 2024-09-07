@@ -2,7 +2,7 @@
 
 import { ReactNode, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import styles from "./mobile-menu.module.scss";
+import styles from "./mobile-menu.module.css";
 
 import Link from "next/link";
 import { NAV_LINKS } from "@/components/theme/Header";

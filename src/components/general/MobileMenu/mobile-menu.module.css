@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 
 #mobile-menu {
 	position: absolute;
@@ -99,7 +99,7 @@
 			> a {
 				padding: 0.5rem 2.6rem;
 				border-radius: 4px;
-				color: colors.$primary;
+				color: var(--primary-color);
 				background: white;
 				text-decoration: none;
 				font-size: 1.3rem;

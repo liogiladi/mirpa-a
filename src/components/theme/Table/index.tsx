@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import "./table.scss";
+import "./table.css";
 
 import genericMemo from "@/utils/genericMemo";
 import { TupleOfLength } from "@/utils/types";

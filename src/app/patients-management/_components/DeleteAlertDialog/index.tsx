@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
-import styles from "./delete-alert-dialog.module.scss";
+import styles from "./delete-alert-dialog.module.css";
 
 import Dialog from "@/components/theme/Dialog";
 import { PatientInfoToDelete } from "../PatientsForm";

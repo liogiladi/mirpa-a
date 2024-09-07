@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 .toggle-links {
 	display: flex;
 	align-items: center;
@@ -35,7 +35,7 @@
 }
 
 .outline {
-	border: 1px solid colors.$gray;
+	border: 1px solid var(--gray);
 	font-weight: 550;
 	font-size: 0.7rem;
 	background-color: transparent;
@@ -45,10 +45,10 @@
 
 	li {
 		&[data-active="false"] a {
-			color: colors.$gray;
+			color: var(--gray);
 
 			&:hover {
-				color: colors.$gray-hover;
+				color: var(--gray)-hover;
 			}
 		}
 

@@ -1,4 +1,4 @@
-@use "@/styles/colors";
+
 .visit-info-dialog {
 	width: 36.75rem !important;
 	min-height: unset !important;
@@ -7,7 +7,7 @@
 		position: relative;
 		padding: 1rem;
 		color: white;
-		background-color: colors.$primary;
+		background-color: var(--primary-color);
 		text-align: center;
 		font-size: 1.5rem;
 		font-weight: 700;

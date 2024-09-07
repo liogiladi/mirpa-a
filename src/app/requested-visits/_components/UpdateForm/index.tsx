@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import styles from "./update-form.module.scss";
+import styles from "./update-form.module.css";
 
 import toast from "react-hot-toast";
 import { approveRequest, rejectRequest } from "@/server/actions";

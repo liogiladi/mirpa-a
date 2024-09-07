@@ -3,8 +3,8 @@
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./patients-form.module.scss";
-import visitsPageStyles from "@/styles/visits-page.module.scss";
+import styles from "./patients-form.module.css";
+import visitsPageStyles from "@/styles/visits-page.module.css";
 
 import { Tables } from "@/server/db.types";
 import { deletePatients } from "@/server/actions";

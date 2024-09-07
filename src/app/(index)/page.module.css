@@ -1,7 +1,3 @@
-@use "@/styles/colors";
-
-$primary: #00929b;
-
 #index {
 	padding: 0;
 
@@ -37,7 +33,7 @@ $primary: #00929b;
 			transition: transform 0.3s ease-out;
 
 			path {
-				fill: $primary;
+				fill: #00929b;
 			}
 		}
 

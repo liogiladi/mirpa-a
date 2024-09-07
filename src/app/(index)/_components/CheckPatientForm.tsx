@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, useRef } from "react";
-import formStyles from "./form.module.scss";
+import formStyles from "./form.module.css";
 
 import toast from "react-hot-toast";
 import { checkPatient } from "@/server/actions";

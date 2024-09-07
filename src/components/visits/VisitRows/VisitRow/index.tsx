@@ -1,7 +1,7 @@
 "use client";
 
 import { MouseEventHandler } from "react";
-import styles from "./visit-row.module.scss";
+import styles from "./visit-row.module.css";
 import { JoinedVisit } from "@/utils/dbTypes";
 
 import InfoIcon from "@/components/icons/InfoIcon";
