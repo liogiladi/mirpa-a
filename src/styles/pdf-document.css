@@ -18,9 +18,9 @@
 				content: "";
 				position: fixed;
 				inset: 0;
-				width: 99.7vw;
-				height: 99.7vh;
-				border: 1px dashed;
+				width: 99.5vw;
+				height: 99.5vh;
+				border: 1.5px dashed;
 			}
 		}
 
@@ -55,9 +55,16 @@
 			padding-inline: 1rem;
 
 			/* Custom table style, specific for pdf/print */
-			table thead {
-				th {
-					border-bottom: 1px dashed;
+			table {
+				* {
+					border-width: 1.5px !important;
+				}
+
+				thead {
+					th {
+						border-radius: 0 !important;
+						border-bottom: 2px dashed black;
+					}
 				}
 			}
 		}

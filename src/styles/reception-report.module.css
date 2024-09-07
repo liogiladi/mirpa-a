@@ -49,11 +49,11 @@
 				align-items: center;
 				gap: 0;
 				width: 100%;
-				border-top: 0.5px dashed rgba(0, 0, 0, 0.427);
+				border-top: 1.5px dashed rgba(0, 0, 0, 0.427);
 
 				&:has(strong) {
 					padding-block: 0.5rem;
-					border-bottom: 1px dashed rgba(0, 0, 0, 0.427);
+					border-bottom: 2px dashed rgba(0, 0, 0, 0.427);
 				}
 			}
 		}
@@ -67,7 +67,7 @@
 		span {
 			display: block;
 			width: 100%;
-			border-bottom: 1px dashed rgba(0, 0, 0, 0.336);
+			border-bottom: 2px dashed rgba(0, 0, 0, 0.281);
 		}
 	}
 }
@@ -86,7 +86,7 @@
 #watermark {
 	position: fixed;
 	left: 50%;
-	top: 68%;
+	top: 68vh;
 	translate: -50% -50%;
 	width: 80%;
 	rotate: -30deg;
