@@ -19,7 +19,7 @@
 				position: fixed;
 				inset: 0;
 				width: 99.5vw;
-				height: calc(100lvw * 1.45);
+				height: 100dvh;
 				border: 1.5px dashed;
 			}
 		}
