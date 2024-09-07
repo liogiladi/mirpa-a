@@ -35,7 +35,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] .update-form {
+:global(:root[data-mobile="true"]) .update-form {
 	width: 100%;
 	height: fit-content;
 	padding-block: 0.25rem;

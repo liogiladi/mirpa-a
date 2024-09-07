@@ -68,7 +68,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] #patients-form {
+:global(:root[data-mobile="true"]) #patients-form {
 	height: 100%;
 
 	> section:first-of-type {

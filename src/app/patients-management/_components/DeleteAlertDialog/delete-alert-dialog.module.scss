@@ -32,7 +32,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] #delete-alert-dialog {
+:global(:root[data-mobile="true"]) #delete-alert-dialog {
 	padding: 1.4rem;
 
 	> section {

@@ -33,7 +33,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] .popover:has(form[data-open="true"]) {
+:global(:root[data-mobile="true"]) .popover:has(form[data-open="true"]) {
 	z-index: 4;
 
 	form {

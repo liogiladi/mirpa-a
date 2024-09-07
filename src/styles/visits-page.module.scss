@@ -22,7 +22,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] {
+:global(:root[data-mobile="true"]) {
 	.visits-page {
 		padding: 0;
 	}

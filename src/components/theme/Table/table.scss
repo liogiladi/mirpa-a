@@ -82,7 +82,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] .table {
+:global(:root[data-mobile="true"]) .table {
 	@media screen {
 		th,
 		td {

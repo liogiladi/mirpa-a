@@ -59,7 +59,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] *:is(.toggle-links, .outline, .filled) {
+:global(:root[data-mobile="true"]) *:is(.toggle-links, .outline, .filled) {
 	box-sizing: border-box;
 	width: 100%;
 	border-radius: 0;

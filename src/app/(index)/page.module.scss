@@ -117,7 +117,7 @@ $primary: #00929b;
 	}
 }
 
-@at-root [data-mobile="true"] #index {
+:global(:root[data-mobile="true"]) #index {
 	form {
 		width: 100%;
 	}

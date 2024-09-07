@@ -69,7 +69,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] .visit-info-dialog[open] {
+:global(:root[data-mobile="true"]) .visit-info-dialog[open] {
 	display: grid;
 	grid-template-rows: auto 1fr;
 	max-height: 80%;

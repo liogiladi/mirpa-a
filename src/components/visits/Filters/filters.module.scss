@@ -23,7 +23,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] #filters-form[data-open="true"] {
+:global(:root[data-mobile="true"]) #filters-form[data-open="true"] {
 	max-height: unset;
 
 	.accordions {

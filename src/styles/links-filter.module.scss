@@ -29,7 +29,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] #links-filter {
+:global(:root[data-mobile="true"]) #links-filter {
 	width: 100%;
 
 	ul {

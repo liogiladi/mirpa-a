@@ -45,6 +45,6 @@
 	}
 }
 
-@at-root [data-mobile="true"] .select {
+:global(:root[data-mobile="true"]) .select {
 	font-size: 1rem;
 }

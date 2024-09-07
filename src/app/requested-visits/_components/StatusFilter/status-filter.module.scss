@@ -6,7 +6,7 @@
 	align-self: center;
 }
 
-@at-root [data-mobile="true"] #status-filter {
+:global(:root[data-mobile="true"]) #status-filter {
 	width: 100%;
 
 	ul {

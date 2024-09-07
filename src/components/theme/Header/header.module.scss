@@ -62,7 +62,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] #header {
+:global(:root[data-mobile="true"]) #header {
 	width: 100%;
 	padding: 0;
 

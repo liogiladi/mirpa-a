@@ -82,7 +82,7 @@
 	}
 }
 
-@at-root [data-mobile="true"] #add-patient {
+:global(:root[data-mobile="true"]) #add-patient {
 	padding: 0;
 
 	header {
