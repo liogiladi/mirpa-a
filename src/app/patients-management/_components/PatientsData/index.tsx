@@ -57,6 +57,9 @@ export default async function PatientsData({ searchParams }: Props) {
 
 		let profilePictureURL: string | null = null;
 
+		const defaultImages =
+			patient.profile_img_bucket_path?.includes("static");
+
 		const { data, error: fileSearchError } = await db.storage
 			.from("pictures")
 			.list(`patients-profiles`);
@@ -65,7 +68,7 @@ export default async function PatientsData({ searchParams }: Props) {
 			(file) => file.name === `${patient.cid}.png`
 		);
 
-		if (!fileSearchError && fileExists) {
+		if (defaultImages || (!fileSearchError && fileExists)) {
 			profilePictureURL = db.storage
 				.from("pictures")
 				.getPublicUrl(
