@@ -18,13 +18,11 @@
 	background-size: cover;
 
 	--primary-color: #32afb7;
-	--primary-darker-color: #26949c;
 	--lighter-gray: #fafafa;
 	--light-gray: #dbdbdb;
 	--gray: #afafaf;
 	--gray-hover-color: #717171;
 	--error-color: #da5050;
-
 
 	&[data-mobile="true"] {
 		padding: 0;
