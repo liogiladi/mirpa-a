@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./patients-form.module.css";
@@ -163,8 +164,7 @@ export default function PatientsForm({ data }: Props) {
 							if (!isMobile) handleRowSelectionToggle(patient);
 						}}
 					/>,
-					// eslint-disable-next-line @next/next/no-img-element
-					<img
+					<Image
 						key={patient.cid}
 						width={30}
 						height={30}
