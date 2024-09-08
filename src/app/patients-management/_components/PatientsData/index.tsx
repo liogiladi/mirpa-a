@@ -69,7 +69,7 @@ export default async function PatientsData({ searchParams }: Props) {
 			profilePictureURL = db.storage
 				.from("pictures")
 				.getPublicUrl(
-					`patients-profiles/${patient.cid}.png?${Date.now()}`
+					`${patient.profile_img_bucket_path}?${Date.now()}`
 				).data.publicUrl;
 		}
 
@@ -79,11 +79,14 @@ export default async function PatientsData({ searchParams }: Props) {
 			signaturePictureURL: db.storage
 				.from("pictures")
 				.getPublicUrl(
-					`user-signatures/${patient.cid}.png?${Date.now()}`
+					`${
+						patient.reciever_signature_img_bucket_path
+					}?${Date.now()}`
 				).data.publicUrl,
 			age,
 		});
 	}
+	console.log(dataWithProfilePictures);
 
 	return (
 		<ReceptionReportContextProvider>
