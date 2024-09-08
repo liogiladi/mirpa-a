@@ -96,7 +96,7 @@ export async function deletePatients(
 
 	if (storageError) {
 		console.error(storageError);
-		return "תקלה בהעלאת תמונה";
+		return "תקלה במחיקת קבצים מקושרים";
 	}
 
 	const { error } = await query.or(cidsOrStatements.join(","));
@@ -178,7 +178,7 @@ export async function addPatient(
 			.upload(profilePicPath, profilePicFile);
 	}
 
-	const signatureImagePath = `user-signatures/${cid}.png`;
+	const signatureImagePath = `user-signatures/${userId}.png`;
 	await db.storage
 		.from("pictures")
 		.upload(signatureImagePath, signatureImageFile);
@@ -195,8 +195,6 @@ export async function addPatient(
 	});
 
 	if (error) {
-		console.error(error);
-
 		if (error.code === "23505") {
 			// Patient cid already regitered
 			return {

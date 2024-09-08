@@ -50,30 +50,32 @@ export default function AddPatient() {
 			<form
 				action={async (data) => {
 					try {
-						const { error, invalidInputsNames } = await addPatient(
+						const errorInfo = await addPatient(
 							signatureDataRef.current,
 							data
 						);
 
-						if (
-							invalidInputsNames &&
-							invalidInputsNames.length > 0
-						) {
-							invalidInputsNames.forEach((name) => {
-								const input =
-									document.querySelector<HTMLInputElement>(
-										`input[name=${name}]`
-									);
+						if (errorInfo) {
+							const { error, invalidInputsNames } = errorInfo;
 
-								if (input) {
-									input.dataset[INVALID_INPUT_DATA_KEY] =
-										"true";
-								}
-							});
-						}
+							if (
+								invalidInputsNames &&
+								invalidInputsNames.length > 0
+							) {
+								invalidInputsNames.forEach((name) => {
+									const input =
+										document.querySelector<HTMLInputElement>(
+											`input[name=${name}]`
+										);
 
-						if (error) {
-							toast.error(error);
+									if (input) {
+										input.dataset[INVALID_INPUT_DATA_KEY] =
+											"true";
+									}
+								});
+							}
+
+							if (error) toast.error(error);
 						} else toast.success("המטופל נוסף בהצלחה");
 					} catch (error) {
 						if (!(error as Error).message) {
