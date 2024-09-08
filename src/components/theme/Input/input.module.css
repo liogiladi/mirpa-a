@@ -27,6 +27,7 @@
 		margin-bottom: 1rem;
 		outline: 1px solid transparent;
 		font-family: Heebo;
+		background-color: transparent;
 
 		&:focus {
 			border-bottom-width: 2px;
@@ -71,4 +72,8 @@
 
 :global(:root[data-mobile="true"]) .input {
 	font-size: 1rem;
+
+	&:has(input:is([type="date"], [type="datetime-local"])) .clear-button {
+		display: none;
+	}
 }
