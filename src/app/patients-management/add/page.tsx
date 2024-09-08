@@ -50,7 +50,7 @@ export default function AddPatient() {
 			<form
 				action={async (data) => {
 					try {
-						const invalidInputsNames = await addPatient(
+						const { error, invalidInputsNames } = await addPatient(
 							signatureDataRef.current,
 							data
 						);
@@ -70,11 +70,11 @@ export default function AddPatient() {
 										"true";
 								}
 							});
-
-							toast.error("חלק מהשדות שהוזנו אינו תקין");
-						} else {
-							toast.success("המטופל נוסף בהצלחה");
 						}
+
+						if (error) {
+							toast.error(error);
+						} else toast.success("המטופל נוסף בהצלחה");
 					} catch (error) {
 						if (!(error as Error).message) {
 							toast.error("תקלה בהוספה");

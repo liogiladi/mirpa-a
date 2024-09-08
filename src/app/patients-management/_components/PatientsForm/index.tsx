@@ -221,11 +221,13 @@ export default function PatientsForm({ data }: Props) {
 			id={styles["patients-form"]}
 			action={async () => {
 				try {
-					await deletePatients(
+					const error = await deletePatients(
 						Array.from(selectedPatientCIDs.keys())
 					);
+
+					if (error) toast.error(error);
 				} catch (error) {
-					toast.error((error as Error).message);
+					toast.error("תקלה במחיקה");
 				}
 			}}
 			onSubmit={() => {

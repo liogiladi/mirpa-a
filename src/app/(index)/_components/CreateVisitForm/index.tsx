@@ -42,7 +42,7 @@ export default function CreateVisitForm({
 								(input.dataset[INVALID_INPUT_DATA_KEY] =
 									"false")
 						);
-					const invalidInputsNames = await createVisit(
+					const { error, invalidInputsNames } = await createVisit(
 						selectedPatientCID,
 						data
 					);
@@ -65,7 +65,9 @@ export default function CreateVisitForm({
 							}
 						});
 
-						toast.error("חלק מהשדות שהוזנו אינו תקין");
+						if (error) {
+							toast.error(error);
+						}
 					} else {
 						toast.success("הבקשה נשלחה");
 
@@ -76,9 +78,7 @@ export default function CreateVisitForm({
 						}, 1000);
 					}
 				} catch (error) {
-					if (!(error as Error).message) {
-						toast.error("תקלה ביצירת הבקשה");
-					} else toast.error((error as Error).message);
+					toast.error("תקלה ביצירת הבקשה");
 				}
 			}}
 		>

@@ -30,7 +30,7 @@ export default function UpdateForm({ visitId, closeDialog }: Props) {
 					try {
 						await approveRequest(visitId);
 					} catch (error) {
-						toast.error((error as Error).message);
+						toast.error("תקלה בעדכון");
 					}
 				}}
 				className={styles["update-form"]}
@@ -60,9 +60,11 @@ export default function UpdateForm({ visitId, closeDialog }: Props) {
 			id={styles["reject-form"]}
 			action={async (data) => {
 				try {
-					await rejectRequest(visitId, data);
+					const error = await rejectRequest(visitId, data);
+
+					if (error) toast.error(error);
 				} catch (error) {
-					toast.error((error as Error).message);
+					toast.error("תקלה בעדכון");
 				}
 			}}
 			className={styles["update-form"]}
