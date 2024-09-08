@@ -86,7 +86,7 @@
 #watermark {
 	position: fixed;
 	left: 50%;
-	top: 68vh;
+	top: 68dvh;
 	translate: -50% -50%;
 	width: 80%;
 	rotate: -30deg;
