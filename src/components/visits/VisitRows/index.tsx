@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useCallback, useMemo, useState } from "react";
-import styles from "./visit-rows.module.scss";
+import styles from "./visit-rows.module.css";
 
 import { JoinedVisit } from "@/utils/dbTypes";
 import { getDateString, getTimeString } from "@/utils/dates";

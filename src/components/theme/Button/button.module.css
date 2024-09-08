@@ -1,0 +1,59 @@
+
+.button {
+	padding: 0.2rem 1.3rem;
+	border-radius: 4px;
+	color: var(--gray);
+	border-color: inherit;
+	background: #fff;
+	font-size: 0.7rem;
+	font-weight: 600;
+	cursor: pointer;
+
+	&.primary {
+		color: var(--primary-color);
+	}
+
+	&.warning {
+		color: var(--error-color);
+	}
+
+	&[data-variant="outline"] {
+		border: 1px solid;
+
+		&:not(:disabled):hover {
+			outline: 1px solid;
+			outline-color: inherit;
+		}
+	}
+
+	&[data-variant="filled"] {
+		border: 0;
+		color: white;
+
+		&:not(:disabled):hover {
+			outline: 1px solid;
+			background-color: color(from inherit srgb 0 0 0 5);
+		}
+
+		&.primary {
+			background-color: var(--primary-color);
+			outline-color: var(--primary-color);
+		}
+
+		&.warning {
+			background-color: var(--error-color);
+			outline-color: var(--error-color);
+		}
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+:global(:root[data-mobile="true"]) .button {
+	border: 0;
+	padding: 0.4rem 1.5rem;
+	font-size: 1rem;
+}

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import styles from "./update-form.module.scss";
+import styles from "./update-form.module.css";
 
 import toast from "react-hot-toast";
 import { approveRequest, rejectRequest } from "@/server/actions";
@@ -30,7 +30,7 @@ export default function UpdateForm({ visitId, closeDialog }: Props) {
 					try {
 						await approveRequest(visitId);
 					} catch (error) {
-						toast.error((error as Error).message);
+						toast.error("תקלה בעדכון");
 					}
 				}}
 				className={styles["update-form"]}
@@ -60,9 +60,11 @@ export default function UpdateForm({ visitId, closeDialog }: Props) {
 			id={styles["reject-form"]}
 			action={async (data) => {
 				try {
-					await rejectRequest(visitId, data);
+					const error = await rejectRequest(visitId, data);
+
+					if (error) toast.error(error);
 				} catch (error) {
-					toast.error((error as Error).message);
+					toast.error("תקלה בעדכון");
 				}
 			}}
 			className={styles["update-form"]}

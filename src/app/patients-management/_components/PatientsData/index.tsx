@@ -68,8 +68,9 @@ export default async function PatientsData({ searchParams }: Props) {
 		if (!fileSearchError && fileExists) {
 			profilePictureURL = db.storage
 				.from("pictures")
-				.getPublicUrl(`patients-profiles/${patient.cid}.png`)
-				.data.publicUrl;
+				.getPublicUrl(
+					`patients-profiles/${patient.cid}.png?${Date.now()}`
+				).data.publicUrl;
 		}
 
 		dataWithProfilePictures.push({
@@ -77,8 +78,9 @@ export default async function PatientsData({ searchParams }: Props) {
 			profilePictureURL,
 			signaturePictureURL: db.storage
 				.from("pictures")
-				.getPublicUrl(`user-signatures/${patient.cid}.png`).data
-				.publicUrl,
+				.getPublicUrl(
+					`user-signatures/${patient.cid}.png?${Date.now()}`
+				).data.publicUrl,
 			age,
 		});
 	}

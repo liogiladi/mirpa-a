@@ -5,7 +5,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import styles from "./input.module.scss";
+import styles from "./input.module.css";
 import XIcon from "@/components/icons/XIcon";
 
 type Props = {

@@ -1,0 +1,50 @@
+
+
+.select {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	color: black;
+	font-size: 0.8rem;
+	font-weight: 500;
+
+	&:has(select[data-invalid="true"]) {
+		color: var(--error-color);
+
+		select {
+			color: var(--error-color);
+		}
+	}
+
+	select {
+		font-family: Heebo;
+		border: 0;
+		border-bottom: 1px solid;
+		padding-block: 0.15rem;
+		margin-bottom: 1rem;
+		outline: 1px solid transparent;
+		background-color: white;
+
+		&:focus {
+			border-bottom-width: 2px;
+		}
+
+		&::placeholder {
+			color: var(--gray);
+		}
+	}
+
+	.label-content {
+		display: flex;
+		gap: 5px;
+
+		.required {
+			color: var(--error-color);
+		}
+	}
+}
+
+:global(:root[data-mobile="true"]) .select {
+	font-size: 1rem;
+}

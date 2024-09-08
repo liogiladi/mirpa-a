@@ -9,7 +9,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import styles from "@/styles/reception-report.module.scss";
+import styles from "@/styles/reception-report.module.css";
 import defaultProfile from "../../public/default-profile-pic.png";
 
 import { Tables } from "@/server/db.types";

@@ -9,7 +9,7 @@ import {
 	useState,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./sorts.module.scss";
+import styles from "./sorts.module.css";
 
 import { OrderDirection, SEARCH_QUERIES, Sort } from "@/utils/searchQueries";
 import SortArrow from "@/components/icons/SortArrowIcon";

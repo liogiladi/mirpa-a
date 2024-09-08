@@ -7,7 +7,7 @@ import React, {
 	useRef,
 	useState,
 } from "react";
-import styles from "./signature.module.scss";
+import styles from "./signature.module.css";
 import XIcon from "@/components/icons/XIcon";
 
 type Props = {

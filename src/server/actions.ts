@@ -14,7 +14,7 @@ import { RELATIONS } from "@/utils/constants";
 export async function approveRequest(visitId: string) {
 	if (!Validations.uuid.test(visitId)) {
 		console.error("Invalid visit id");
-		throw new Error("תקלה בעדכון");
+		throw new Error();
 	}
 
 	const { error } = await db
@@ -25,16 +25,19 @@ export async function approveRequest(visitId: string) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("תקלה בעדכון");
+		throw new Error();
 	}
 
 	revalidatePath(headers().get("referer")!);
 }
 
-export async function rejectRequest(visitId: string, formData: FormData) {
+export async function rejectRequest(
+	visitId: string,
+	formData: FormData
+): Promise<string> {
 	if (!Validations.uuid.test(visitId)) {
 		console.error("Invalid visit id");
-		throw new Error("תקלה בעדכון");
+		throw new Error();
 	}
 
 	const rejectionReason = formData.get("rejection-reason")?.toString();
@@ -43,9 +46,7 @@ export async function rejectRequest(visitId: string, formData: FormData) {
 		!rejectionReason ||
 		!Validations.hebrewDescription.test(rejectionReason)
 	) {
-		throw new Error(
-			"סיבת הסירוב יכולה להכיל רק: אותיות בעברית, מספרים, פסיקים ונקודות"
-		);
+		return "סיבת הסירוב יכולה להכיל רק: אותיות בעברית, מספרים, פסיקים ונקודות";
 	}
 
 	const { error } = await db
@@ -56,15 +57,18 @@ export async function rejectRequest(visitId: string, formData: FormData) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("תקלה בעדכון");
+		throw new Error();
 	}
 
 	revalidatePath(headers().get("referer")!);
+	return "";
 }
 
-export async function deletePatients(selectedPatientCIDs: string[]) {
+export async function deletePatients(
+	selectedPatientCIDs: string[]
+): Promise<string> {
 	if (selectedPatientCIDs.length === 0) {
-		throw new Error("לא נבחרו מטופלים למחיקה");
+		return "לא נבחרו מטופלים למחיקה";
 	}
 
 	let query = db.from("patients").delete();
@@ -76,7 +80,7 @@ export async function deletePatients(selectedPatientCIDs: string[]) {
 	for (const cid of selectedPatientCIDs) {
 		if (!Validations.cid(cid)) {
 			console.error("Invalid cid");
-			throw new Error("תקלה במחיקה");
+			throw new Error();
 		}
 
 		cidsOrStatements.push(`cid.eq.${cid}`);
@@ -92,35 +96,38 @@ export async function deletePatients(selectedPatientCIDs: string[]) {
 
 	if (storageError) {
 		console.error(storageError);
-		throw new Error("תקלה בהעלאת תמונה");
+		return "תקלה בהעלאת תמונה";
 	}
 
 	const { error } = await query.or(cidsOrStatements.join(","));
 
 	if (error) {
 		console.error(error);
-		throw new Error("תקלה במחיקה");
+		return "תקלה במחיקה";
 	}
 
 	revalidatePath(headers().get("referer")!);
+	return "";
 }
 
 export async function addPatient(
 	signatureBase64: string,
 	formData: FormData
-): Promise<string[] | undefined> {
+): Promise<{ error?: string; invalidInputsNames: string[] }> {
 	const invalidInputsNames: string[] = [];
 
 	const userId = formData.get("user-id")?.toString();
 	if (!userId || !Validations.uuid.test(userId)) {
 		console.error("Invalid user id");
-		throw new Error("תקלה בהוספה");
+		throw new Error();
 	}
 
 	const signatureImageFile = signatureBase64
 		? dataURLtoFile(signatureBase64, userId)
 		: null;
-	if (!signatureImageFile) throw new Error("יש להביא חתימה מאשרת");
+	if (!signatureImageFile) {
+		return { error: "יש להביא חתימה מאשרת", invalidInputsNames: [] };
+	}
 
 	const firstName = formData.get("first-name")?.toString();
 	assertCallback(firstName && Validations.hebrewName.test(firstName), () =>
@@ -152,13 +159,16 @@ export async function addPatient(
 		(formData.get("profile-pic")?.valueOf() as File) || null;
 
 	if (profilePicFile && profilePicFile.size > 1024 * 1024 * 3) {
-		throw new Error('גודל קובץ לא יכול לעלות על 10 מ"ב');
+		return {
+			error: 'גודל קובץ לא יכול לעלות על 10 מ"ב',
+			invalidInputsNames: ["profile-pic"],
+		};
 	}
 
 	let profilePicPath = null;
 
 	if (invalidInputsNames.length > 0) {
-		return invalidInputsNames;
+		return { error: "חלק מהשדות שהוזנו אינו תקין", invalidInputsNames };
 	}
 
 	if (profilePicFile.size > 0) {
@@ -189,10 +199,13 @@ export async function addPatient(
 
 		if (error.code === "23505") {
 			// Patient cid already regitered
-			throw new Error("מטופל עם מספר זהות זה קיים במערכת");
+			return {
+				error: "מטופל עם מספר זהות זה קיים במערכת",
+				invalidInputsNames: [],
+			};
 		}
 
-		throw new Error("תקלה בהוספה");
+		throw new Error();
 	}
 
 	redirect(
@@ -200,10 +213,12 @@ export async function addPatient(
 	);
 }
 
-export async function checkPatient(formData: FormData) {
+export async function checkPatient(formData: FormData): Promise<string> {
 	const cid = formData.get("state-id")?.toString();
 
-	assert(cid && Validations.cid(cid), "מס' זהות שהוזן אינו תקין");
+	if (!cid || !Validations.cid(cid)) {
+		return "מס' זהות שהוזן אינו תקין";
+	}
 
 	const { data, error } = await db
 		.from("patients")
@@ -213,15 +228,20 @@ export async function checkPatient(formData: FormData) {
 
 	if (error) {
 		console.error(error);
-		throw new Error("תקלה באימות");
+		return "תקלה באימות";
 	}
 
 	if (!data) {
-		throw new Error("מטופל עם מס' זהות זה אינו נמצא במערכת");
+		return "מטופל עם מס' זהות זה אינו נמצא במערכת";
 	}
+
+	return "";
 }
 
-export async function createVisit(patientCid: string, formData: FormData) {
+export async function createVisit(
+	patientCid: string,
+	formData: FormData
+): Promise<{ error?: string; invalidInputsNames: string[] }> {
 	assertCallback(patientCid && Validations.cid(patientCid), () => {
 		throw error;
 	});
@@ -231,7 +251,10 @@ export async function createVisit(patientCid: string, formData: FormData) {
 		.select("*")
 		.eq("cid", patientCid)
 		.maybeSingle();
-	assert(patient, "המטופל לא נמצא במערכת");
+
+	if (!patient) {
+		return { error: "המטופל לא נמצא במערכת", invalidInputsNames: [] };
+	}
 
 	const invalidInputsNames: string[] = [];
 
@@ -272,11 +295,12 @@ export async function createVisit(patientCid: string, formData: FormData) {
 		() => invalidInputsNames.push("visitor-email")
 	);
 
-	assert(
-		(!visitorPhoneNumber && visitorEmail) ||
-			(!visitorEmail && visitorPhoneNumber),
-		"יש להזין פרט ליצירת קשר"
-	);
+	if (!visitorPhoneNumber && !visitorEmail) {
+		return {
+			error: "יש להזין פרט ליצירת קשר",
+			invalidInputsNames: ["visitor-email", "visitor-phone-number"],
+		};
+	}
 
 	let visitorRelation: string | null | undefined = formData
 		.get("visitor-relation")
@@ -335,7 +359,7 @@ export async function createVisit(patientCid: string, formData: FormData) {
 	);
 
 	if (invalidInputsNames.length > 0) {
-		return invalidInputsNames;
+		return { error: "חלק מהשדות שהוזנו אינו תקין", invalidInputsNames };
 	}
 
 	// Check if exists beforehand
@@ -393,4 +417,6 @@ export async function createVisit(patientCid: string, formData: FormData) {
 		console.error(error);
 		throw new Error("תקלה");
 	}
+
+	return { invalidInputsNames };
 }

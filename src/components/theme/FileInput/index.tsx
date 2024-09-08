@@ -1,5 +1,5 @@
 import { ChangeEvent, HTMLProps, useState } from "react";
-import styles from "./file-input.module.scss";
+import styles from "./file-input.module.css";
 import toast from "react-hot-toast";
 import Input from "../Input";
 

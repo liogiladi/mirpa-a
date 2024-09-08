@@ -12,11 +12,12 @@
 	"dependencies": {
 		"@supabase/supabase-js": "^2.45.0",
 		"next": "14.2.5",
+		"next-compose-plugins": "^2.2.1",
 		"nextjs-toploader": "^1.6.12",
+		"postcss-preset-env": "^10.0.2",
 		"react": "^18",
 		"react-dom": "^18.3.1",
 		"react-hot-toast": "^2.4.1",
-		"sass": "^1.77.8",
 		"server-only": "^0.0.1",
 		"ua-parser-js": "^1.0.38",
 		"uuid": "^10.0.0"
@@ -29,6 +30,8 @@
 		"@types/uuid": "^10.0.0",
 		"eslint": "^8",
 		"eslint-config-next": "14.2.5",
+		"postcss": "^8.4.45",
+		"postcss-nested": "^6.2.0",
 		"supabase": "^1.191.3",
 		"typescript": "^5"
 	},

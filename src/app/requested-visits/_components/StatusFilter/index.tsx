@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import { useSearchParams } from "next/navigation";
-import styles from "@/styles/links-filter.module.scss";
+import styles from "@/styles/links-filter.module.css";
 
 import {
 	getUpdatedSearchParamsURL,

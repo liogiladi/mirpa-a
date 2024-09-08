@@ -1,0 +1,15 @@
+
+
+#status-filter {
+	position: relative;
+	width: clamp(16.875rem, 26%, 20.875rem);
+	align-self: center;
+}
+
+:global(:root[data-mobile="true"]) #status-filter {
+	width: 100%;
+
+	ul {
+		border: 0;
+	}
+}

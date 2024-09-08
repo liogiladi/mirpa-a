@@ -1,0 +1,21 @@
+
+
+.list {
+	padding: 0;
+	margin: 0;
+	overflow: auto;
+
+	li {
+		display: flex;
+		justify-content: center;
+		padding: 0.6rem;
+		font-size: 1.15rem;
+
+		&:nth-child(odd) {
+			background-color: var(--lighter-gray);
+			color: var(--gray);
+			font-weight: 700;
+			overflow: auto;
+		}
+	}
+}

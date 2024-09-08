@@ -1,10 +1,11 @@
 "use client";
 
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./patients-form.module.scss";
-import visitsPageStyles from "@/styles/visits-page.module.scss";
+import styles from "./patients-form.module.css";
+import visitsPageStyles from "@/styles/visits-page.module.css";
 
 import { Tables } from "@/server/db.types";
 import { deletePatients } from "@/server/actions";
@@ -163,8 +164,7 @@ export default function PatientsForm({ data }: Props) {
 							if (!isMobile) handleRowSelectionToggle(patient);
 						}}
 					/>,
-					// eslint-disable-next-line @next/next/no-img-element
-					<img
+					<Image
 						key={patient.cid}
 						width={30}
 						height={30}
@@ -221,11 +221,13 @@ export default function PatientsForm({ data }: Props) {
 			id={styles["patients-form"]}
 			action={async () => {
 				try {
-					await deletePatients(
+					const error = await deletePatients(
 						Array.from(selectedPatientCIDs.keys())
 					);
+
+					if (error) toast.error(error);
 				} catch (error) {
-					toast.error((error as Error).message);
+					toast.error("תקלה במחיקה");
 				}
 			}}
 			onSubmit={() => {

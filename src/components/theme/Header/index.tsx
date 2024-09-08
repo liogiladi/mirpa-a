@@ -3,7 +3,7 @@
 import { memo } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import styles from "./header.module.scss";
+import styles from "./header.module.css";
 
 import { getDateString } from "@/utils/dates";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";

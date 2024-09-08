@@ -1,4 +1,4 @@
-import styles from "./visit-main-info.module.scss";
+import styles from "./visit-main-info.module.css";
 
 import { getDateString, getTimeString } from "@/utils/dates";
 import { JoinedVisit } from "@/utils/dbTypes";

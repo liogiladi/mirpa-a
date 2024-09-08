@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, useRef } from "react";
-import formStyles from "./form.module.scss";
+import formStyles from "./form.module.css";
 
 import toast from "react-hot-toast";
 import { checkPatient } from "@/server/actions";
@@ -25,11 +25,18 @@ export default function CheckPatientForm({
 			ref={ref}
 			action={async (data) => {
 				try {
-					await checkPatient(data);
-					setSelectedPatientCID(data.get("state-id")?.toString()!);
-					ref.current?.reset();
+					const error = await checkPatient(data);
+
+					if (error) {
+						toast.error(error);
+					} else {
+						setSelectedPatientCID(
+							data.get("state-id")?.toString()!
+						);
+						ref.current?.reset();
+					}
 				} catch (error) {
-					toast.error((error as Error).message);
+					toast.error("תקלה באימות");
 				}
 			}}
 			className={`${formStyles.form} ${className}`}

@@ -1,5 +1,5 @@
 import { memo, SelectHTMLAttributes, useMemo, useRef } from "react";
-import styles from "./select.module.scss";
+import styles from "./select.module.css";
 
 import { INVALID_INPUT_DATA_KEY } from "../Input";
 

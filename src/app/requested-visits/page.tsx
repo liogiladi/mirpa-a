@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-import styles from "@/styles/visits-page.module.scss";
+import styles from "@/styles/visits-page.module.css";
 
 import { SearchParams } from "@/utils/types";
 import {

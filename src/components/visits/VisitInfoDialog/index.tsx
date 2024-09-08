@@ -1,5 +1,5 @@
 import { ReactEventHandler, useRef } from "react";
-import styles from "./visit-info-dialog.module.scss";
+import styles from "./visit-info-dialog.module.css";
 
 import { JoinedVisit } from "@/utils/dbTypes";
 import { getDateString, getTimeString } from "@/utils/dates";

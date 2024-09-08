@@ -1,0 +1,85 @@
+
+.visit-info-dialog {
+	width: 36.75rem !important;
+	min-height: unset !important;
+
+	header {
+		position: relative;
+		padding: 1rem;
+		color: white;
+		background-color: var(--primary-color);
+		text-align: center;
+		font-size: 1.5rem;
+		font-weight: 700;
+
+		button {
+			position: absolute;
+			top: 50%;
+			right: 0.8rem;
+			display: flex;
+			height: fit-content;
+			width: fit-content;
+			padding: 0.5rem;
+			border: 0;
+			border-radius: 3px;
+			background: none;
+			translate: 0 -50%;
+			cursor: pointer;
+
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.116);
+			}
+
+			svg {
+				width: 100%;
+				height: 100%;
+				fill: white;
+			}
+		}
+	}
+
+	> section:first-of-type {
+		justify-content: space-around;
+		padding: 0.8rem;
+		background-color: #fafafa;
+
+		svg {
+			width: 1.563rem;
+		}
+	}
+
+	> section:nth-of-type(2) {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		padding: 1rem;
+		padding-bottom: 2rem;
+		gap: 1rem;
+		font-size: 0.9rem;
+
+		.info-item {
+			display: flex;
+			width: fit-content;
+			gap: 0.2rem;
+
+			span {
+				font-weight: 600;
+			}
+		}
+	}
+}
+
+:global(:root[data-mobile="true"]) .visit-info-dialog[open] {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	max-height: 80%;
+	overflow: hidden;
+
+	header {
+		padding: 0.7rem !important;
+
+		svg {
+			width: 1.2rem;
+		}
+	}
+}

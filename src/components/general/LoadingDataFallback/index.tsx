@@ -1,4 +1,4 @@
-import styles from "./loading-data-fallback.module.scss";
+import styles from "./loading-data-fallback.module.css";
 
 type Props = {};
 

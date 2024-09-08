@@ -4,7 +4,7 @@ import { HTMLProps, MouseEventHandler, useMemo } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-import styles from "./toggle-links.module.scss";
+import styles from "./toggle-links.module.css";
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 
 export type ToggleLinkInfo = { name: string; extraActiveMatches?: string[] } & (

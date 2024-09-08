@@ -2,7 +2,7 @@
 
 import { FormEventHandler, memo, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "@/styles/links-filter.module.scss";
+import styles from "@/styles/links-filter.module.css";
 
 import { SEARCH_QUERIES } from "@/utils/searchQueries";
 import { handleBlurOnOutsideClick } from "@/utils/dom";

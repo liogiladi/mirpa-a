@@ -1,0 +1,17 @@
+
+.visit-main-info {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+
+	.item {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-weight: 500;
+
+		svg {
+			fill: var(--primary-color);
+		}
+	}
+}
