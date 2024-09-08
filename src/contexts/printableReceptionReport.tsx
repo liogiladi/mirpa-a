@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import {
@@ -19,6 +18,7 @@ import Printable from "@/components/general/Printable";
 import FullLogoIcon from "@/components/icons/FullLogoIcon";
 import PDFPage from "@/components/pdf/PDFPage";
 import { PatientData } from "@/app/patients-management/_components/PatientsForm";
+import Image from "next/image";
 
 const PATIENT_INFO_TO_LABELS: Partial<
 	Record<keyof Tables<"patients">, string>
@@ -70,7 +70,7 @@ export function ReceptionReportContextProvider({
 								)}
 							</section>
 							<section>
-								<img
+								<Image
 									src={
 										data.profilePictureURL
 											? `${
@@ -78,6 +78,8 @@ export function ReceptionReportContextProvider({
 											  }?${Date.now()}`
 											: defaultProfile.src
 									}
+									width={100}
+									height={200}
 									alt="profile-pic"
 								/>
 								<section>
@@ -117,9 +119,11 @@ export function ReceptionReportContextProvider({
 								)} ${getTimeString(new Date(data.created_at))}`}
 							</span>
 
-							<img
+							<Image
 								src={`${data.signaturePictureURL}`}
 								alt="receiver signature"
+								width={100}
+								height={100}
 							/>
 						</section>
 						<FullLogoIcon id={styles["watermark"]} />
