@@ -86,7 +86,6 @@ export default async function PatientsData({ searchParams }: Props) {
 			age,
 		});
 	}
-	console.log(dataWithProfilePictures);
 
 	return (
 		<ReceptionReportContextProvider>
